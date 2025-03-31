@@ -125,7 +125,7 @@ struct SimpleEnemy : public Entity{
     
     void PhysicsFrame(GameData& game) override{
         prevPos = pos;
-        velocity = Vector2Normalize(game.player->pos - pos) * SimpleBullet::maxSpeed;
+        velocity = Vector2Normalize(game.player->pos - pos) * maxSpeed;
         pos += velocity * physicsDt;
     }
 
@@ -141,11 +141,11 @@ struct SimpleEnemy : public Entity{
 
 
 void GameData::Frame(float dt){
-    for(auto enemy : enemies){
+    for(auto& enemy : enemies){
         enemy.Frame(*this, dt);
     }
 
-    for(auto bullet : bullets){
+    for(auto& bullet : bullets){
         bullet.Frame(*this, dt);
     }
 
@@ -153,11 +153,11 @@ void GameData::Frame(float dt){
 }
 
 void GameData::PhysicsFrame(){
-    for(auto enemy : enemies){
+    for(auto& enemy : enemies){
         enemy.PhysicsFrame(*this);
     }
 
-    for(auto bullet : bullets){
+    for(auto& bullet : bullets){
         bullet.PhysicsFrame(*this);
     }
 
@@ -165,11 +165,11 @@ void GameData::PhysicsFrame(){
 }
 
 void GameData::Draw(float lerp_value){
-    for(auto enemy : enemies){
+    for(auto& enemy : enemies){
         enemy.Render(lerp_value);
     }
 
-    for(auto bullet : bullets){
+    for(auto& bullet : bullets){
         bullet.Render(lerp_value);
     }
 
