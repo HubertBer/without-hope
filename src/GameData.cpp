@@ -23,10 +23,15 @@ GameData::GameData()
 
 void GameData::gameUpdate(float dt)
 {
+  for(auto entity: entitiesBuffer){
+    entities.push_back(entity);
+  }
+  entitiesBuffer.clear();
   for (auto entity : entities)
   {
     entity->gameUpdate(*this, dt);
   }
+  
 }
 
 void GameData::physicsUpdate(){
@@ -42,7 +47,7 @@ void GameData::draw(float lerp_value){
 }
 
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
-    entities.push_back(entity);
+    entitiesBuffer.push_back(entity);
 }
 
 Vector2 GameData::playerPos() const
