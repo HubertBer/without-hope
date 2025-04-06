@@ -23,14 +23,14 @@ GameData::GameData()
 
 void GameData::gameUpdate(float dt)
 {
-  for(auto entity: entitiesBuffer){
-    entities.push_back(entity);
-  }
-  entitiesBuffer.clear();
   for (auto entity : entities)
   {
     entity->gameUpdate(*this, dt);
   }
+  for(auto entity: entitiesBuffer){
+    entities.push_back(entity);
+  }
+  entitiesBuffer.clear();
   
 }
 
