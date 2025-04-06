@@ -1,0 +1,17 @@
+#pragma once
+
+#include <raylib.h>
+
+#include "Entity.h"
+#include "../GameData.h"
+
+struct SimpleBullet : public Entity {
+public:
+    SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity);
+    void gameUpdate(GameData& game, float dt) override;
+    void physicsUpdate(GameData& game) override;
+    void draw(float lerpValue) override;
+    EntityType type() override;
+
+    static constexpr float maxSpeed = 800.f;
+};
