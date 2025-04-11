@@ -1,6 +1,7 @@
 #pragma once
 
 #include <raylib.h>
+#include <memory>
 
 class GameData;
 
@@ -13,8 +14,8 @@ enum EntityType{
 
 class Entity{
 public:
-    Entity(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-        : prevPos(prevPos), pos(pos), velocity(velocity) {}
+    Entity(Vector2 prevPos, Vector2 pos, Vector2 velocity,float hitboxRadius)
+        : prevPos(prevPos), pos(pos), velocity(velocity),hitboxRadius(hitboxRadius) {}
     /// @brief Function called every physics tick.
     /// @param  
     virtual void physicsUpdate(GameData&){}
@@ -22,10 +23,13 @@ public:
     /// @param game 
     /// @param dt 
     virtual void gameUpdate(GameData& game, float dt){}
+    virtual void collide(std::shared_ptr<Entity> entity){};
     virtual void draw(float lerp_value){}
     virtual EntityType type(){return NONE;}
 
     Vector2 pos;
     Vector2 prevPos;
     Vector2 velocity;
+    float hitboxRadius;
+    bool zombie=false;
 };

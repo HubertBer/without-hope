@@ -23,6 +23,8 @@ GameData::GameData()
 
 void GameData::gameUpdate(float dt)
 {
+  handleCollisions();
+  if(player->zombie) return;//placeholder, we should end the game
   for (auto entity : entities)
   {
     entity->gameUpdate(*this, dt);
@@ -31,7 +33,15 @@ void GameData::gameUpdate(float dt)
     entities.push_back(entity);
   }
   entitiesBuffer.clear();
-  
+
+}
+
+void GameData::handleCollisions(){
+    collisionSystem.handleCollisions(entities);
+    entities.erase(std::remove_if(entities.begin(), entities.end(),
+        [](std::shared_ptr<Entity> x) { return x->zombie; }),
+        entities.end());
+
 }
 
 void GameData::physicsUpdate(){
