@@ -1,3 +1,10 @@
+set(CMAKE_CXX_FLAGS_DEBUG  "-g")
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_COMPILER "C:/ProgramData/mingw64/mingw64/bin/g++.exe")
+set(CXX "C:/ProgramData/mingw64/mingw64/bin/g++.exe")
+set(CMAKE_C_COMPILER "C:/ProgramData/mingw64/mingw64/bin/gcc.exe")
+set(CC "C:/ProgramData/mingw64/mingw64/bin/gcc.exe")
+
 # CMakeLists from https://github.com/raysan5/raylib-game-template.git
 
 cmake_minimum_required(VERSION 3.24...3.30)

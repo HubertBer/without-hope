@@ -21,9 +21,8 @@ void SimpleEnemy::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
     }
 }
 
-void SimpleEnemy::draw(float lerpValue) {
-    Vector2 enemyPosNow = Vector2Lerp(prevPos, pos, lerpValue);        
-    DrawRectangle(static_cast<int>(enemyPosNow.x), static_cast<int>(enemyPosNow.y), 20, 40, GREEN);
+void SimpleEnemy::draw() {
+    DrawRectangle(static_cast<int>(pos.x), static_cast<int>(pos.y), 20, 40, GREEN);
 }
 
 EntityType SimpleEnemy::type() {

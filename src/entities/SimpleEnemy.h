@@ -10,7 +10,7 @@ public:
     void gameUpdate(GameData& game, float dt) override;
     void physicsUpdate(GameData& game) override;
     void collide(std::shared_ptr<Entity> entity,GameData& gameData) override;
-    void draw(float lerpValue) override;
+    void draw() override;
     EntityType type() override;
 
 

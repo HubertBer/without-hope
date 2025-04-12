@@ -20,9 +20,8 @@ void SimpleBullet::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
     }
 }
 
-void SimpleBullet::draw(float lerpValue) {
-    Vector2 bulletPosNow = Vector2Lerp(prevPos, pos, lerpValue);        
-    DrawRectangle(static_cast<int>(bulletPosNow.x), static_cast<int>(bulletPosNow.y), 5, 20, YELLOW);
+void SimpleBullet::draw() {
+    DrawRectangle(static_cast<int>(pos.x), static_cast<int>(pos.y), 5, 20, YELLOW);
 }
 
 EntityType SimpleBullet::type() {

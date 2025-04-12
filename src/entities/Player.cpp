@@ -36,6 +36,7 @@ void Player::gameUpdate(GameData& game, float dt) {
             pos,
             bullet_vel
         ));
+        game.shoot();
         bulletCooldown=maxBulletCooldown;
     }
 }
@@ -47,9 +48,8 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData ) {
     }
 }
 
-void Player::draw(float lerpValue) {
-    Vector2 playerPosNow = Vector2Lerp(prevPos, pos, lerpValue);        
-    DrawCircle(static_cast<int>(playerPosNow.x), static_cast<int>(playerPosNow.y), 30, RED);
+void Player::draw() {
+    DrawCircle(static_cast<int>(pos.x), static_cast<int>(pos.y), 30, RED);
 }
 EntityType Player::type() {
     return PLAYER;
