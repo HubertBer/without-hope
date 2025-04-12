@@ -5,7 +5,7 @@
 #include "../GameData.h"
 
 SimpleEnemy::SimpleEnemy(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity) {}
+    : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
 
 void SimpleEnemy::gameUpdate(GameData& game, float dt) {}
 
@@ -13,6 +13,12 @@ void SimpleEnemy::physicsUpdate(GameData& game) {
     prevPos = pos;
     velocity = Vector2Normalize(game.playerPos() - pos) * maxSpeed;
     pos += velocity * GameData::physicsDt;
+}
+
+void SimpleEnemy::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
+    if(entity->type()==SIMPLE_BULLET){
+        zombie=true;
+    }
 }
 
 void SimpleEnemy::draw(float lerpValue) {

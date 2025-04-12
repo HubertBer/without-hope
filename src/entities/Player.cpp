@@ -4,9 +4,8 @@
 
 #include "SimpleBullet.h"
 #include "../GameData.h"
-
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity) {}
+    : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
 
 void Player::physicsUpdate(GameData& game) {
     prevPos = pos;
@@ -24,8 +23,9 @@ void Player::gameUpdate(GameData& game, float dt) {
         velocity *= maxSpeed;
     }
 
-    if(IsKeyPressed(KEY_SPACE)){
-        Vector2 bullet_vel = (pos - prevPos); //Later probably just based on rotation
+    bulletCooldown-=dt;
+    if(bulletCooldown<=0.0f){
+        Vector2 bullet_vel = (GetMousePosition() -  pos);
         if(Vector2LengthSqr(bullet_vel) < EPSILON){
             bullet_vel = {1.0, 0.0f}; 
         }
@@ -36,6 +36,14 @@ void Player::gameUpdate(GameData& game, float dt) {
             pos,
             bullet_vel
         ));
+        bulletCooldown=maxBulletCooldown;
+    }
+}
+
+void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData ) {
+    if(entity->type()==SIMPLE_ENEMY){
+        velocity=Vector2{0.f,0.f};//insead say that game over or sth
+        zombie=true;
     }
 }
 
