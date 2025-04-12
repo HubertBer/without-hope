@@ -20,6 +20,7 @@ public:
     static constexpr float physicsDt = 1.0f/60.0f;
 private:
     std::vector<std::shared_ptr<Entity>> entities;
+    std::vector<std::shared_ptr<Entity>> entitiesBuffer;
     std::shared_ptr<Entity> player;
     const float player_speed = 500.0f;
 };
