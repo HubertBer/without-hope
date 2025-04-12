@@ -33,15 +33,16 @@ void GameData::gameUpdate(float dt)
     entities.push_back(entity);
   }
   entitiesBuffer.clear();
+  deleteZombieEntities();
 
 }
 
 void GameData::handleCollisions(){
-    collisionSystem.handleCollisions(entities);
-    entities.erase(std::remove_if(entities.begin(), entities.end(),
-        [](std::shared_ptr<Entity> x) { return x->zombie; }),
-        entities.end());
+    collisionSystem.handleCollisions(entities,*this);
+}
 
+void GameData::deleteZombieEntities(){
+    entities.remove_if([](std::shared_ptr<Entity> x){return x->zombie;});
 }
 
 void GameData::physicsUpdate(){

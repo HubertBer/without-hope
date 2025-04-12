@@ -1,14 +1,13 @@
 #pragma once
 
-#include <vector>
+#include <list>
 #include <memory>
 
 #include "../entities/Entity.h"
 
-class Entity;
 
 class CollisionSystem{
     public:
-    void handleCollisions(std::vector<std::shared_ptr<Entity>>& entitites);
+    void handleCollisions(std::list<std::shared_ptr<Entity>>& entitites,GameData& gameData);
     bool areColliding(std::shared_ptr<Entity> first,std::shared_ptr<Entity> second);
 };

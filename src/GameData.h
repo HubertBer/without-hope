@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <list>
 #include <memory>
 #include <algorithm>
 
@@ -17,13 +17,14 @@ public:
     void draw(float lerp_value);
     void registerEntity(std::shared_ptr<Entity> entity);
     void handleCollisions();
+    void deleteZombieEntities();
     Vector2 playerPos() const;
 
     static constexpr float physicsDt = 1.0f/60.0f;
 private:
     CollisionSystem collisionSystem;
-    std::vector<std::shared_ptr<Entity>> entities;
-    std::vector<std::shared_ptr<Entity>> entitiesBuffer;
+    std::list<std::shared_ptr<Entity>> entities;
+    std::list<std::shared_ptr<Entity>> entitiesBuffer;
     std::shared_ptr<Entity> player;
     const float player_speed = 500.0f;
 };

@@ -23,7 +23,7 @@ public:
     /// @param game 
     /// @param dt 
     virtual void gameUpdate(GameData& game, float dt){}
-    virtual void collide(std::shared_ptr<Entity> entity){};
+    virtual void collide(std::shared_ptr<Entity> entity,GameData& gameData){};
     virtual void draw(float lerp_value){}
     virtual EntityType type(){return NONE;}
 

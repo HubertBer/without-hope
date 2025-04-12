@@ -5,7 +5,7 @@
 #include "SimpleBullet.h"
 #include "../GameData.h"
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity,30) {}
+    : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
 
 void Player::physicsUpdate(GameData& game) {
     prevPos = pos;
@@ -40,7 +40,7 @@ void Player::gameUpdate(GameData& game, float dt) {
     }
 }
 
-void Player::collide(std::shared_ptr<Entity> entity) {
+void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData ) {
     if(entity->type()==SIMPLE_ENEMY){
         velocity=Vector2{0.f,0.f};//insead say that game over or sth
         zombie=true;
