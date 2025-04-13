@@ -36,7 +36,6 @@ void Player::gameUpdate(GameData& game, float dt) {
             pos,
             bullet_vel
         ));
-        game.shoot();
         bulletCooldown=maxBulletCooldown;
     }
 }

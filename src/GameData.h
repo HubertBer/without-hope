@@ -18,8 +18,8 @@ public:
     void registerEntity(std::shared_ptr<Entity> entity);
     // Right now this is used just for collecting statistics for shader effects
     // if convienient, it can be used to spawn bullets and handle logic for them
-    void shoot();
-    float getTimeSinceShooting();
+    void kill();
+    float getTimeSinceKill();
     void handleCollisions();
     void deleteZombieEntities();
     Vector2 playerPos() const;
@@ -33,5 +33,5 @@ private:
     const float player_speed = 500.0f;
 
     // Statistics for shaders
-    float timeSinceShooting{-1.f};
+    float timeSinceKill{-1.f};
 };

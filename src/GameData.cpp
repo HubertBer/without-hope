@@ -61,12 +61,12 @@ void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
 }
 
-void GameData::shoot() {
-    timeSinceShooting = GetTime();
+void GameData::kill() {
+    timeSinceKill = GetTime();
 }
 
-float GameData::getTimeSinceShooting() {
-  return timeSinceShooting;
+float GameData::getTimeSinceKill() {
+  return timeSinceKill;
 }
 
 Vector2 GameData::playerPos() const {
