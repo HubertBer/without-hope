@@ -5,12 +5,12 @@
 #include <memory>
 
 #include "GameData.h"
-#include "entities/Player.h"
-#include "entities/SimpleEnemy.h"
-#include "entities/SimpleBullet.h"
+#include "Renderer.h"
 
 const int screenWidth = 1280;
 const int screenHeight = 720;
+
+#define GLSL_VERSION 330
 
 int main() {
     InitWindow(screenWidth, screenHeight, "without-hope");
@@ -19,6 +19,7 @@ int main() {
 
     // Initialization happening in GameData constructor
     GameData game;
+    Renderer renderer(screenWidth, screenHeight);
 
     float gameTime = 0;
     float physicsTime = 0;
@@ -36,11 +37,7 @@ int main() {
         }
         game.gameUpdate(dt);
 
-        // DRAWING 
-        BeginDrawing();
-        ClearBackground(BLUE);
-        game.draw(1 - (physicsTime - gameTime)/GameData::physicsDt);
-        EndDrawing();
+        renderer.draw(game);
     }
 
     CloseWindow();

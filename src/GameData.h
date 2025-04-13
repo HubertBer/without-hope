@@ -14,8 +14,12 @@ public:
     GameData();
     void physicsUpdate();
     void gameUpdate(float dt);
-    void draw(float lerp_value);
+    void draw();
     void registerEntity(std::shared_ptr<Entity> entity);
+    // Right now this is used just for collecting statistics for shader effects
+    // if convienient, it can be used to spawn bullets and handle logic for them
+    void kill();
+    float getTimeSinceKill();
     void handleCollisions();
     void deleteZombieEntities();
     Vector2 playerPos() const;
@@ -27,4 +31,7 @@ private:
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
     std::shared_ptr<Entity> player;
     const float player_speed = 500.0f;
+
+    // Statistics for shaders
+    float timeSinceKill{-1.f};
 };

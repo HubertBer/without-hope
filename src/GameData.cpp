@@ -51,9 +51,9 @@ void GameData::physicsUpdate(){
     }
 }
 
-void GameData::draw(float lerp_value){
+void GameData::draw(){
     for(auto entity : entities){
-        entity->draw(lerp_value);
+        entity->draw();
     }
 }
 
@@ -61,7 +61,14 @@ void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
 }
 
-Vector2 GameData::playerPos() const
-{
+void GameData::kill() {
+    timeSinceKill = GetTime();
+}
+
+float GameData::getTimeSinceKill() {
+  return timeSinceKill;
+}
+
+Vector2 GameData::playerPos() const {
     return player->pos;
 }
