@@ -37,6 +37,13 @@ void GameData::gameUpdate(float dt)
 
 }
 
+bool GameData::checkPresent(EntityType type){
+    for(auto entity: entities){
+        if(entity->type()==type)return true;
+    }
+    return false;
+}
+
 void GameData::handleCollisions(){
     collisionSystem.handleCollisions(entities,*this);
 }

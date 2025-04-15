@@ -22,7 +22,7 @@ public:
     float getTimeSinceKill();
     void handleCollisions();
     void deleteZombieEntities();
-    void spawnEnemies(float dt);
+    bool checkPresent(EntityType type);
     Vector2 playerPos() const;
 
     static constexpr float physicsDt = 1.0f/60.0f;
