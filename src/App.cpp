@@ -6,6 +6,7 @@
 
 #include "GameData.h"
 #include "Renderer.h"
+#include "music/MusicPlayer.h"
 
 const int screenWidth = 1280;
 const int screenHeight = 720;
@@ -20,6 +21,7 @@ int main() {
     // Initialization happening in GameData constructor
     GameData game;
     Renderer renderer(screenWidth, screenHeight);
+    MusicPlayer musicPlayer;
 
     float gameTime = 0;
     float physicsTime = 0;
@@ -38,6 +40,7 @@ int main() {
         game.gameUpdate(dt);
 
         renderer.draw(game);
+        musicPlayer.play(game);
     }
 
     CloseWindow();

@@ -12,7 +12,7 @@ GameData::GameData()
     registerEntity(player);
 
     for(int i = 0; i < 10; ++i){
-        Vector2 pos = {(float)GetRandomValue(100, 1000), (float)GetRandomValue(100, 1000)};
+        Vector2 pos = {(float)GetRandomValue(300, 1000), (float)GetRandomValue(300, 1000)};
         registerEntity(std::make_shared<SimpleEnemy>(
             pos,
             pos,

@@ -22,6 +22,7 @@ public:
     float getTimeSinceKill();
     void handleCollisions();
     void deleteZombieEntities();
+    void spawnEnemies(float dt);
     Vector2 playerPos() const;
 
     static constexpr float physicsDt = 1.0f/60.0f;
@@ -31,6 +32,7 @@ private:
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
     std::shared_ptr<Entity> player;
     const float player_speed = 500.0f;
+    const float enemy_spawn_cooldown = 3.0f;
 
     // Statistics for shaders
     float timeSinceKill{-1.f};
