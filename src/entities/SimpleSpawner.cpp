@@ -1,18 +1,19 @@
 #include "SimpleSpawner.h"
 #include "SimpleEnemy.h"
+#include "../util.h"
 
 SimpleSpawner::SimpleSpawner(Rectangle boundingBox, float minDelay, float maxDelay)
 : boundingBox(boundingBox), Entity({}, {}, {}, 0), minDelay(minDelay), maxDelay(maxDelay)
 {
-    timer = GetRandomValue(minDelay * 1024, maxDelay * 1024) / 1024.0f;
+    timer = GetRandomFloat(minDelay, maxDelay);
 }
 
 void SimpleSpawner::gameUpdate(GameData& game, float dt){
     timer -= dt;
     if(timer < 0){
         Vector2 pos{
-            boundingBox.x + GetRandomValue(0, boundingBox.width * 1024) / 1024.0f,
-            boundingBox.y + GetRandomValue(0, boundingBox.height * 1024) / 1024.0f,
+            GetRandomFloat(boundingBox.x, boundingBox.x + boundingBox.width),
+            GetRandomFloat(boundingBox.y, boundingBox.y + boundingBox.height)
         };
 
         game.registerEntity(std::make_shared<SimpleEnemy>(
@@ -21,7 +22,7 @@ void SimpleSpawner::gameUpdate(GameData& game, float dt){
             Vector2{0,0}
         ));
 
-        timer += GetRandomValue(minDelay * 1024, maxDelay * 1024) / 1024.0f;
+        timer += GetRandomFloat(minDelay, maxDelay);
     }
 }
 
