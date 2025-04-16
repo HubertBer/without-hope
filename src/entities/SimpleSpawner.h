@@ -12,6 +12,7 @@ public:
     void draw() override;
     EntityType type() override;
 
+private:
     float timer = 0;
     Rectangle boundingBox = {0,0,0,0};
     float minDelay = 5;
