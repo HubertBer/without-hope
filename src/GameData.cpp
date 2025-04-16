@@ -2,6 +2,7 @@
 
 #include "entities/Player.h"
 #include "entities/SimpleEnemy.h"
+#include "entities/SimpleSpawner.h"
 
 GameData::GameData()
 {
@@ -19,6 +20,30 @@ GameData::GameData()
             Vector2{0, 0}
         ));
     }
+
+    registerEntity(std::make_shared<SimpleSpawner>(
+        Rectangle{0, 0, 100, 100},
+        3,
+        6
+    ));
+
+    registerEntity(std::make_shared<SimpleSpawner>(
+        Rectangle{1000, 1000, 100, 100},
+        3,
+        6
+    ));
+    
+    registerEntity(std::make_shared<SimpleSpawner>(
+        Rectangle{1000, 0, 100, 100},
+        3,
+        6
+    ));
+    
+    registerEntity(std::make_shared<SimpleSpawner>(
+        Rectangle{0, 1000, 100, 100},
+        3,
+        6
+    ));
 }
 
 void GameData::gameUpdate(float dt)

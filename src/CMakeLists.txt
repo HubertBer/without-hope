@@ -7,5 +7,6 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/Player.cpp
     entities/SimpleEnemy.cpp
     entities/SimpleBullet.cpp
+    entities/SimpleSpawner.cpp
     collider/CollisionSystem.cpp
 )
