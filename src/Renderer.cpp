@@ -4,6 +4,8 @@
 
 #include <rlgl.h>
 
+#include "utility/Scaler.h"
+
 Renderer::Renderer(int width, int height) {
     target = LoadRenderTexture(width, height);
     if (target.texture.id == 0) {
@@ -39,8 +41,10 @@ void Renderer::draw(GameData &game) {
     SetShaderValue(backgroundShader, GetShaderLocation(backgroundShader, "time"), &time, SHADER_UNIFORM_FLOAT);
 
     BeginTextureMode(target);
+        ClearBackground(BLACK);
+
         BeginShaderMode(backgroundShader);
-            DrawRectangle(0, 0, target.texture.width, target.texture.height, WHITE);
+            DrawRectangle(0, 0, screenWidth, screenHeight, WHITE);
         EndShaderMode();
 
         game.draw();
@@ -48,10 +52,24 @@ void Renderer::draw(GameData &game) {
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
+
         BeginShaderMode(time - game.getTimeSinceKill() > 0.1f ? baseShader : shakeShader);
-            // NOTE: Render texture must be y-flipped due to default OpenGL coordinates (left-bottom)
-            DrawTextureRec(target.texture, Rectangle{0, 0, (float)target.texture.width, (float)-target.texture.height}, Vector2{0, 0}, WHITE);
+            Rectangle source = {
+                0,
+                0,
+                (float)target.texture.width,
+                -(float)target.texture.height // Flip vertically due to OpenGL texture coordinates
+            };
+
+            Rectangle dest = {
+                0,
+                0,
+                (float)GetScreenWidth(),
+                (float)GetScreenHeight()
+            };
+
+            DrawTexturePro(target.texture, source, dest, {0, 0}, 0.0f, WHITE);
         EndShaderMode();
     EndDrawing();
-
 }
+

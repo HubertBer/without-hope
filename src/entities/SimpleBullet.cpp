@@ -3,6 +3,7 @@
 #include <raymath.h>
 
 #include "../GameData.h"
+#include "../utility/Scaler.h"
 
 SimpleBullet::SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
