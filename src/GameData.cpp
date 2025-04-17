@@ -2,29 +2,20 @@
 
 #include "entities/Player.h"
 #include "entities/SimpleEnemy.h"
+#include "./scenes/GameScene.h"
 
 GameData::GameData()
 {
-    auto player = std::make_shared<Player>(Vector2{100.0, 100.0f},
-                                           Vector2{100.0, 100.0f},
-                                           Vector2{0.0f, 0.0f});
-    this->player = player;
-    registerEntity(player);
-
-    for(int i = 0; i < 10; ++i){
-        Vector2 pos = {(float)GetRandomValue(300, 1000), (float)GetRandomValue(300, 1000)};
-        registerEntity(std::make_shared<SimpleEnemy>(
-            pos,
-            pos,
-            Vector2{0, 0}
-        ));
-    }
+    LoadGameScene(*this);
 }
 
 void GameData::gameUpdate(float dt)
 {
   handleCollisions();
-  if(player->zombie) return;//placeholder, we should end the game
+  if(player->zombie){
+    resetGame();
+    return; 
+  }
   for (auto entity : entities)
   {
     entity->gameUpdate(*this, dt);
@@ -42,6 +33,10 @@ bool GameData::checkPresent(EntityType type){
         if(entity->type()==type)return true;
     }
     return false;
+}
+
+void GameData::setPlayer(std::shared_ptr<Entity> player){
+    this->player = player;
 }
 
 void GameData::handleCollisions(){
@@ -78,4 +73,11 @@ float GameData::getTimeSinceKill() {
 
 Vector2 GameData::playerPos() const {
     return player->pos;
+}
+
+void GameData::resetGame(){
+    entities.clear();
+    entitiesBuffer.clear();
+    
+    LoadGameScene(*this);
 }
