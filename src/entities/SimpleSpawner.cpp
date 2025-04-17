@@ -1,6 +1,6 @@
 #include "SimpleSpawner.h"
 #include "SimpleEnemy.h"
-#include "../util.h"
+#include "../rand.h"
 
 SimpleSpawner::SimpleSpawner(Rectangle boundingBox, float minDelay, float maxDelay)
 : boundingBox(boundingBox), Entity({}, {}, {}, 0), minDelay(minDelay), maxDelay(maxDelay)

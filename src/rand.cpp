@@ -1,4 +1,4 @@
-#include "util.h"
+#include "rand.h"
 #include "raylib.h"
 
 namespace{
