@@ -10,6 +10,7 @@ enum EntityType{
     PLAYER,
     SIMPLE_ENEMY,
     SIMPLE_BULLET,
+    SIMPLE_SPAWNER,
 };
 
 class Entity{
