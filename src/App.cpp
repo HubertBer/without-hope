@@ -12,7 +12,7 @@
 #include "screens/Screen.h"
 #include "screens/MenuScreen.h"
 
-#include "config.h"
+#include "Config.h"
 
 #define GLSL_VERSION 330
 
