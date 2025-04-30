@@ -13,18 +13,7 @@ inline std::pair<float, float> getScaling() {
     return {scaleX, scaleY};
 }
 
-// Rectangles
-inline void drawRectangleRecScaled(Rectangle rec, Color color) {
+inline Vector2 getVirtualPosition(Vector2 pos) {
     auto [scaleX, scaleY] = getScaling();
-    Rectangle scaledRec = {rec.x * scaleX, rec.y * scaleY, rec.width * scaleX, rec.height * scaleY};
-    DrawRectangleRec(scaledRec, color);
-}
-
-// Text
-
-inline void drawTextScaled(const char* text, float x, float y, int fontSize, Color color) {
-    auto [scaleX, scaleY] = getScaling();
-    Vector2 scaledPos = {x * scaleX, y * scaleY};
-    int scaledFontSize = static_cast<int>(fontSize * std::min(scaleX, scaleY));
-    DrawText(text, static_cast<int>(scaledPos.x), static_cast<int>(scaledPos.y), scaledFontSize, color);
+    return {pos.x / scaleX, pos.y / scaleY};
 }

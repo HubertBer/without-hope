@@ -18,9 +18,9 @@ inline Button createButton(float x, float y, float width, float height, const ch
 }
 
 inline void drawButton(const Button& button) {
-    drawRectangleRecScaled(button.bounds, button.bgColor);
+    DrawRectangleRec(button.bounds, button.bgColor);
     int textWidth = MeasureText(button.label, button.fontSize);
-    drawTextScaled(
+    DrawText(
         button.label,
         button.bounds.x + (button.bounds.width - textWidth) / 2,
         button.bounds.y + (button.bounds.height - button.fontSize) / 2,
@@ -30,8 +30,5 @@ inline void drawButton(const Button& button) {
 }
 
 inline bool isButtonClicked(const Button& button, Vector2 mouse) {
-    auto [scaleX, scaleY] = getScaling();
-    mouse.x /= scaleX;
-    mouse.y /= scaleY;
     return CheckCollisionPointRec(mouse, button.bounds) && IsMouseButtonReleased(MOUSE_BUTTON_LEFT);
 }

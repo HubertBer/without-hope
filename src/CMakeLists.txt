@@ -12,4 +12,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/SimpleSpawner.cpp
     collider/CollisionSystem.cpp
     utility/Button.h
+    screens/OptionsScreen.cpp
+    screens/GameScreen.cpp
+    screens/MenuScreen.cpp
 )
