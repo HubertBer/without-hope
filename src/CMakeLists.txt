@@ -12,9 +12,16 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/SimpleBullet.cpp
     entities/SimpleSpawner.cpp
     collider/CollisionSystem.cpp
+<<<<<<< HEAD
     UI/Button.h
     screens/Screen.cpp
     screens/OptionsScreen.cpp
     screens/GameScreen.cpp
     screens/StartScreen.cpp
+=======
+    utility/Button.h
+    screens/OptionsScreen.cpp
+    screens/GameScreen.cpp
+    screens/MenuScreen.cpp
+>>>>>>> 579990c (screens refactoring)
 )

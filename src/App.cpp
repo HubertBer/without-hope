@@ -8,7 +8,6 @@
 #include "WindowManager.h"
 #include "GameData.h"
 #include "Renderer.h"
-#include "ScreenManager.h"
 #include "music/MusicPlayer.h"
 
 #include "screens/Screen.h"
