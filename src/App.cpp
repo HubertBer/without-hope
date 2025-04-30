@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <memory>
-#include <iostream>
 
 #include "GameData.h"
 #include "Renderer.h"
@@ -34,8 +33,7 @@ int main() {
 
         std::unique_ptr<Screen> next = screen->nextScreen();
         if (next) {
-            std::cerr << "Switching screens" << std::endl;
-            screen = std::move(next);  // previous screen gets automatically deleted
+            screen = std::move(next);
         }
     }
 

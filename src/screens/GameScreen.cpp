@@ -7,8 +7,6 @@
 #include "../music/MusicPlayer.h"
 #include "../utility/Scaler.h"
 
-#include <iostream>
-
 #include <raylib.h>
 
 GameScreen::GameScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m, std::unique_ptr<GameData> g)
@@ -16,9 +14,10 @@ GameScreen::GameScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer>
 
 void GameScreen::update(float dt) {
     gameTime += dt;
-    if (dt > 0.25f) dt = 0.25f;
+    if (dt > 0.25f) {
+        dt = 0.25f;
+    }
 
-    std::cerr << "dt: " << dt << std::endl;
     while(physicsTime < gameTime){
         physicsTime += GameData::physicsDt;
         game->physicsUpdate();
