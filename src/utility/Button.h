@@ -2,7 +2,7 @@
 #include <raylib.h>
 
 #include "Scaler.h"
-#include "config.h"
+#include "../Config.h"
 #include <utility>
 
 struct Button {

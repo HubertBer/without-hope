@@ -5,7 +5,7 @@
 
 #include <raylib.h>
 
-#include "../config.h"
+#include "../Config.h"
 
 inline std::pair<float, float> getScaling() {
     float scaleX = static_cast<float>(GetScreenWidth()) / screenWidth;

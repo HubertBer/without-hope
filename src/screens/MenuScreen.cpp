@@ -1,7 +1,7 @@
 #include "MenuScreen.h"
 #include "GameScreen.h"
 
-#include "../config.h"
+#include "../Config.h"
 #include "../Renderer.h"
 #include "../GameData.h"
 #include "../music/MusicPlayer.h"
