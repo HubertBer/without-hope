@@ -3,10 +3,7 @@
 
 #include <vector>
 #include <memory>
-<<<<<<< HEAD
 #include <map>
-=======
->>>>>>> 4ad5840 (removed debug)
 
 #include "WindowManager.h"
 #include "GameData.h"
@@ -47,6 +44,10 @@ int main() {
        currentScreen = screens[currentScreen]->nextScreen();
        
         if (IsKeyPressed(KEY_F10)) {
+            WindowManager::ToggleFullscreen();
+        }
+
+        if (IsKeyPressed(KEY_F12)) {
             WindowManager::ToggleFullscreen();
         }
     }
