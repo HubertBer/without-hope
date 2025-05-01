@@ -29,6 +29,7 @@ inline void drawButton(const Button& button) {
     );
 }
 
-inline bool isButtonClicked(const Button& button, Vector2 mouse) {
+inline bool isButtonClicked(const Button& button) {
+    Vector2 mouse = getVirtualPosition(GetMousePosition());
     return CheckCollisionPointRec(mouse, button.bounds) && IsMouseButtonReleased(MOUSE_BUTTON_LEFT);
 }

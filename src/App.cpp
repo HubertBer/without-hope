@@ -47,7 +47,7 @@ int main() {
             WindowManager::ToggleFullscreen();
         }
 
-        if (IsKeyPressed(KEY_F12)) {
+        if (IsKeyPressed(KEY_F10)) {
             WindowManager::ToggleFullscreen();
         }
     }

@@ -5,10 +5,8 @@
 #include <rlgl.h>
 
 #include "Config.h"
-<<<<<<< HEAD
 #include "UI/Scaler.h"
-=======
->>>>>>> 5022eff (testing fullscreen)
+
 
 Renderer::Renderer(int width, int height) {
     shakeShader = LoadShader(0, "src/resources/shaders/shake.fs");
@@ -29,11 +27,7 @@ Renderer::~Renderer() {
     UnloadShader(backgroundShader);
 }
 
-<<<<<<< HEAD
 void Renderer::draw(GameData &game) {
-=======
-void Renderer::draw(GameData &game, RenderTexture2D &target) {
->>>>>>> 5022eff (testing fullscreen)
     float resolution[2] = {(float)target.texture.width, (float)target.texture.height};
     SetShaderValue(backgroundShader, GetShaderLocation(backgroundShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
 

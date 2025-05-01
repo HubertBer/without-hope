@@ -6,6 +6,7 @@
 #include "../Config.h"
 #include "../Renderer.h"
 #include "../GameData.h"
+#include "../WindowManager.h"
 #include "../music/MusicPlayer.h"
 #include "../utility/Button.h"
 #include "../utility/Scaler.h"
@@ -22,8 +23,7 @@ MenuScreen::MenuScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer>
 
 void MenuScreen::update(float dt) {
     (void)dt; // Unused
-    Vector2 mouse = getVirtualPosition(GetMousePosition());
-    if (isButtonClicked(playButton, mouse)) {
+    if (isButtonClicked(playButton)) {
         playClicked = true;
     }
 }
@@ -36,9 +36,7 @@ void MenuScreen::draw() {
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
-        Rectangle source = { 0, 0, (float)screenTarget.texture.width, -(float)screenTarget.texture.height };
-        Rectangle dest = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
-        DrawTexturePro(screenTarget.texture, source, dest, {0, 0}, 0.0f, WHITE);
+        drawTextureStretched(screenTarget);
     EndDrawing();
 }
 
