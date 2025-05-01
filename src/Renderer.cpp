@@ -4,24 +4,15 @@
 
 #include <rlgl.h>
 
-#include "utility/Scaler.h"
+#include "Config.h"
 
 Renderer::Renderer(int width, int height) {
-    target = LoadRenderTexture(width, height);
-    if (target.texture.id == 0) {
-        throw std::runtime_error("Failed to load render texture");
-    }
-
     shakeShader = LoadShader(0, "src/resources/shaders/shake.fs");
     baseShader = LoadShader(0, "src/resources/shaders/base.fs");
     backgroundShader = LoadShader(0, "src/resources/shaders/background.fs");
     if (shakeShader.id == 0 || baseShader.id == 0 || backgroundShader.id == 0) {
-        UnloadRenderTexture(target);
         throw std::runtime_error("Failed to load shader");
     }
-
-    float resolution[2] = {(float)target.texture.width, (float)target.texture.height};
-    SetShaderValue(backgroundShader, GetShaderLocation(backgroundShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
 
     // Setup needed because: https://github.com/raysan5/raylib/issues/1730
     Texture2D texture{ rlGetTextureIdDefault(), 1, 1, 1, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8 };
@@ -29,13 +20,15 @@ Renderer::Renderer(int width, int height) {
 }
 
 Renderer::~Renderer() {
-    UnloadRenderTexture(target);
     UnloadShader(shakeShader);
     UnloadShader(baseShader);
     UnloadShader(backgroundShader);
 }
 
-void Renderer::draw(GameData &game) {
+void Renderer::draw(GameData &game, RenderTexture2D &target) {
+    float resolution[2] = {(float)target.texture.width, (float)target.texture.height};
+    SetShaderValue(backgroundShader, GetShaderLocation(backgroundShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
+
     float time = GetTime();
     SetShaderValue(shakeShader, GetShaderLocation(shakeShader, "uTime"), &time, SHADER_UNIFORM_FLOAT);
     SetShaderValue(backgroundShader, GetShaderLocation(backgroundShader, "time"), &time, SHADER_UNIFORM_FLOAT);

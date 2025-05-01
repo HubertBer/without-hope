@@ -4,6 +4,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     GameData.cpp
     Renderer.cpp
     rand.cpp
+    WindowManager.cpp
     music/MusicPlayer.cpp
     entities/Player.cpp
     entities/SimpleEnemy.cpp

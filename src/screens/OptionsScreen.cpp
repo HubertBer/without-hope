@@ -11,17 +11,12 @@
 #include <raylib.h>
 
 OptionsScreen::OptionsScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m, std::unique_ptr<GameData> g)
-    : renderer(std::move(r)), music(std::move(m)), game(std::move(g)) {
+    : Screen(std::move(r), std::move(m)), game(std::move(g)) {
     int w = 200, h = 60, spacing = 20;
     float startY = (screenHeight - (h * 2 + spacing)) / 2.0f;
 
     resumeButton = createButton((screenWidth - w) / 2.0f, startY, w, h, "RESUME");
     exitButton = createButton((screenWidth - w) / 2.0f, startY + h + spacing, w, h, "EXIT");
-
-    screenTarget = LoadRenderTexture(screenWidth, screenHeight);
-    if (screenTarget.texture.id == 0) {
-        TraceLog(LOG_ERROR, "Failed to create render texture for screen");
-    }
 }
 
 void OptionsScreen::update(float dt) {
@@ -54,10 +49,13 @@ void OptionsScreen::draw() {
 std::unique_ptr<Screen> OptionsScreen::nextScreen() {
     if (action == RESUME) {
         return std::make_unique<GameScreen>(
-            std::move(renderer), std::move(music), std::move(game));
+            std::move(renderer), std::move(music), std::move(game)
+        );
     } 
     else if (action == EXIT) {
-        return std::make_unique<MenuScreen>();
+        return std::make_unique<MenuScreen>(
+            std::move(renderer), std::move(music)
+        );
     }
     return nullptr;
 }

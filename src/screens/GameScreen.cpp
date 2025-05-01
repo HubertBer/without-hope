@@ -10,7 +10,7 @@
 #include <raylib.h>
 
 GameScreen::GameScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m, std::unique_ptr<GameData> g)
-    : renderer(std::move(r)), music(std::move(m)), game(std::move(g)) {}
+    : Screen(std::move(r), std::move(m)), game(std::move(g)) {}
 
 void GameScreen::update(float dt) {
     gameTime += dt;
@@ -30,7 +30,7 @@ void GameScreen::update(float dt) {
 }
 
 void GameScreen::draw() {
-    renderer->draw(*game);
+    renderer->draw(*game, screenTarget);
     music->play(*game);
 }
 

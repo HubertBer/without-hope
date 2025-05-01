@@ -8,8 +8,6 @@ class MusicPlayer;
 class GameData;
 
 class GameScreen : public Screen {
-    std::unique_ptr<Renderer> renderer;
-    std::unique_ptr<MusicPlayer> music;
     std::unique_ptr<GameData> game;
 
     float gameTime = 0;

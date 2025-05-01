@@ -1,4 +1,6 @@
 #include "MenuScreen.h"
+
+#include "Screen.h"
 #include "GameScreen.h"
 
 #include "../Config.h"
@@ -10,19 +12,12 @@
 
 #include <raylib.h>
 
-MenuScreen::MenuScreen() {
+MenuScreen::MenuScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m)
+    : Screen(std::move(r), std::move(m)) {
     int w = 200, h = 60;
-    playButton = createButton((screenWidth - w) / 2.0f, (screenHeight - h) / 2.0f, w, h, "PLAY");
+    float startY = (screenHeight - h) / 2.0f;
 
-    // Initialize shared resources
-    renderer = std::make_unique<Renderer>(screenWidth, screenHeight);
-    music = std::make_unique<MusicPlayer>();
-    game = std::make_unique<GameData>();
-
-    screenTarget = LoadRenderTexture(screenWidth, screenHeight);
-    if (screenTarget.texture.id == 0) {
-        TraceLog(LOG_ERROR, "Failed to create render texture for screen");
-    }
+    playButton = createButton((screenWidth - w) / 2.0f, startY, w, h, "PLAY");
 }
 
 void MenuScreen::update(float dt) {
@@ -52,7 +47,7 @@ std::unique_ptr<Screen> MenuScreen::nextScreen() {
         return std::make_unique<GameScreen>(
             std::move(renderer),
             std::move(music),
-            std::move(game)
+            std::make_unique<GameData>()
         );
     }
     return nullptr;

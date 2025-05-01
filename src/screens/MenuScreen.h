@@ -16,15 +16,8 @@ class MenuScreen : public Screen {
     Button playButton;
     bool playClicked = false;
 
-    std::unique_ptr<Renderer> renderer;
-    std::unique_ptr<MusicPlayer> music;
-    std::unique_ptr<GameData> game;
-
-    RenderTexture2D screenTarget;
-
 public:
-    MenuScreen();
-
+    MenuScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m);
     void update(float dt) override;
     void draw() override;
     std::unique_ptr<Screen> nextScreen() override;
