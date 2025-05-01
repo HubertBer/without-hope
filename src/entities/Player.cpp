@@ -4,7 +4,7 @@
 
 #include "SimpleBullet.h"
 #include "../GameData.h"
-#include "../utility/Scaler.h"
+#include "../UI/Scaler.h"
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity,BASE_RADIUS) {}

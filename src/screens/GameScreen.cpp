@@ -5,7 +5,7 @@
 #include "../Renderer.h"
 #include "../GameData.h"
 #include "../music/MusicPlayer.h"
-#include "../utility/Scaler.h"
+#include "../UI/Scaler.h"
 
 #include <raylib.h>
 

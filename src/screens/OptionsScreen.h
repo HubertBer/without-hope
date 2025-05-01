@@ -2,7 +2,7 @@
 
 #include "Screen.h"
 
-#include "../utility/Button.h"
+#include "../UI/Button.h"
 
 #include <raylib.h>
 
@@ -13,7 +13,7 @@ class MusicPlayer;
 class GameData;
 
 class OptionsScreen : public Screen {
-    Button resumeButton, exitButton;
+    Button resumeButton, exitToMenuButton;
 
     std::unique_ptr<GameData> game;
 

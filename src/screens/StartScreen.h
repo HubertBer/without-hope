@@ -2,7 +2,7 @@
 
 #include "Screen.h"
 
-#include "../utility/Button.h"
+#include "../UI/Button.h"
 
 #include <raylib.h>
 
@@ -12,13 +12,15 @@ class Renderer;
 class MusicPlayer;
 class GameData;
 
-class MenuScreen : public Screen {
-    Button playButton;
+class StartScreen : public Screen {
+    Button playButton, exitButton;
     bool playClicked = false;
+    bool exitClicked = false;
 
 public:
-    MenuScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m);
+    StartScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m);
     void update(float dt) override;
     void draw() override;
     std::unique_ptr<Screen> nextScreen() override;
+    bool wantsExit() const override;
 };

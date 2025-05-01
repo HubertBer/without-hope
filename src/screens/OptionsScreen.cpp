@@ -1,12 +1,12 @@
 #include "OptionsScreen.h"
 #include "GameScreen.h"
-#include "MenuScreen.h"
+#include "StartScreen.h"
 
 #include "../Config.h"
 #include "../Renderer.h"
 #include "../GameData.h"
 #include "../music/MusicPlayer.h"
-#include "../utility/Scaler.h"
+#include "../UI/Scaler.h"
 
 #include <raylib.h>
 
@@ -16,13 +16,13 @@ OptionsScreen::OptionsScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicP
     float startY = (screenHeight - (h * 2 + spacing)) / 2.0f;
 
     resumeButton = createButton((screenWidth - w) / 2.0f, startY, w, h, "RESUME");
-    exitButton = createButton((screenWidth - w) / 2.0f, startY + h + spacing, w, h, "EXIT");
+    exitToMenuButton = createButton((screenWidth - w) / 2.0f, startY + h + spacing, w, h, "MAIN MENU");
 }
 
 void OptionsScreen::update(float dt) {
     (void)dt;
     if (isButtonClicked(resumeButton)) action = RESUME;
-    if (isButtonClicked(exitButton)) action = EXIT;
+    if (isButtonClicked(exitToMenuButton)) action = EXIT;
 }
 
 void OptionsScreen::draw() {
@@ -34,7 +34,7 @@ void OptionsScreen::draw() {
         DrawText(title, screenWidth / 2 - titleWidth / 2, resumeButton.bounds.y - 80, titleSize, BLACK);
 
         drawButton(resumeButton);
-        drawButton(exitButton);
+        drawButton(exitToMenuButton);
     EndTextureMode();
 
     BeginDrawing();
@@ -50,7 +50,7 @@ std::unique_ptr<Screen> OptionsScreen::nextScreen() {
         );
     } 
     else if (action == EXIT) {
-        return std::make_unique<MenuScreen>(
+        return std::make_unique<StartScreen>(
             std::move(renderer), std::move(music)
         );
     }

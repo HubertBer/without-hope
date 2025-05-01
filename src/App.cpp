@@ -10,7 +10,7 @@
 #include "music/MusicPlayer.h"
 
 #include "screens/Screen.h"
-#include "screens/MenuScreen.h"
+#include "screens/StartScreen.h"
 
 #include "Config.h"
 
@@ -22,12 +22,12 @@ int main() {
 
     SetExitKey(0); // Disable exit key (ESC)
 
-    std::unique_ptr<Screen> screen = std::make_unique<MenuScreen>(
+    std::unique_ptr<Screen> screen = std::make_unique<StartScreen>(
         std::make_unique<Renderer>(screenWidth, screenHeight),
         std::make_unique<MusicPlayer>()
     );
 
-    while (!WindowShouldClose()) {
+    while (!WindowShouldClose() && !screen->wantsExit()) {
         float dt = GetFrameTime();
 
         screen->update(dt);

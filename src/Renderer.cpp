@@ -5,7 +5,7 @@
 #include <rlgl.h>
 
 #include "Config.h"
-#include "utility/Scaler.h"
+#include "UI/Scaler.h"
 
 Renderer::Renderer(int width, int height) {
     shakeShader = LoadShader(0, "src/resources/shaders/shake.fs");

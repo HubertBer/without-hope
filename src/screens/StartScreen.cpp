@@ -1,4 +1,4 @@
-#include "MenuScreen.h"
+#include "StartScreen.h"
 
 #include "Screen.h"
 #include "GameScreen.h"
@@ -8,30 +8,36 @@
 #include "../GameData.h"
 #include "../WindowManager.h"
 #include "../music/MusicPlayer.h"
-#include "../utility/Button.h"
-#include "../utility/Scaler.h"
+#include "../UI/Button.h"
+#include "../UI/Scaler.h"
 
 #include <raylib.h>
 
-MenuScreen::MenuScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m)
+StartScreen::StartScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m)
     : Screen(std::move(r), std::move(m)) {
     int w = 200, h = 60;
     float startY = (screenHeight - h) / 2.0f;
 
     playButton = createButton((screenWidth - w) / 2.0f, startY, w, h, "PLAY");
+    exitButton = createButton((screenWidth - w) / 2.0f, startY + h + 20, w, h, "EXIT");
 }
 
-void MenuScreen::update(float dt) {
+void StartScreen::update(float dt) {
     (void)dt; // Unused
+
     if (isButtonClicked(playButton)) {
         playClicked = true;
     }
+    if (isButtonClicked(exitButton)) {
+        exitClicked = true;
+    }
 }
 
-void MenuScreen::draw() {
+void StartScreen::draw() {
     BeginTextureMode(screenTarget);
         ClearBackground(GRAY);
         drawButton(playButton);
+        drawButton(exitButton);
     EndTextureMode();
 
     BeginDrawing();
@@ -40,7 +46,7 @@ void MenuScreen::draw() {
     EndDrawing();
 }
 
-std::unique_ptr<Screen> MenuScreen::nextScreen() {
+std::unique_ptr<Screen> StartScreen::nextScreen() {
     if (playClicked) {
         return std::make_unique<GameScreen>(
             std::move(renderer),
@@ -49,4 +55,8 @@ std::unique_ptr<Screen> MenuScreen::nextScreen() {
         );
     }
     return nullptr;
+}
+
+bool StartScreen::wantsExit() const {
+    return exitClicked;
 }

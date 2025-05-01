@@ -27,6 +27,8 @@ public:
 
     virtual ~Screen() = default;
 
+    virtual bool wantsExit() const;
+
 protected:
     std::unique_ptr<Renderer> renderer;
     std::unique_ptr<MusicPlayer> music;

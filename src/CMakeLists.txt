@@ -11,9 +11,9 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/SimpleBullet.cpp
     entities/SimpleSpawner.cpp
     collider/CollisionSystem.cpp
-    utility/Button.h
+    UI/Button.h
     screens/Screen.cpp
     screens/OptionsScreen.cpp
     screens/GameScreen.cpp
-    screens/MenuScreen.cpp
+    screens/StartScreen.cpp
 )
