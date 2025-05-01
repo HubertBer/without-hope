@@ -14,7 +14,6 @@ void WindowManager::Init(int width, int height) {
     screenWidth = width;
     screenHeight = height;
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "without-hope");
     SetTargetFPS(300);
 }
