@@ -11,7 +11,7 @@
 inline std::pair<float, float> getScaling() {
     float w = WindowManager::IsFullscreen() ? (float)GetRenderWidth() : (float)GetScreenWidth();
     float h = WindowManager::IsFullscreen() ? (float)GetRenderHeight() : (float)GetScreenHeight();
-    return { w / screenWidth, h / screenHeight };
+    return { w / Config::screenWidth, h / Config::screenHeight };
 }
 
 inline Vector2 getVirtualPosition(Vector2 pos) {

@@ -17,13 +17,13 @@
 #define GLSL_VERSION 330
 
 int main() {
-    WindowManager::Init(screenWidth, screenHeight);
+    WindowManager::Init(Config::screenWidth, Config::screenHeight);
     SetRandomSeed(0);
 
     SetExitKey(0); // Disable exit key (ESC)
 
     std::unique_ptr<Screen> screen = std::make_unique<StartScreen>(
-        std::make_unique<Renderer>(screenWidth, screenHeight),
+        std::make_unique<Renderer>(Config::screenWidth, Config::screenHeight),
         std::make_unique<MusicPlayer>()
     );
 

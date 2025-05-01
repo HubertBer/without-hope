@@ -16,10 +16,10 @@
 StartScreen::StartScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m)
     : Screen(std::move(r), std::move(m)) {
     int w = 200, h = 60;
-    float startY = (screenHeight - h) / 2.0f;
+    float startY = (Config::screenHeight - h) / 2.0f;
 
-    playButton = createButton((screenWidth - w) / 2.0f, startY, w, h, "PLAY");
-    exitButton = createButton((screenWidth - w) / 2.0f, startY + h + 20, w, h, "EXIT");
+    playButton = createButton((Config::screenWidth - w) / 2.0f, startY, w, h, "PLAY");
+    exitButton = createButton((Config::screenWidth - w) / 2.0f, startY + h + 20, w, h, "EXIT");
 }
 
 void StartScreen::update(float dt) {

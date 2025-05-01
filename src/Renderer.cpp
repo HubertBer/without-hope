@@ -38,7 +38,7 @@ void Renderer::draw(GameData &game, RenderTexture2D &target) {
         ClearBackground(BLACK);
 
         BeginShaderMode(backgroundShader);
-            DrawRectangle(0, 0, screenWidth, screenHeight, WHITE);
+            DrawRectangle(0, 0, Config::screenWidth, Config::screenHeight, WHITE);
         EndShaderMode();
 
         game.draw();

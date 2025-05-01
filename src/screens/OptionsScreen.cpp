@@ -13,10 +13,10 @@
 OptionsScreen::OptionsScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m, std::unique_ptr<GameData> g)
     : Screen(std::move(r), std::move(m)), game(std::move(g)) {
     int w = 200, h = 60, spacing = 20;
-    float startY = (screenHeight - (h * 2 + spacing)) / 2.0f;
+    float startY = (Config::screenHeight - (h * 2 + spacing)) / 2.0f;
 
-    resumeButton = createButton((screenWidth - w) / 2.0f, startY, w, h, "RESUME");
-    exitToMenuButton = createButton((screenWidth - w) / 2.0f, startY + h + spacing, w, h, "MAIN MENU");
+    resumeButton = createButton((Config::screenWidth - w) / 2.0f, startY, w, h, "RESUME");
+    exitToMenuButton = createButton((Config::screenWidth - w) / 2.0f, startY + h + spacing, w, h, "MAIN MENU");
 }
 
 void OptionsScreen::update(float dt) {
@@ -31,7 +31,7 @@ void OptionsScreen::draw() {
         const char* title = "PAUSED";
         int titleSize = 40;
         int titleWidth = MeasureText(title, titleSize);
-        DrawText(title, screenWidth / 2 - titleWidth / 2, resumeButton.bounds.y - 80, titleSize, BLACK);
+        DrawText(title, Config::screenWidth / 2 - titleWidth / 2, resumeButton.bounds.y - 80, titleSize, BLACK);
 
         drawButton(resumeButton);
         drawButton(exitToMenuButton);

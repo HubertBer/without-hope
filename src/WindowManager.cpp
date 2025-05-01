@@ -1,11 +1,13 @@
 #include "WindowManager.h"
 
+#include "Config.h"
+
 #include <raylib.h>
 
 #include <iostream>
 
-int WindowManager::screenWidth = 1280;
-int WindowManager::screenHeight = 720;
+int WindowManager::screenWidth = Config::screenWidth;
+int WindowManager::screenHeight = Config::screenHeight;
 bool WindowManager::isFullscreen = false;
 
 void WindowManager::Init(int width, int height) {
