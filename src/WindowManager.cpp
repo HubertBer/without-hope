@@ -2,6 +2,8 @@
 
 #include <raylib.h>
 
+#include <iostream>
+
 int WindowManager::screenWidth = 1280;
 int WindowManager::screenHeight = 720;
 bool WindowManager::isFullscreen = false;
@@ -10,7 +12,7 @@ void WindowManager::Init(int width, int height) {
     screenWidth = width;
     screenHeight = height;
 
-    // SetConfigFlags(FLAG_WINDOW_RESIZABLE); :(
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "without-hope");
     SetTargetFPS(300);
 }
@@ -21,11 +23,10 @@ void WindowManager::Shutdown() {
 
 void WindowManager::ToggleFullscreen() {
     if (!isFullscreen) {
-        ToggleFullscreen();
+        ::ToggleFullscreen();
         isFullscreen = true;
     } else {
-        ToggleFullscreen();
-
+        ::ToggleFullscreen();
         isFullscreen = false;
     }
 }

@@ -5,6 +5,7 @@
 #include <rlgl.h>
 
 #include "Config.h"
+#include "utility/Scaler.h"
 
 Renderer::Renderer(int width, int height) {
     shakeShader = LoadShader(0, "src/resources/shaders/shake.fs");
@@ -47,21 +48,7 @@ void Renderer::draw(GameData &game, RenderTexture2D &target) {
         ClearBackground(RAYWHITE);
 
         BeginShaderMode(time - game.getTimeSinceKill() > 0.1f ? baseShader : shakeShader);
-            Rectangle source = {
-                0,
-                0,
-                (float)target.texture.width,
-                -(float)target.texture.height // Flip vertically due to OpenGL texture coordinates
-            };
-
-            Rectangle dest = {
-                0,
-                0,
-                (float)GetScreenWidth(),
-                (float)GetScreenHeight()
-            };
-
-            DrawTexturePro(target.texture, source, dest, {0, 0}, 0.0f, WHITE);
+            drawTextureStretched(target);
         EndShaderMode();
     EndDrawing();
 }

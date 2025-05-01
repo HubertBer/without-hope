@@ -21,9 +21,8 @@ OptionsScreen::OptionsScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicP
 
 void OptionsScreen::update(float dt) {
     (void)dt;
-    Vector2 mouse = getVirtualPosition(GetMousePosition());
-    if (isButtonClicked(resumeButton, mouse)) action = RESUME;
-    if (isButtonClicked(exitButton, mouse)) action = EXIT;
+    if (isButtonClicked(resumeButton)) action = RESUME;
+    if (isButtonClicked(exitButton)) action = EXIT;
 }
 
 void OptionsScreen::draw() {
@@ -40,9 +39,7 @@ void OptionsScreen::draw() {
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
-        Rectangle source = { 0, 0, (float)screenTarget.texture.width, -(float)screenTarget.texture.height };
-        Rectangle dest = { 0, 0, (float)GetScreenWidth(), (float)GetScreenHeight() };
-        DrawTexturePro(screenTarget.texture, source, dest, {0, 0}, 0.0f, WHITE);
+        drawTextureStretched(screenTarget);
     EndDrawing();
 }
 

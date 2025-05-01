@@ -38,7 +38,7 @@ int main() {
             screen = std::move(next);
         }
 
-        if (IsKeyPressed(KEY_F12)) {
+        if (IsKeyPressed(KEY_F10)) {
             WindowManager::ToggleFullscreen();
         }
     }
