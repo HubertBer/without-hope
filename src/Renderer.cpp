@@ -7,7 +7,6 @@
 #include "Config.h"
 #include "UI/Scaler.h"
 
-
 Renderer::Renderer(int width, int height) {
     shakeShader = LoadShader(0, "src/resources/shaders/shake.fs");
     baseShader = LoadShader(0, "src/resources/shaders/base.fs");

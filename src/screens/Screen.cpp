@@ -6,3 +6,7 @@ Screen::Screen(std::shared_ptr<Renderer> r, std::shared_ptr<MusicPlayer> m)
 bool Screen::wantsExit() const {
     return false;
 }
+
+bool Screen::wantsExit() const {
+    return false;
+}
