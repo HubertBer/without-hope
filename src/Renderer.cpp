@@ -15,7 +15,7 @@ Renderer::Renderer(int width, int height) {
 
     shakeShader = LoadShader(0, "src/resources/shaders/shake.fs");
     baseShader = LoadShader(0, "src/resources/shaders/base.fs");
-    backgroundShader = LoadShader(0, "src/resources/shaders/background.fs");
+    backgroundShader = LoadShader(0, "src/resources/shaders/voronoi.fs");
     if (shakeShader.id == 0 || baseShader.id == 0 || backgroundShader.id == 0) {
         throw std::runtime_error("Failed to load shader");
     }

@@ -7,7 +7,9 @@
 #include "../UI/Scaler.h"
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
+    : Entity(prevPos, pos, velocity,BASE_RADIUS) {
+    loadTexture("src/resources/sprites/player.png", 0.5f);
+}
 
 void Player::physicsUpdate(GameData& game) {
     prevPos = pos;
@@ -36,11 +38,13 @@ void Player::gameUpdate(GameData& game, float dt) {
             bullet_vel = {1.0, 0.0f}; 
         }
         bullet_vel = Vector2Normalize(bullet_vel) * SimpleBullet::maxSpeed;
+        float rotation = atan2f(bullet_vel.y, bullet_vel.x) * RAD2DEG;
 
         game.registerEntity(std::make_shared<SimpleBullet>(
             pos,
             pos,
-            bullet_vel
+            bullet_vel,
+            rotation
         ));
         bulletCooldown += maxBulletCooldown;
     }
@@ -54,7 +58,10 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData ) {
 }
 
 void Player::draw() {
-    DrawCircle(static_cast<int>(posNow.x), static_cast<int>(posNow.y), 30, RED);
+    Vector2 playerDir = getVirtualPosition(GetMousePosition()) - posNow;
+    rotation = atan2f(playerDir.y, playerDir.x) * RAD2DEG;
+
+    drawTexture();
 }
 
 EntityType Player::type() {
