@@ -4,6 +4,10 @@
 
 #include "Entity.h"
 #include "../GameData.h"
+#include <vector>
+#include "../weapons/Weapon.h"
+
+class Weapon;
 
 struct Player : public Entity{
 public:
@@ -16,6 +20,7 @@ public:
 
     static constexpr float BASE_RADIUS =30.f;
     static constexpr float maxSpeed = 500.0f;
-    float bulletCooldown =0.0f;
-    float maxBulletCooldown = 0.5f;
+
+private:
+    std::vector<std::shared_ptr<Weapon>> weapons;
 };

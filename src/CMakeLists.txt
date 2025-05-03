@@ -14,6 +14,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/SimpleSpawner.cpp
     entities/TargetableCamera.cpp
     entities/GridBackground.cpp
+    weapons/Cannon.cpp
+    weapons/Minigun.cpp
     collider/CollisionSystem.cpp
     UI/Button.h
     screens/Screen.cpp
