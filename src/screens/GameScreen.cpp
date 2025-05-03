@@ -30,13 +30,8 @@ void GameScreen::update(float dt) {
 }
 
 void GameScreen::draw() {
-<<<<<<< HEAD
     renderer->draw(**game);
     music->play(**game);
-=======
-    renderer->draw(*game, screenTarget);
-    music->play(*game);
->>>>>>> 5022eff (testing fullscreen)
 }
 
 ScreenType GameScreen::nextScreen() {

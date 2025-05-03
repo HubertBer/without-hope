@@ -2,7 +2,12 @@
 
 #include "entities/Player.h"
 #include "entities/SimpleEnemy.h"
+<<<<<<< HEAD
 #include "./scenes/GameScene.h"
+=======
+#include "entities/SimpleSpawner.h"
+#include "rand.h"
+>>>>>>> dcda930 (Linear interpolation in normal update, some minor fixes)
 #include "raymath.h"
 
 GameData::GameData()
