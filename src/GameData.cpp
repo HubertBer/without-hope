@@ -4,6 +4,7 @@
 #include "entities/SimpleEnemy.h"
 #include "entities/SimpleSpawner.h"
 #include "rand.h"
+#include "raymath.h"
 
 GameData::GameData()
 {
@@ -47,8 +48,13 @@ GameData::GameData()
     ));
 }
 
-void GameData::gameUpdate(float dt)
+Vector2 GameData::lerp(Vector2 v1, Vector2 v2){
+    return v1 + (v2 - v1) * lerpValue; 
+}
+
+void GameData::gameUpdate(float dt, float lerpValue)
 {
+  this->lerpValue = lerpValue;
   handleCollisions();
   if(player->zombie) return;//placeholder, we should end the game
   for (auto entity : entities)
