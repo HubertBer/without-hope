@@ -18,9 +18,9 @@ class StartScreen : public Screen {
     bool exitClicked = false;
 
 public:
-    StartScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m);
+    StartScreen(std::shared_ptr<Renderer> r, std::shared_ptr<MusicPlayer> m);
     void update(float dt) override;
     void draw() override;
-    std::unique_ptr<Screen> nextScreen() override;
+    ScreenType nextScreen() override;
     bool wantsExit() const override;
 };

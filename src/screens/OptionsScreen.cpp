@@ -10,7 +10,7 @@
 
 #include <raylib.h>
 
-OptionsScreen::OptionsScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m, std::unique_ptr<GameData> g)
+OptionsScreen::OptionsScreen(std::shared_ptr<Renderer> r, std::shared_ptr<MusicPlayer> m, std::shared_ptr<std::unique_ptr<GameData>> g)
     : Screen(std::move(r), std::move(m)), game(std::move(g)) {
     int w = 200, h = 60, spacing = 20;
     float startY = (Config::screenHeight - (h * 2 + spacing)) / 2.0f;
@@ -21,38 +21,27 @@ OptionsScreen::OptionsScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicP
 
 void OptionsScreen::update(float dt) {
     (void)dt;
-    if (isButtonClicked(resumeButton)) action = RESUME;
-    if (isButtonClicked(exitToMenuButton)) action = EXIT;
+    if (isButtonClicked(resumeButton)) action = Action::Resume;
+    if (isButtonClicked(exitToMenuButton)) action = Action::Exit;
 }
 
 void OptionsScreen::draw() {
-    BeginTextureMode(screenTarget);
+    BeginDrawing();
         ClearBackground(GRAY);
-        const char* title = "PAUSED";
-        int titleSize = 40;
-        int titleWidth = MeasureText(title, titleSize);
-        DrawText(title, Config::screenWidth / 2 - titleWidth / 2, resumeButton.bounds.y - 80, titleSize, BLACK);
-
         drawButton(resumeButton);
         drawButton(exitToMenuButton);
-    EndTextureMode();
-
-    BeginDrawing();
-        ClearBackground(RAYWHITE);
-        drawTextureStretched(screenTarget);
     EndDrawing();
 }
 
-std::unique_ptr<Screen> OptionsScreen::nextScreen() {
-    if (action == RESUME) {
-        return std::make_unique<GameScreen>(
-            std::move(renderer), std::move(music), std::move(game)
-        );
+ScreenType OptionsScreen::nextScreen() {
+    ScreenType next = SCREEN_OPTIONS;
+
+    if (action == Action::Resume) next = SCREEN_GAME;
+    else if (action == Action::Exit) {
+        next = SCREEN_START;
+        *game = std::make_unique<GameData>();
     } 
-    else if (action == EXIT) {
-        return std::make_unique<StartScreen>(
-            std::move(renderer), std::move(music)
-        );
-    }
-    return nullptr;
+
+    action = Action::None; // Reset to prevent constant switching
+    return next;
 }

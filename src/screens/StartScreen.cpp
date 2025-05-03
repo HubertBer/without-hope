@@ -13,7 +13,7 @@
 
 #include <raylib.h>
 
-StartScreen::StartScreen(std::unique_ptr<Renderer> r, std::unique_ptr<MusicPlayer> m)
+StartScreen::StartScreen(std::shared_ptr<Renderer> r, std::shared_ptr<MusicPlayer> m)
     : Screen(std::move(r), std::move(m)) {
     int w = 200, h = 60;
     float startY = (Config::screenHeight - h) / 2.0f;
@@ -34,27 +34,19 @@ void StartScreen::update(float dt) {
 }
 
 void StartScreen::draw() {
-    BeginTextureMode(screenTarget);
+    BeginDrawing();
         ClearBackground(GRAY);
         drawButton(playButton);
         drawButton(exitButton);
-    EndTextureMode();
-
-    BeginDrawing();
-        ClearBackground(RAYWHITE);
-        drawTextureStretched(screenTarget);
     EndDrawing();
 }
 
-std::unique_ptr<Screen> StartScreen::nextScreen() {
+ScreenType StartScreen::nextScreen() {
     if (playClicked) {
-        return std::make_unique<GameScreen>(
-            std::move(renderer),
-            std::move(music),
-            std::make_unique<GameData>()
-        );
+        playClicked = false;
+        return SCREEN_GAME;
     }
-    return nullptr;
+    return SCREEN_START;
 }
 
 bool StartScreen::wantsExit() const {

@@ -9,9 +9,10 @@ public:
     Renderer(int width, int height);
     ~Renderer();
 
-    void draw(GameData& game, RenderTexture2D& target);
+    void draw(GameData& game);
 private:
     Shader shakeShader;
     Shader baseShader;
     Shader backgroundShader;
+    RenderTexture2D target;
 };

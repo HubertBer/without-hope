@@ -32,7 +32,7 @@ void MusicPlayer::play(GameData& gameData){
     
 }
 
-MusicPlayer::~MusicPlayer(){
+MusicPlayer::~MusicPlayer() {
     for(auto& [type,music]:entityMusic){
         UnloadMusicStream(music);
     }
