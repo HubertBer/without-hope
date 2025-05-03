@@ -8,6 +8,11 @@
 #include "UI/Scaler.h"
 
 Renderer::Renderer(int width, int height) {
+    target = LoadRenderTexture(width, height);
+    if (target.texture.id == 0) {
+        throw std::runtime_error("Failed to load render texture");
+    }
+
     shakeShader = LoadShader(0, "src/resources/shaders/shake.fs");
     baseShader = LoadShader(0, "src/resources/shaders/base.fs");
     backgroundShader = LoadShader(0, "src/resources/shaders/background.fs");
@@ -21,6 +26,7 @@ Renderer::Renderer(int width, int height) {
 }
 
 Renderer::~Renderer() {
+    UnloadRenderTexture(target);
     UnloadShader(shakeShader);
     UnloadShader(baseShader);
     UnloadShader(backgroundShader);
