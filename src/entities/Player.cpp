@@ -5,13 +5,22 @@
 #include "SimpleBullet.h"
 #include "../GameData.h"
 #include "../UI/Scaler.h"
+#include "../weapons/Cannon.h"
+#include "../weapons/Minigun.h"
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity, BASE_RADIUS, FOREGROUND) {}
+    : Entity(prevPos, pos, velocity, BASE_RADIUS, FOREGROUND) {
+    weapons.push_back(std::make_shared<Cannon>());
+    weapons.push_back(std::make_shared<Minigun>());
+}
 
 void Player::physicsUpdate(GameData& game) {
     prevPos = pos;
     pos += velocity * GameData::physicsDt;
+
+    for(auto weapon : weapons){
+        weapon->physicsUpdate(game, *this);
+    }
 }
 
 void Player::gameUpdate(GameData& game, float dt) {
@@ -27,26 +36,12 @@ void Player::gameUpdate(GameData& game, float dt) {
         velocity *= maxSpeed;
     }
 
-    bulletCooldown-=dt;
-    if(bulletCooldown<=0.0f){
-        Vector2 mousePos = game.getMouseWorldPosition();
-        Vector2 bullet_vel = (mousePos -  pos);
-        
-        if(Vector2LengthSqr(bullet_vel) < EPSILON){
-            bullet_vel = {1.0, 0.0f}; 
-        }
-        bullet_vel = Vector2Normalize(bullet_vel) * SimpleBullet::maxSpeed;
-
-        game.registerEntity(std::make_shared<SimpleBullet>(
-            pos,
-            pos,
-            bullet_vel
-        ));
-        bulletCooldown += maxBulletCooldown;
+    for(auto weapon : weapons){
+        weapon->gameUpdate(game, *this, dt);
     }
 }
 
-void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData ) {
+void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
     if(entity->type()==SIMPLE_ENEMY){
         velocity=Vector2{0.f,0.f};//insead say that game over or sth
         zombie=true;
