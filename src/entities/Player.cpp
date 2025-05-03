@@ -15,6 +15,8 @@ void Player::physicsUpdate(GameData& game) {
 }
 
 void Player::gameUpdate(GameData& game, float dt) {
+    posNow = game.lerp(prevPos, pos);
+
     velocity = {0, 0};
     if (IsKeyDown(KEY_D)) velocity.x += 1;
     if (IsKeyDown(KEY_A)) velocity.x -= 1;
@@ -40,7 +42,7 @@ void Player::gameUpdate(GameData& game, float dt) {
             pos,
             bullet_vel
         ));
-        bulletCooldown=maxBulletCooldown;
+        bulletCooldown += maxBulletCooldown;
     }
 }
 
@@ -52,8 +54,9 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData ) {
 }
 
 void Player::draw() {
-    DrawCircle(static_cast<int>(pos.x), static_cast<int>(pos.y), 30, RED);
+    DrawCircle(static_cast<int>(posNow.x), static_cast<int>(posNow.y), 30, RED);
 }
+
 EntityType Player::type() {
     return PLAYER;
 }

@@ -30,6 +30,7 @@ public:
 
     Vector2 pos;
     Vector2 prevPos;
+    Vector2 posNow;
     Vector2 velocity;
     float hitboxRadius;
     bool zombie=false;
