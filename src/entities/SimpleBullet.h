@@ -7,7 +7,7 @@
 
 struct SimpleBullet : public Entity {
 public:
-    SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity);
+    SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity, float rotation);
     void gameUpdate(GameData& game, float dt) override;
     void physicsUpdate(GameData& game) override;
     void collide(std::shared_ptr<Entity> entity,GameData& gameData) override;
