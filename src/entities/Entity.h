@@ -11,12 +11,20 @@ enum EntityType{
     SIMPLE_ENEMY,
     SIMPLE_BULLET,
     SIMPLE_SPAWNER,
+    TARGETABLE_CAMERA,
+    GRID_BACKGROUND,
+};
+
+enum DrawingLayer : uint16_t{
+    BACKGROUND = 0,
+    DEFAULT,
+    FOREGROUND,
 };
 
 class Entity{
 public:
-    Entity(Vector2 prevPos, Vector2 pos, Vector2 velocity,float hitboxRadius)
-        : prevPos(prevPos), pos(pos), velocity(velocity),hitboxRadius(hitboxRadius) {}
+    Entity(Vector2 prevPos, Vector2 pos, Vector2 velocity, float hitboxRadius, DrawingLayer drawLayer = DEFAULT)
+        : prevPos(prevPos), pos(pos), velocity(velocity),hitboxRadius(hitboxRadius), drawLayer(drawLayer) {}
     /// @brief Function called every physics tick.
     /// @param  
     virtual void physicsUpdate(GameData&){}
@@ -27,11 +35,13 @@ public:
     virtual void collide(std::shared_ptr<Entity> entity,GameData& gameData){};
     virtual void draw(){}
     virtual EntityType type(){return NONE;}
+    virtual std::pair<DrawingLayer, float> drawOrder(){return {drawLayer, pos.y};};
 
     Vector2 pos;
     Vector2 prevPos;
     Vector2 posNow;
-    Vector2 velocity;
+    Vector2 velocity; 
+    DrawingLayer drawLayer{DEFAULT};
     float hitboxRadius;
     bool zombie=false;
 };

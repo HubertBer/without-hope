@@ -7,7 +7,7 @@
 #include "../UI/Scaler.h"
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
+    : Entity(prevPos, pos, velocity, BASE_RADIUS, FOREGROUND) {}
 
 void Player::physicsUpdate(GameData& game) {
     prevPos = pos;
@@ -29,7 +29,7 @@ void Player::gameUpdate(GameData& game, float dt) {
 
     bulletCooldown-=dt;
     if(bulletCooldown<=0.0f){
-        Vector2 mousePos = getVirtualPosition(GetMousePosition());
+        Vector2 mousePos = game.getMouseWorldPosition();
         Vector2 bullet_vel = (mousePos -  pos);
         
         if(Vector2LengthSqr(bullet_vel) < EPSILON){

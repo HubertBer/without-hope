@@ -10,6 +10,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/SimpleEnemy.cpp
     entities/SimpleBullet.cpp
     entities/SimpleSpawner.cpp
+    entities/TargetableCamera.cpp
+    entities/GridBackground.cpp
     collider/CollisionSystem.cpp
     UI/Button.h
     screens/Screen.cpp

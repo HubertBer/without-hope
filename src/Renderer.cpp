@@ -41,7 +41,9 @@ void Renderer::draw(GameData &game, RenderTexture2D &target) {
             DrawRectangle(0, 0, Config::screenWidth, Config::screenHeight, WHITE);
         EndShaderMode();
 
+        BeginMode2D(game.getMainCamera());
         game.draw();
+        EndMode2D();
     EndTextureMode();
 
     BeginDrawing();
