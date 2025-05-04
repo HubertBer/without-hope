@@ -3,29 +3,34 @@
 #include "entities/Player.h"
 #include "entities/SimpleEnemy.h"
 #include "./scenes/GameScene.h"
+#include "raymath.h"
 
 GameData::GameData()
 {
     LoadGameScene(*this);
 }
 
-void GameData::gameUpdate(float dt)
-{
-  handleCollisions();
-  if(player->zombie){
-    resetGame();
-    return; 
-  }
-  for (auto entity : entities)
-  {
-    entity->gameUpdate(*this, dt);
-  }
-  for(auto entity: entitiesBuffer){
-    entities.push_back(entity);
-  }
-  entitiesBuffer.clear();
-  deleteZombieEntities();
+Vector2 GameData::lerp(Vector2 v1, Vector2 v2){
+    return v1 + (v2 - v1) * lerpValue; 
+}
 
+void GameData::gameUpdate(float dt, float lerpValue)
+{
+    this->lerpValue = lerpValue;
+    handleCollisions();
+    if(player->zombie){
+        resetGame();
+        return; 
+    }
+    for (auto entity : entities)
+    {
+        entity->gameUpdate(*this, dt);
+    }
+    for(auto entity: entitiesBuffer){
+        entities.push_back(entity);
+    }
+    entitiesBuffer.clear();
+    deleteZombieEntities();
 }
 
 bool GameData::checkPresent(EntityType type){

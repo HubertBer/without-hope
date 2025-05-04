@@ -3,46 +3,52 @@
 
 #include <vector>
 #include <memory>
+#include <map>
 
+#include "WindowManager.h"
 #include "GameData.h"
 #include "Renderer.h"
 #include "music/MusicPlayer.h"
 
-const int screenWidth = 1280;
-const int screenHeight = 720;
+#include "screens/Screen.h"
+#include "screens/StartScreen.h"
+#include "screens/GameScreen.h"
+#include "screens/OptionsScreen.h"
+
+#include "Config.h"
 
 #define GLSL_VERSION 330
 
 int main() {
-    InitWindow(screenWidth, screenHeight, "without-hope");
-    SetTargetFPS(300);
+    WindowManager::Init(Config::screenWidth, Config::screenHeight);
     SetRandomSeed(0);
 
-    // Initialization happening in GameData constructor
-    GameData game;
-    Renderer renderer(screenWidth, screenHeight);
-    MusicPlayer musicPlayer;
+    SetExitKey(0); // Disable exit key (ESC)
 
-    float gameTime = 0;
-    float physicsTime = 0;
+    std::shared_ptr<Renderer> renderer = std::make_shared<Renderer>(Config::screenWidth, Config::screenHeight);
+    std::shared_ptr<MusicPlayer> music = std::make_shared<MusicPlayer>();
+    std::shared_ptr<std::unique_ptr<GameData>> gameData = std::make_shared<std::unique_ptr<GameData>>(std::make_unique<GameData>());
 
-    while (!WindowShouldClose()) {
-        // PHYSICS SIMULATION - CONSTANT FRAME TIME SIMULATION
+    std::map<ScreenType, std::unique_ptr<Screen>> screens;
+    screens[SCREEN_START] = std::make_unique<StartScreen>(renderer, music);
+    screens[SCREEN_GAME] = std::make_unique<GameScreen>(renderer, music, gameData);
+    screens[SCREEN_OPTIONS] = std::make_unique<OptionsScreen>(renderer, music, gameData);
+
+    ScreenType currentScreen = SCREEN_START;
+
+    while (!WindowShouldClose() && !screens[currentScreen]->wantsExit()) {
         float dt = GetFrameTime();
-        gameTime += dt;
-        if(dt > 0.25f){
-            dt = 0.25f; // If the program lags, just slow it down
-        }
-        while(physicsTime < gameTime){
-            physicsTime += GameData::physicsDt;
-            game.physicsUpdate();
-        }
-        game.gameUpdate(dt);
 
-        renderer.draw(game);
-        musicPlayer.play(game);
+        screens[currentScreen]->update(dt);
+        screens[currentScreen]->draw();
+       currentScreen = screens[currentScreen]->nextScreen();
+       
+        if (IsKeyPressed(KEY_F10)) {
+            WindowManager::ToggleFullscreen();
+        }
     }
 
-    CloseWindow();
+    WindowManager::Shutdown();
+
     return 0;
 }

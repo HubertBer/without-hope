@@ -7,7 +7,9 @@
 SimpleBullet::SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
 
-void SimpleBullet::gameUpdate(GameData& game, float dt) {}
+void SimpleBullet::gameUpdate(GameData& game, float) {
+    posNow = game.lerp(prevPos, pos);
+}
 
 void SimpleBullet::physicsUpdate(GameData& game) {
     prevPos = pos;
@@ -21,7 +23,7 @@ void SimpleBullet::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
 }
 
 void SimpleBullet::draw() {
-    DrawRectangle(static_cast<int>(pos.x), static_cast<int>(pos.y), 5, 20, YELLOW);
+    DrawRectangle(static_cast<int>(posNow.x), static_cast<int>(posNow.y), 5, 20, YELLOW);
 }
 
 EntityType SimpleBullet::type() {

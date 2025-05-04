@@ -7,7 +7,9 @@
 SimpleEnemy::SimpleEnemy(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
 
-void SimpleEnemy::gameUpdate(GameData& game, float dt) {}
+void SimpleEnemy::gameUpdate(GameData& game, float) {
+    posNow = game.lerp(prevPos, pos);
+}
 
 void SimpleEnemy::physicsUpdate(GameData& game) {
     prevPos = pos;
@@ -23,7 +25,7 @@ void SimpleEnemy::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
 }
 
 void SimpleEnemy::draw() {
-    DrawRectangle(static_cast<int>(pos.x), static_cast<int>(pos.y), 20, 40, GREEN);
+    DrawRectangle(static_cast<int>(posNow.x), static_cast<int>(posNow.y), 20, 40, GREEN);
 }
 
 EntityType SimpleEnemy::type() {

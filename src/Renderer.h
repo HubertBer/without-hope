@@ -11,8 +11,8 @@ public:
 
     void draw(GameData& game);
 private:
-    RenderTexture2D target;
     Shader shakeShader;
     Shader baseShader;
     Shader backgroundShader;
+    RenderTexture2D target;
 };

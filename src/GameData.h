@@ -13,7 +13,7 @@ class GameData{
 public:
     GameData();
     void physicsUpdate();
-    void gameUpdate(float dt);
+    void gameUpdate(float dt, float lerpValue);
     void draw();
     void registerEntity(std::shared_ptr<Entity> entity);
     // Right now this is used just for collecting statistics for shader effects
@@ -24,10 +24,10 @@ public:
     void deleteZombieEntities();
     bool checkPresent(EntityType type);
     void setPlayer(std::shared_ptr<Entity> player);
+    Vector2 lerp(Vector2 v1, Vector2 v2);
     Vector2 playerPos() const;
-    
-    static constexpr float physicsDt = 1.0f/60.0f;
 
+    static constexpr float physicsDt = 1.0f/30.0f;
 private:
     void resetGame();
     CollisionSystem collisionSystem;
@@ -35,6 +35,7 @@ private:
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
     std::shared_ptr<Entity> player;
     const float player_speed = 500.0f;
+    float lerpValue = 0.0f;
 
     // Statistics for shaders
     float timeSinceKill{-1.f};

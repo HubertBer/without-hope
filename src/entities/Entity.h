@@ -10,6 +10,7 @@ enum EntityType{
     PLAYER,
     SIMPLE_ENEMY,
     SIMPLE_BULLET,
+    SIMPLE_SPAWNER,
 };
 
 class Entity{
@@ -29,6 +30,7 @@ public:
 
     Vector2 pos;
     Vector2 prevPos;
+    Vector2 posNow;
     Vector2 velocity;
     float hitboxRadius;
     bool zombie=false;

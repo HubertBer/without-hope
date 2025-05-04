@@ -4,6 +4,8 @@
 
 #include "SimpleBullet.h"
 #include "../GameData.h"
+#include "../UI/Scaler.h"
+
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
 
@@ -13,6 +15,8 @@ void Player::physicsUpdate(GameData& game) {
 }
 
 void Player::gameUpdate(GameData& game, float dt) {
+    posNow = game.lerp(prevPos, pos);
+
     velocity = {0, 0};
     if (IsKeyDown(KEY_D)) velocity.x += 1;
     if (IsKeyDown(KEY_A)) velocity.x -= 1;
@@ -25,7 +29,9 @@ void Player::gameUpdate(GameData& game, float dt) {
 
     bulletCooldown-=dt;
     if(bulletCooldown<=0.0f){
-        Vector2 bullet_vel = (GetMousePosition() -  pos);
+        Vector2 mousePos = getVirtualPosition(GetMousePosition());
+        Vector2 bullet_vel = (mousePos -  pos);
+        
         if(Vector2LengthSqr(bullet_vel) < EPSILON){
             bullet_vel = {1.0, 0.0f}; 
         }
@@ -36,7 +42,7 @@ void Player::gameUpdate(GameData& game, float dt) {
             pos,
             bullet_vel
         ));
-        bulletCooldown=maxBulletCooldown;
+        bulletCooldown += maxBulletCooldown;
     }
 }
 
@@ -48,8 +54,9 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData ) {
 }
 
 void Player::draw() {
-    DrawCircle(static_cast<int>(pos.x), static_cast<int>(pos.y), 30, RED);
+    DrawCircle(static_cast<int>(posNow.x), static_cast<int>(posNow.y), 30, RED);
 }
+
 EntityType Player::type() {
     return PLAYER;
 }
