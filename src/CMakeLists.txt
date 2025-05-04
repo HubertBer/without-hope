@@ -7,6 +7,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     WindowManager.cpp
     music/MusicPlayer.cpp
     scenes/GameScene.cpp
+    entities/Entity.cpp
     entities/Player.cpp
     entities/SimpleEnemy.cpp
     entities/SimpleBullet.cpp
