@@ -111,3 +111,9 @@ float GameData::getTimeSinceKill() {
 Vector2 GameData::playerPos() const {
     return player->pos;
 }
+
+void GameData::reset(GameData& gameData) {
+    GameData* ptr = &gameData;
+    ptr->~GameData();
+    new (ptr) GameData();
+}
