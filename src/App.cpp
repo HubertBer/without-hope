@@ -46,10 +46,6 @@ int main() {
         if (IsKeyPressed(KEY_F10)) {
             WindowManager::ToggleFullscreen();
         }
-
-        if (IsKeyPressed(KEY_F10)) {
-            WindowManager::ToggleFullscreen();
-        }
     }
 
     WindowManager::Shutdown();
