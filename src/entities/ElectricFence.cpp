@@ -1,7 +1,7 @@
 #include "ElectricFence.h"
 
 ElectricFence::ElectricFence(std::shared_ptr<Collider> collider)
-:   Entity(collider->p0, collider->p1, Vector2{0, 0}, 0), 
+:   Entity(collider->p0, collider->p1, Vector2{0, 0}, 0, 0, BACKGROUND), 
     collider(collider){}
 
 void ElectricFence::gameUpdate(GameData& game, float dt){
