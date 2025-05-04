@@ -10,6 +10,7 @@
 GameData::GameData()
 {
     LoadGameScene(*this);
+    collisionSystem = std::make_shared<CollisionSystem>();
 }
 
 Vector2 GameData::lerp(Vector2 v1, Vector2 v2){
@@ -74,7 +75,7 @@ void GameData::setPlayer(std::shared_ptr<Entity> player){
 }
 
 void GameData::handleCollisions(){
-    collisionSystem.handleCollisions(entities,*this);
+    collisionSystem->handleCollisions(*this);
 }
 
 void GameData::deleteZombieEntities(){
@@ -98,6 +99,12 @@ void GameData::draw(){
 
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
+    entity->self = entity;
+    entity->start(*this);
+}
+
+void GameData::registerEntityCollider(std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> ec){
+    collisionSystem->registerEntityCollider(ec);
 }
 
 void GameData::kill() {

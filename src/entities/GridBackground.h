@@ -9,7 +9,7 @@ public:
     GridBackground();
     void gameUpdate(GameData& game, float dt) override;
     void physicsUpdate(GameData& game) override;
-    void collide(std::shared_ptr<Entity> entity, GameData& gameData) override;
+    void collide(std::shared_ptr<Collider> ownCollider, std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> other, GameData& gameData) override;
     void draw() override;
     EntityType type() override;
 

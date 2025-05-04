@@ -3,8 +3,11 @@
 #include <raylib.h>
 #include <memory>
 #include <iostream>
+#include "../collider/Collider.h"
+#include "../collider/CollisionSystem.h"
 
 class GameData;
+class Collider;
 
 enum EntityType{
     NONE,
@@ -14,6 +17,7 @@ enum EntityType{
     SIMPLE_SPAWNER,
     TARGETABLE_CAMERA,
     GRID_BACKGROUND,
+    ELECTRIC_FENCE,
 };
 
 enum DrawingLayer : uint16_t{
@@ -33,11 +37,12 @@ public:
     /// @param game 
     /// @param dt 
     virtual void gameUpdate(GameData& game, float dt){}
-    virtual void collide(std::shared_ptr<Entity> entity,GameData& gameData){};
+    virtual void collide(std::shared_ptr<Collider> ownCollider, std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> other, GameData& gameData){};
     virtual void draw(){}
     void drawTexture();
     virtual EntityType type(){return NONE;}
     virtual std::pair<DrawingLayer, float> drawOrder(){return {drawLayer, pos.y};};
+    virtual void start(GameData&){}
 
     Vector2 pos;
     Vector2 prevPos;
@@ -51,6 +56,8 @@ public:
 protected:
     void loadTexture(const std::string& path, float scale = 1.f);
     void loadShader(const std::string& path);
+    std::weak_ptr<Entity> self;
+    friend class GameData;
 
 private:
     Texture2D texture;
