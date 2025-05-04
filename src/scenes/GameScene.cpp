@@ -4,6 +4,7 @@
 #include "../entities/SimpleSpawner.h"
 #include "../entities/GridBackground.h"
 #include "../entities/TargetableCamera.h"
+#include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
 #include "../entities/Squadron.h"
 
@@ -36,6 +37,8 @@ void LoadGameScene(GameData& game){
         Vector2{0, 0}
         ));
     }
+
+    game.registerEntity(std::make_shared<BasicParticleEffect>(Vector2{200.f, 200.f}));
 
     game.registerEntity(std::make_shared<SimpleSpawner>(
         Rectangle{mapBoundaries.width - 100, mapBoundaries.height - 100, 100, 100},

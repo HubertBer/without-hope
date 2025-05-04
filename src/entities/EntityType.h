@@ -11,4 +11,5 @@ enum EntityType{
     ELECTRIC_FENCE,
     SQUADRON_SHIP,
     SQUADRON,
+    PARTICLE_SPAWNER,
 };
