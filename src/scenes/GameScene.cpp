@@ -42,6 +42,8 @@ void LoadGameScene(GameData& game){
         ));
     }
 
+    game.registerEntity(std::make_shared<BasicParticleEffect>(Vector2{200.f, 200.f}));
+
     game.registerEntity(std::make_shared<SimpleSpawner>(
         Rectangle{mapBoundaries.width - 100, mapBoundaries.height - 100, 100, 100},
         3,
