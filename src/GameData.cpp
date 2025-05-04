@@ -2,50 +2,12 @@
 
 #include "entities/Player.h"
 #include "entities/SimpleEnemy.h"
-#include "entities/SimpleSpawner.h"
-#include "rand.h"
+#include "./scenes/GameScene.h"
 #include "raymath.h"
 
 GameData::GameData()
 {
-    auto player = std::make_shared<Player>(Vector2{100.0, 100.0f},
-                                           Vector2{100.0, 100.0f},
-                                           Vector2{0.0f, 0.0f});
-    this->player = player;
-    registerEntity(player);
-
-    for(int i = 0; i < 10; ++i){
-        Vector2 pos = {GetRandomFloat(300, 1000), GetRandomFloat(300, 1000)};
-        registerEntity(std::make_shared<SimpleEnemy>(
-            pos,
-            pos,
-            Vector2{0, 0}
-        ));
-    }
-
-    registerEntity(std::make_shared<SimpleSpawner>(
-        Rectangle{0, 0, 100, 100},
-        3,
-        6
-    ));
-
-    registerEntity(std::make_shared<SimpleSpawner>(
-        Rectangle{1000, 1000, 100, 100},
-        3,
-        6
-    ));
-    
-    registerEntity(std::make_shared<SimpleSpawner>(
-        Rectangle{1000, 0, 100, 100},
-        3,
-        6
-    ));
-    
-    registerEntity(std::make_shared<SimpleSpawner>(
-        Rectangle{0, 1000, 100, 100},
-        3,
-        6
-    ));
+    LoadGameScene(*this);
 }
 
 Vector2 GameData::lerp(Vector2 v1, Vector2 v2){
@@ -54,19 +16,21 @@ Vector2 GameData::lerp(Vector2 v1, Vector2 v2){
 
 void GameData::gameUpdate(float dt, float lerpValue)
 {
-  this->lerpValue = lerpValue;
-  handleCollisions();
-  if(player->zombie) return;//placeholder, we should end the game
-  for (auto entity : entities)
-  {
-    entity->gameUpdate(*this, dt);
-  }
-  for(auto entity: entitiesBuffer){
-    entities.push_back(entity);
-  }
-  entitiesBuffer.clear();
-  deleteZombieEntities();
-
+    this->lerpValue = lerpValue;
+    handleCollisions();
+    if(player->zombie){
+        resetGame();
+        return; 
+    }
+    for (auto entity : entities)
+    {
+        entity->gameUpdate(*this, dt);
+    }
+    for(auto entity: entitiesBuffer){
+        entities.push_back(entity);
+    }
+    entitiesBuffer.clear();
+    deleteZombieEntities();
 }
 
 bool GameData::checkPresent(EntityType type){
@@ -74,6 +38,10 @@ bool GameData::checkPresent(EntityType type){
         if(entity->type()==type)return true;
     }
     return false;
+}
+
+void GameData::setPlayer(std::shared_ptr<Entity> player){
+    this->player = player;
 }
 
 void GameData::handleCollisions(){
@@ -110,4 +78,11 @@ float GameData::getTimeSinceKill() {
 
 Vector2 GameData::playerPos() const {
     return player->pos;
+}
+
+void GameData::resetGame(){
+    entities.clear();
+    entitiesBuffer.clear();
+    
+    LoadGameScene(*this);
 }

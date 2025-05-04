@@ -23,11 +23,13 @@ public:
     void handleCollisions();
     void deleteZombieEntities();
     bool checkPresent(EntityType type);
+    void setPlayer(std::shared_ptr<Entity> player);
     Vector2 lerp(Vector2 v1, Vector2 v2);
     Vector2 playerPos() const;
 
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
+    void resetGame();
     CollisionSystem collisionSystem;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
