@@ -2,6 +2,8 @@
 #include "../entities/Player.h"
 #include "../entities/SimpleEnemy.h"
 #include "../entities/SimpleSpawner.h"
+#include "../entities/GridBackground.h"
+#include "../entities/TargetableCamera.h"
 #include "../rand.h"
 
 void LoadGameScene(GameData& game){
@@ -13,6 +15,12 @@ void LoadGameScene(GameData& game){
 
     game.setPlayer(player);
     game.registerEntity(player);
+
+    auto targetableCamera = std::make_shared<TargetableCamera>(player);
+    game.registerEntity(targetableCamera);
+
+    auto gridBg = std::make_shared<GridBackground>();
+    game.registerEntity(gridBg);
 
     for(int i = 0; i < 10; ++i){
         Vector2 pos = {GetRandomFloat(300, 1000), GetRandomFloat(300, 1000)};

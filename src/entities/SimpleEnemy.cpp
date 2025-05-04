@@ -5,7 +5,7 @@
 #include "../GameData.h"
 
 SimpleEnemy::SimpleEnemy(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
+    : Entity(prevPos, pos, velocity, BASE_RADIUS) {}
 
 void SimpleEnemy::gameUpdate(GameData& game, float) {
     posNow = game.lerp(prevPos, pos);

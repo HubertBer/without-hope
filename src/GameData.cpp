@@ -4,6 +4,8 @@
 #include "entities/SimpleEnemy.h"
 #include "./scenes/GameScene.h"
 #include "raymath.h"
+#include "UI/Scaler.h"
+#include <algorithm>
 
 GameData::GameData()
 {
@@ -12,6 +14,33 @@ GameData::GameData()
 
 Vector2 GameData::lerp(Vector2 v1, Vector2 v2){
     return v1 + (v2 - v1) * lerpValue; 
+}
+
+Camera2D GameData::getMainCamera() const {
+    return mainCamera;
+}
+
+void GameData::setMainCamera(Camera2D camera){
+    mainCamera = camera;
+}
+
+Vector2 GameData::getMouseWorldPosition() const {
+    return GetScreenToWorld2D(getVirtualPosition(GetMousePosition()), mainCamera);
+}
+
+Rectangle GameData::getCameraVisionBoundaries() const{
+    // Vector2 origin = mainCamera.offset + mainCamera.target;
+    Vector2 origin = {
+        mainCamera.target.x - (mainCamera.offset.x / mainCamera.zoom),
+        mainCamera.target.y - (mainCamera.offset.y / mainCamera.zoom)
+    };
+        
+    return Rectangle{
+        origin.x,
+        origin.y,
+        GetScreenWidth() / mainCamera.zoom,
+        GetScreenHeight() / mainCamera.zoom
+    };
 }
 
 void GameData::gameUpdate(float dt, float lerpValue)
@@ -59,6 +88,9 @@ void GameData::physicsUpdate(){
 }
 
 void GameData::draw(){
+    entities.sort([](const std::shared_ptr<Entity>& e1, const std::shared_ptr<Entity>& e2){
+        return e1->drawOrder() < e2->drawOrder();
+    });
     for(auto entity : entities){
         entity->draw();
     }

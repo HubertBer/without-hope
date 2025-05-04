@@ -5,7 +5,7 @@
 #include "../GameData.h"
 
 SimpleBullet::SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
+    : Entity(prevPos, pos, velocity, BASE_RADIUS) {}
 
 void SimpleBullet::gameUpdate(GameData& game, float) {
     posNow = game.lerp(prevPos, pos);
