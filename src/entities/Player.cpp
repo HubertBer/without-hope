@@ -20,7 +20,7 @@ void Player::gameUpdate(GameData& game, float dt) {
     posNow = game.lerp(prevPos, pos);
 
     Vector2 playerDir = game.getMouseWorldPosition() - posNow;
-    rotation = atan2f(playerDir.y, playerDir.x) * RAD2DEG;
+    rotation = Vector2Angle(Vector2{1, 0}, playerDir) * RAD2DEG;
 
     velocity = {0, 0};
     if (IsKeyDown(KEY_D)) velocity.x += 1;
@@ -41,7 +41,7 @@ void Player::gameUpdate(GameData& game, float dt) {
             bullet_vel = {1.0, 0.0f}; 
         }
         bullet_vel = Vector2Normalize(bullet_vel) * SimpleBullet::maxSpeed;
-        float rotation = atan2f(bullet_vel.y, bullet_vel.x) * RAD2DEG;
+        float rotation = Vector2Angle(Vector2{1, 0}, bullet_vel) * RAD2DEG;
 
         game.registerEntity(std::make_shared<SimpleBullet>(
             pos,
