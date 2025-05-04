@@ -1,28 +1,20 @@
 #pragma once
 
-#include <raylib.h>
-
 #include "Entity.h"
 #include "../GameData.h"
-#include <vector>
-#include "../weapons/Weapon.h"
 
-class Weapon;
-
-struct Player : public Entity{
+class ElectricFence : public Entity{
 public:
-    Player(Vector2 prevPos, Vector2 pos, Vector2 velocity);
-    void physicsUpdate(GameData& game) override;
+    ElectricFence(std::shared_ptr<Collider> collider);
     void gameUpdate(GameData& game, float dt) override;
+    void physicsUpdate(GameData& game) override;
     void collide(std::shared_ptr<Collider> ownCollider, std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> other, GameData& gameData) override;
     void draw() override;
     void start(GameData&) override;
     EntityType type() override;
 
-    static constexpr float BASE_RADIUS =30.f;
-    static constexpr float maxSpeed = 500.0f;
-
 private:
     std::shared_ptr<Collider> collider;
-    std::vector<std::shared_ptr<Weapon>> weapons;
+    const Color color = BLUE;
+    const float width = 10.0f;
 };

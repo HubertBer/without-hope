@@ -12,6 +12,8 @@
 
 GameData::GameData()
 {
+    collisionSystem = std::make_shared<CollisionSystem>();
+
     auto player = std::make_shared<Player>(Vector2{100.0, 100.0f},
                                            Vector2{100.0, 100.0f},
                                            Vector2{0.0f, 0.0f});
@@ -114,7 +116,7 @@ bool GameData::checkPresent(EntityType type){
 }
 
 void GameData::handleCollisions(){
-    collisionSystem.handleCollisions(entities,*this);
+    collisionSystem->handleCollisions(*this);
 }
 
 void GameData::deleteZombieEntities(){
@@ -138,6 +140,12 @@ void GameData::draw(){
 
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
+    entity->self = entity;
+    entity->start(*this);
+}
+
+void GameData::registerEntityCollider(std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> ec){
+    collisionSystem->registerEntityCollider(ec);
 }
 
 void GameData::kill() {

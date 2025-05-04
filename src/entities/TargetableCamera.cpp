@@ -25,7 +25,7 @@ void TargetableCamera::gameUpdate(GameData& game, float dt){
 }
 
 void TargetableCamera::physicsUpdate(GameData& game){}
-void TargetableCamera::collide(std::shared_ptr<Entity> entity,GameData& gameData){}
+void TargetableCamera::collide(std::shared_ptr<Collider> ownCollider, std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> other, GameData& gameData){}
 void TargetableCamera::draw(){}
 
 EntityType TargetableCamera::type(){

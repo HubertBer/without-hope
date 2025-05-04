@@ -7,11 +7,18 @@
 #include "../UI/Scaler.h"
 #include "../weapons/Cannon.h"
 #include "../weapons/Minigun.h"
+#include "../weapons/ElectricFenceMaker.hpp"
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS, FOREGROUND) {
     weapons.push_back(std::make_shared<Cannon>());
     weapons.push_back(std::make_shared<Minigun>());
+    weapons.push_back(std::make_shared<ElectricFenceMaker>());
+    collider = std::make_shared<Collider>(MakeCircleCollider(pos, hitboxRadius));
+}
+
+void Player::start(GameData& game){
+    game.registerEntityCollider({self, collider});
 }
 
 void Player::physicsUpdate(GameData& game) {
@@ -21,6 +28,8 @@ void Player::physicsUpdate(GameData& game) {
     for(auto weapon : weapons){
         weapon->physicsUpdate(game, *this);
     }
+
+    collider->p0 = pos;
 }
 
 void Player::gameUpdate(GameData& game, float dt) {
@@ -41,8 +50,8 @@ void Player::gameUpdate(GameData& game, float dt) {
     }
 }
 
-void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
-    if(entity->type()==SIMPLE_ENEMY){
+void Player::collide(std::shared_ptr<Collider> ownCollider, std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> other, GameData& gameData) {
+    if(other.first.lock()->type()==SIMPLE_ENEMY){
         velocity=Vector2{0.f,0.f};//insead say that game over or sth
         zombie=true;
     }
