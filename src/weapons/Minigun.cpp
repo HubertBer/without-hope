@@ -20,11 +20,13 @@ void Minigun::gameUpdate(GameData& game, Player& player,  float dt){
         bulletVel = Vector2Normalize(bulletVel) * SimpleBullet::maxSpeed;
         float spread = spreadAngle * DEG2RAD;
         bulletVel = Vector2Rotate(bulletVel, GetRandomFloat(-spread, spread));
+        float rotation = Vector2Angle(Vector2{1, 0}, bulletVel) * RAD2DEG;
 
         game.registerEntity(std::make_shared<SimpleBullet>(
             player.pos,
             player.pos,
-            bulletVel
+            bulletVel,
+            rotation
         ));
 
         bulletCooldown += maxBulletCooldown;

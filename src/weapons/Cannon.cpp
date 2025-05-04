@@ -17,11 +17,13 @@ void Cannon::gameUpdate(GameData& game, Player& player,  float dt){
             bullet_vel = {1.0, 0.0f}; 
         }
         bullet_vel = Vector2Normalize(bullet_vel) * SimpleBullet::maxSpeed;
-
+        float rotation = Vector2Angle(Vector2{1, 0}, bullet_vel) * RAD2DEG;
+        
         game.registerEntity(std::make_shared<SimpleBullet>(
             player.pos,
             player.pos,
-            bullet_vel
+            bullet_vel,
+            rotation
         ));
 
         bulletCooldown += maxBulletCooldown;

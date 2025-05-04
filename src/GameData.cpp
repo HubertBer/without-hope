@@ -9,8 +9,8 @@
 
 GameData::GameData()
 {
-    LoadGameScene(*this);
     collisionSystem = std::make_shared<CollisionSystem>();
+    LoadGameScene(*this);
 }
 
 Vector2 GameData::lerp(Vector2 v1, Vector2 v2){
