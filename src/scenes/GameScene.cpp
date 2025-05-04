@@ -2,6 +2,7 @@
 #include "../entities/Player.h"
 #include "../entities/SimpleEnemy.h"
 #include "../entities/SimpleSpawner.h"
+#include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
 
 void LoadGameScene(GameData& game){
@@ -22,6 +23,8 @@ void LoadGameScene(GameData& game){
         Vector2{0, 0}
         ));
     }
+
+    game.registerEntity(std::make_shared<BasicParticleEffect>(Vector2{200.f, 200.f}));
 
     game.registerEntity(std::make_shared<SimpleSpawner>(
         Rectangle{0, 0, 100, 100},

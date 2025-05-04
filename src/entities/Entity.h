@@ -11,6 +11,7 @@ enum EntityType{
     SIMPLE_ENEMY,
     SIMPLE_BULLET,
     SIMPLE_SPAWNER,
+    PARTICLE_SPAWNER,
 };
 
 class Entity{

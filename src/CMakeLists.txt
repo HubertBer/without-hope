@@ -17,4 +17,5 @@ target_sources(${PROJECT_NAME} PRIVATE
     screens/OptionsScreen.cpp
     screens/GameScreen.cpp
     screens/StartScreen.cpp
+    particles/BasicParticleEffect.cpp
 )
