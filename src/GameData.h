@@ -30,6 +30,7 @@ public:
     Rectangle getCameraVisionBoundaries() const;
     Vector2 lerp(Vector2 v1, Vector2 v2);
     Vector2 playerPos() const;
+    static void reset(GameData& gameData);
 
     static constexpr float physicsDt = 1.0f/30.0f;
 private:

@@ -10,8 +10,8 @@
 
 #include <raylib.h>
 
-OptionsScreen::OptionsScreen(std::shared_ptr<Renderer> r, std::shared_ptr<MusicPlayer> m, std::shared_ptr<std::unique_ptr<GameData>> g)
-    : Screen(std::move(r), std::move(m)), game(std::move(g)) {
+OptionsScreen::OptionsScreen(Renderer& r, MusicPlayer& m, GameData& g)
+    : Screen(r, m), game(g) {
     int w = 200, h = 60, spacing = 20;
     float startY = (Config::screenHeight - (h * 2 + spacing)) / 2.0f;
 
@@ -39,7 +39,7 @@ ScreenType OptionsScreen::nextScreen() {
     if (action == Action::Resume) next = SCREEN_GAME;
     else if (action == Action::Exit) {
         next = SCREEN_START;
-        *game = std::make_unique<GameData>();
+        GameData::reset(game);
     } 
 
     action = Action::None; // Reset to prevent constant switching

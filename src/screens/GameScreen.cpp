@@ -9,8 +9,8 @@
 
 #include <raylib.h>
 
-GameScreen::GameScreen(std::shared_ptr<Renderer> r, std::shared_ptr<MusicPlayer> m, std::shared_ptr<std::unique_ptr<GameData>> g)
-    : Screen(std::move(r), std::move(m)), game(std::move(g)) {}
+GameScreen::GameScreen(Renderer& r, MusicPlayer& m, GameData& g)
+    : Screen(r, m), game(g) {}
 
 void GameScreen::update(float dt) {
     gameTime += dt;
@@ -20,9 +20,9 @@ void GameScreen::update(float dt) {
 
     while(physicsTime < gameTime){
         physicsTime += GameData::physicsDt;
-        (*game)->physicsUpdate();
+        game.physicsUpdate();
     }
-    (*game)->gameUpdate(dt, 1 - (physicsTime - gameTime) / GameData::physicsDt);
+    game.gameUpdate(dt, 1 - (physicsTime - gameTime) / GameData::physicsDt);
 
     if (IsKeyPressed(KEY_ESCAPE)) {
         goToOptions = true;
@@ -30,8 +30,8 @@ void GameScreen::update(float dt) {
 }
 
 void GameScreen::draw() {
-    renderer->draw(**game);
-    music->play(**game);
+    renderer.draw(game);
+    music.play(game);
 }
 
 ScreenType GameScreen::nextScreen() {

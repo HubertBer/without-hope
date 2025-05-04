@@ -13,8 +13,8 @@
 
 #include <raylib.h>
 
-StartScreen::StartScreen(std::shared_ptr<Renderer> r, std::shared_ptr<MusicPlayer> m)
-    : Screen(std::move(r), std::move(m)) {
+StartScreen::StartScreen(Renderer& r, MusicPlayer& m)
+    : Screen(r, m) {
     int w = 200, h = 60;
     float startY = (Config::screenHeight - h) / 2.0f;
 

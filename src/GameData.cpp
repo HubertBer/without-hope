@@ -112,6 +112,11 @@ Vector2 GameData::playerPos() const {
     return player->pos;
 }
 
+void GameData::reset(GameData& gameData) {
+    GameData* ptr = &gameData;
+    ptr->~GameData();
+    new (ptr) GameData();
+}
 void GameData::resetGame(){
     entities.clear();
     entitiesBuffer.clear();
