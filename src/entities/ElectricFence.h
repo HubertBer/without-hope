@@ -15,6 +15,6 @@ public:
 
 private:
     std::shared_ptr<Collider> collider;
-    const Color color = BLUE;
+    const Color color = SKYBLUE;
     const float width = 10.0f;
 };

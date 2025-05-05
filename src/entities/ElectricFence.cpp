@@ -2,7 +2,9 @@
 
 ElectricFence::ElectricFence(std::shared_ptr<Collider> collider)
 :   Entity(collider->p0, collider->p1, Vector2{0, 0}, 0, 0, BACKGROUND), 
-    collider(collider){}
+    collider(collider){
+        posNow = collider->p0;
+    }
 
 void ElectricFence::gameUpdate(GameData& game, float dt){
     posNow = game.lerp(prevPos, pos);
