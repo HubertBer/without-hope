@@ -3,7 +3,6 @@
 #include <memory>
 #include <raylib.h>
 
-#include "../Renderer.h"
 #include "../GameData.h"
 #include "../WindowManager.h"
 #include "../music/MusicPlayer.h"
@@ -17,7 +16,7 @@ enum ScreenType {
 
 class Screen {
 public:
-    Screen(Renderer& r, MusicPlayer& m);
+    Screen(MusicPlayer& m);
 
     virtual void update(float dt) = 0;
     virtual void draw() = 0;
@@ -34,6 +33,5 @@ public:
     virtual bool wantsExit() const;
 
 protected:
-    Renderer& renderer;
     MusicPlayer& music;
 };

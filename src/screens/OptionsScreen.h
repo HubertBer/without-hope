@@ -8,7 +8,6 @@
 
 #include <memory>
 
-class Renderer;
 class MusicPlayer;
 class GameData;
 
@@ -26,7 +25,7 @@ class OptionsScreen : public Screen {
     Action action = Action::None;
 
 public:
-    OptionsScreen(Renderer& r, MusicPlayer& m, GameData& g);
+    OptionsScreen(MusicPlayer& m, GameData& g);
 
     void update(float dt) override;
     void draw() override;

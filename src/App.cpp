@@ -29,10 +29,10 @@ int main() {
     MusicPlayer music{};
     GameData gameData{};
 
-    std::map<ScreenType, std::unique_ptr<Screen>> screens;
-    screens[SCREEN_START] = std::make_unique<StartScreen>(renderer, music);
-    screens[SCREEN_GAME] = std::make_unique<GameScreen>(renderer, music, gameData);
-    screens[SCREEN_OPTIONS] = std::make_unique<OptionsScreen>(renderer, music, gameData);
+    std::map<ScreenType, std::shared_ptr<Screen>> screens;
+    screens[SCREEN_START] = std::make_shared<StartScreen>(music);
+    screens[SCREEN_GAME] = std::make_shared<GameScreen>(music, gameData);
+    screens[SCREEN_OPTIONS] = std::make_shared<OptionsScreen>(music, gameData);
 
     ScreenType currentScreen = SCREEN_START;
 
@@ -40,6 +40,7 @@ int main() {
         float dt = GetFrameTime();
 
         screens[currentScreen]->update(dt);
+        renderer.draw(screens[currentScreen], currentScreen);
         screens[currentScreen]->draw();
         currentScreen = screens[currentScreen]->nextScreen();
        

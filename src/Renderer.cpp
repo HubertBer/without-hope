@@ -6,6 +6,8 @@
 
 #include "Config.h"
 #include "UI/Scaler.h"
+#include "screens/Screen.h"
+#include "screens/GameScreen.h"
 
 Renderer::Renderer(int width, int height) {
     target = LoadRenderTexture(width, height);
@@ -32,32 +34,37 @@ Renderer::~Renderer() {
     UnloadShader(backgroundShader);
 }
 
-void Renderer::draw(GameData &game) {
-    float resolution[2] = {(float)target.texture.width, (float)target.texture.height};
-    SetShaderValue(backgroundShader, GetShaderLocation(backgroundShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
+void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type) {
+    if (type == ScreenType::SCREEN_GAME) {
+        float resolution[2] = {(float)target.texture.width, (float)target.texture.height};
+        SetShaderValue(backgroundShader, GetShaderLocation(backgroundShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
 
-    float time = GetTime();
-    SetShaderValue(shakeShader, GetShaderLocation(shakeShader, "uTime"), &time, SHADER_UNIFORM_FLOAT);
-    SetShaderValue(backgroundShader, GetShaderLocation(backgroundShader, "time"), &time, SHADER_UNIFORM_FLOAT);
+        float time = GetTime();
+        SetShaderValue(shakeShader, GetShaderLocation(shakeShader, "uTime"), &time, SHADER_UNIFORM_FLOAT);
+        SetShaderValue(backgroundShader, GetShaderLocation(backgroundShader, "time"), &time, SHADER_UNIFORM_FLOAT);
 
-    BeginTextureMode(target);
-        ClearBackground(BLACK);
+        BeginTextureMode(target);
+            ClearBackground(BLACK);
 
-        BeginShaderMode(backgroundShader);
-            DrawRectangle(0, 0, Config::screenWidth, Config::screenHeight, WHITE);
-        EndShaderMode();
+            BeginShaderMode(backgroundShader);
+                DrawRectangle(0, 0, Config::screenWidth, Config::screenHeight, WHITE);
+            EndShaderMode();
 
-        BeginMode2D(game.getMainCamera());
-        game.draw();
-        EndMode2D();
-    EndTextureMode();
+            dynamic_cast<GameScreen&>(*screen).draw();
+            EndTextureMode();
 
-    BeginDrawing();
-        ClearBackground(RAYWHITE);
+        BeginDrawing();
+            ClearBackground(RAYWHITE);
 
-        BeginShaderMode(time - game.getTimeSinceKill() > 0.1f ? baseShader : shakeShader);
-            drawTextureStretched(target);
-        EndShaderMode();
-    EndDrawing();
+            BeginShaderMode(time - dynamic_cast<GameScreen&>(*screen).game.getTimeSinceKill() > 0.1f ? baseShader : shakeShader);
+                drawTextureStretched(target);
+            EndShaderMode();
+        EndDrawing();
+    }
+    else {
+        BeginDrawing();
+        screen->draw();
+        EndDrawing();
+    }
 }
 

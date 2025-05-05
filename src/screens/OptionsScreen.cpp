@@ -10,8 +10,8 @@
 
 #include <raylib.h>
 
-OptionsScreen::OptionsScreen(Renderer& r, MusicPlayer& m, GameData& g)
-    : Screen(r, m), game(g) {
+OptionsScreen::OptionsScreen(MusicPlayer& m, GameData& g)
+    : Screen(m), game(g) {
     int w = 200, h = 60, spacing = 20;
     float startY = (Config::screenHeight - (h * 2 + spacing)) / 2.0f;
 
@@ -26,11 +26,9 @@ void OptionsScreen::update(float dt) {
 }
 
 void OptionsScreen::draw() {
-    BeginDrawing();
-        ClearBackground(GRAY);
-        drawButton(resumeButton);
-        drawButton(exitToMenuButton);
-    EndDrawing();
+    ClearBackground(GRAY);
+    drawButton(resumeButton);
+    drawButton(exitToMenuButton);
 }
 
 ScreenType OptionsScreen::nextScreen() {

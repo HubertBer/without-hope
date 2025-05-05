@@ -2,14 +2,14 @@
 
 #include <raylib.h>
 
-#include "GameData.h"
+#include "screens/Screen.h"
 
 class Renderer {
 public:
     Renderer(int width, int height);
     ~Renderer();
 
-    void draw(GameData& game);
+    void draw(std::shared_ptr<Screen> screen, ScreenType type);
 private:
     Shader shakeShader;
     Shader baseShader;
