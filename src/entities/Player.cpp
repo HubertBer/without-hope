@@ -24,6 +24,10 @@ void Player::start(GameData& game){
 
 void Player::physicsUpdate(GameData& game) {
     prevPos = pos;
+    velocity += acceleration * GameData::physicsDt;
+    if(Vector2Length(velocity) > maxSpeed){
+        velocity = Vector2Normalize(velocity) * maxSpeed;
+    }
     pos += velocity * GameData::physicsDt;
 
     for(auto weapon : weapons){
@@ -39,14 +43,16 @@ void Player::gameUpdate(GameData& game, float dt) {
     Vector2 playerDir = game.getMouseWorldPosition() - posNow;
     rotation = Vector2Angle(Vector2{1, 0}, playerDir) * RAD2DEG;
 
-    velocity = {0, 0};
-    if (IsKeyDown(KEY_D)) velocity.x += 1;
-    if (IsKeyDown(KEY_A)) velocity.x -= 1;
-    if (IsKeyDown(KEY_W)) velocity.y -= 1;
-    if (IsKeyDown(KEY_S)) velocity.y += 1;
-    if(Vector2LengthSqr(velocity) > EPSILON){
-        velocity = Vector2Normalize(velocity);
-        velocity *= maxSpeed;
+    acceleration = Vector2{0.f, 0.f};
+    if (IsKeyDown(KEY_D)) acceleration.x += 1;
+    if (IsKeyDown(KEY_A)) acceleration.x -= 1;
+    if (IsKeyDown(KEY_W)) acceleration.y -= 1;
+    if (IsKeyDown(KEY_S)) acceleration.y += 1;
+    if(Vector2LengthSqr(acceleration) > EPSILON){
+        acceleration = Vector2Normalize(acceleration);
+        acceleration *= maxAcceleration;
+    }else{
+        acceleration = Vector2Normalize(velocity) * maxSpeed * -1.f * friction;
     }
 
     for(auto weapon : weapons){
@@ -57,6 +63,7 @@ void Player::gameUpdate(GameData& game, float dt) {
 void Player::collide(std::shared_ptr<Collider> ownCollider, std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> other, GameData& gameData) {
     if(other.first.lock()->type()==SIMPLE_ENEMY){
         velocity=Vector2{0.f,0.f};//insead say that game over or sth
+        acceleration=Vector2{0.f,0.f};//insead say that game over or sth
         zombie=true;
     }
 }

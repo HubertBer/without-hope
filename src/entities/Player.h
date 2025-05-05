@@ -21,8 +21,10 @@ public:
 
     static constexpr float BASE_RADIUS =30.f;
     static constexpr float maxSpeed = 500.0f;
-
+    static constexpr float maxAcceleration = 1500.0f;
+    static constexpr float friction = 0.5f;
 private:
+    Vector2 acceleration{0.f, 0.f};
     std::shared_ptr<Collider> collider;
     std::vector<std::shared_ptr<Weapon>> weapons;
 };
