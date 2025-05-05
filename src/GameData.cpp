@@ -43,13 +43,12 @@ Rectangle GameData::getCameraVisionBoundaries() const{
     };
 }
 
-void GameData::gameUpdate(float dt, float lerpValue)
+bool GameData::gameUpdate(float dt, float lerpValue)
 {
     this->lerpValue = lerpValue;
     handleCollisions();
     if(player->zombie){
-        resetGame();
-        return; 
+        return true;
     }
     for (auto entity : entities)
     {
@@ -60,6 +59,7 @@ void GameData::gameUpdate(float dt, float lerpValue)
     }
     entitiesBuffer.clear();
     deleteZombieEntities();
+    return false;
 }
 
 bool GameData::checkPresent(EntityType type){
@@ -116,10 +116,4 @@ void GameData::reset(GameData& gameData) {
     GameData* ptr = &gameData;
     ptr->~GameData();
     new (ptr) GameData();
-}
-void GameData::resetGame(){
-    entities.clear();
-    entitiesBuffer.clear();
-    
-    LoadGameScene(*this);
 }

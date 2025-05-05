@@ -22,7 +22,9 @@ void GameScreen::update(float dt) {
         physicsTime += GameData::physicsDt;
         game.physicsUpdate();
     }
-    game.gameUpdate(dt, 1 - (physicsTime - gameTime) / GameData::physicsDt);
+    bool gameNeedsReset = game.gameUpdate(dt, 
+                            1 - (physicsTime - gameTime) / GameData::physicsDt);
+    if (gameNeedsReset) GameData::reset(game);
 
     if (IsKeyPressed(KEY_ESCAPE)) {
         goToOptions = true;
