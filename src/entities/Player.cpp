@@ -5,6 +5,8 @@
 #include "SimpleBullet.h"
 #include "../GameData.h"
 #include "../UI/Scaler.h"
+#include "../particles/BasicParticleEffect.h"
+#include "../rand.h"
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity,BASE_RADIUS) {}
@@ -43,6 +45,13 @@ void Player::gameUpdate(GameData& game, float dt) {
             bullet_vel
         ));
         bulletCooldown += maxBulletCooldown;
+    }
+
+    if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+        game.registerEntity(std::make_shared<BasicParticleEffect>(
+            getVirtualPosition(GetMousePosition()),
+            GetRandomFloat(0, 360.f)
+        ));
     }
 }
 

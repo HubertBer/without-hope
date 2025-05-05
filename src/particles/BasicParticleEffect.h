@@ -16,7 +16,7 @@ struct Particle{
 
 class BasicParticleEffect : public Entity{
 public:
-    BasicParticleEffect(Vector2 pos);
+    BasicParticleEffect(Vector2 pos, float rotation);
     void physicsUpdate(GameData&) override;
     void gameUpdate(GameData& game, float dt) override;
     void collide(std::shared_ptr<Entity> entity,GameData& gameData) override;
