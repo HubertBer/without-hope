@@ -9,8 +9,8 @@
 #include "entities/Entity.h"
 #include "collider/CollisionSystem.h"
 #include "collider/Collider.h"
+#include "entities/EntityType.h"
 
-enum EntityType;
 class CollisionSystem;
 class Entity;
 class Collider;

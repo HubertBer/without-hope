@@ -5,20 +5,10 @@
 #include <iostream>
 #include "../collider/Collider.h"
 #include "../collider/CollisionSystem.h"
+#include "EntityType.h"
 
 class GameData;
 class Collider;
-
-enum EntityType{
-    NONE,
-    PLAYER,
-    SIMPLE_ENEMY,
-    SIMPLE_BULLET,
-    SIMPLE_SPAWNER,
-    TARGETABLE_CAMERA,
-    GRID_BACKGROUND,
-    ELECTRIC_FENCE,
-};
 
 enum DrawingLayer : uint16_t{
     BACKGROUND = 0,

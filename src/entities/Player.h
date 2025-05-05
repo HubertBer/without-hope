@@ -27,4 +27,5 @@ private:
     Vector2 acceleration{0.f, 0.f};
     std::shared_ptr<Collider> collider;
     std::vector<std::shared_ptr<Weapon>> weapons;
+    Texture2D hullTexture;
 };
