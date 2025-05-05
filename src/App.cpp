@@ -25,9 +25,9 @@ int main() {
 
     SetExitKey(0); // Disable exit key (ESC)
 
-    std::shared_ptr<Renderer> renderer = std::make_shared<Renderer>(Config::screenWidth, Config::screenHeight);
-    std::shared_ptr<MusicPlayer> music = std::make_shared<MusicPlayer>();
-    std::shared_ptr<std::unique_ptr<GameData>> gameData = std::make_shared<std::unique_ptr<GameData>>(std::make_unique<GameData>());
+    Renderer renderer{Config::screenWidth, Config::screenHeight};
+    MusicPlayer music{};
+    GameData gameData{};
 
     std::map<ScreenType, std::unique_ptr<Screen>> screens;
     screens[SCREEN_START] = std::make_unique<StartScreen>(renderer, music);
@@ -41,7 +41,7 @@ int main() {
 
         screens[currentScreen]->update(dt);
         screens[currentScreen]->draw();
-       currentScreen = screens[currentScreen]->nextScreen();
+        currentScreen = screens[currentScreen]->nextScreen();
        
         if (IsKeyPressed(KEY_F10)) {
             WindowManager::ToggleFullscreen();

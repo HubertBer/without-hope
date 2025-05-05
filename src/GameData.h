@@ -13,7 +13,12 @@ class GameData{
 public:
     GameData();
     void physicsUpdate();
-    void gameUpdate(float dt, float lerpValue);
+
+    /// @brief Main logic loop for the game
+    /// @param dt 
+    /// @param lerpValue 
+    /// @return A flag whether the game state should be reset
+    bool gameUpdate(float dt, float lerpValue);
     void draw();
     void registerEntity(std::shared_ptr<Entity> entity);
     // Right now this is used just for collecting statistics for shader effects
@@ -30,10 +35,10 @@ public:
     Rectangle getCameraVisionBoundaries() const;
     Vector2 lerp(Vector2 v1, Vector2 v2);
     Vector2 playerPos() const;
+    static void reset(GameData& gameData);
 
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
-    void resetGame();
     CollisionSystem collisionSystem;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;

@@ -8,7 +8,7 @@ class MusicPlayer;
 class GameData;
 
 class GameScreen : public Screen {
-    std::shared_ptr<std::unique_ptr<GameData>> game;
+    GameData& game;
 
     float gameTime = 0;
     float physicsTime = 0;
@@ -16,7 +16,7 @@ class GameScreen : public Screen {
     bool goToOptions = false;
 
 public:
-    GameScreen(std::shared_ptr<Renderer> r, std::shared_ptr<MusicPlayer> m, std::shared_ptr<std::unique_ptr<GameData>> g);
+    GameScreen(Renderer& r, MusicPlayer& m, GameData& g);
 
     void update(float dt) override;
     void draw() override;
