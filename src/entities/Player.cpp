@@ -12,6 +12,7 @@
 #include "../weapons/Minigun.h"
 #include "../weapons/ElectricFenceMaker.hpp"
 
+#include <algorithm>
 #include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
 
