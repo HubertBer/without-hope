@@ -12,6 +12,8 @@
 #include "../weapons/ElectricFenceMaker.hpp"
 
 #include <algorithm>
+#include "../particles/BasicParticleEffect.h"
+#include "../rand.h"
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS, 0, DrawingLayer::BLOOM) {

@@ -10,6 +10,7 @@ SimpleSpawner::SimpleSpawner(Rectangle boundingBox, float minDelay, float maxDel
 
 void SimpleSpawner::gameUpdate(GameData& game, float dt){
     timer -= dt;
+    
     if(timer < 0){
         Vector2 pos{
             GetRandomFloat(boundingBox.x, boundingBox.x + boundingBox.width),

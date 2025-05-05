@@ -10,8 +10,8 @@ namespace{
     }
 }
 
-BasicParticleEffect::BasicParticleEffect(Vector2 pos)
-    : Entity(pos, pos, Vector2{0, 0}, 0){}
+BasicParticleEffect::BasicParticleEffect(Vector2 pos, float rotation)
+    : Entity(pos, pos, Vector2{0, 0}, rotation){}
 
 void BasicParticleEffect::physicsUpdate(GameData&){
     for(auto& p : particles){
