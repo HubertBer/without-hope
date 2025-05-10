@@ -16,6 +16,10 @@ void SimpleBullet::gameUpdate(GameData& game, float) {
 void SimpleBullet::physicsUpdate(GameData& game) {
     prevPos = pos;
     pos += velocity * GameData::physicsDt;
+
+    if (Vector2Distance(pos, game.playerPos()) > vanishDistance) {
+        zombie = true;
+    }
 }
 
 void SimpleBullet::collide(std::shared_ptr<Entity> entity,GameData& gameData) {

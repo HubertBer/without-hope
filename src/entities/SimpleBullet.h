@@ -16,4 +16,5 @@ public:
 
     static constexpr float BASE_RADIUS =10.f;
     static constexpr float maxSpeed = 800.f;
+    static constexpr float vanishDistance = 4000.f;
 };
