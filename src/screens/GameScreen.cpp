@@ -32,9 +32,6 @@ void GameScreen::update(float dt) {
 }
 
 void GameScreen::draw() {
-    BeginMode2D(game.getMainCamera());
-    game.draw();
-    EndMode2D();
     music.play(game);
 }
 

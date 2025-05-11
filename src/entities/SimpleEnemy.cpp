@@ -8,8 +8,8 @@
 
 SimpleEnemy::SimpleEnemy(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS) {
-    loadTexture("src/resources/sprites/square.png", 0.5f);
-    loadShader("src/resources/shaders/bloom.fs");
+    loadTexture("square.png", 0.5f);
+    loadShader("bloom");
 }
 
 void SimpleEnemy::gameUpdate(GameData& game, float) {

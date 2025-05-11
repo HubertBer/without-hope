@@ -49,8 +49,8 @@ public:
     float hitboxRadius;
     bool zombie=false;
 protected:
-    void loadTexture(const std::string& path, float scale = 1.f);
-    void loadShader(const std::string& path);
+    void loadTexture(const std::string& fileName, float scale = 1.f);
+    void loadShader(const std::string& name);
 
 private:
     Texture2D texture;

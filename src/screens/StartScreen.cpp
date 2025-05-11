@@ -34,11 +34,9 @@ void StartScreen::update(float dt) {
 }
 
 void StartScreen::draw() {
-    BeginDrawing();
-        ClearBackground(GRAY);
-        drawButton(playButton);
-        drawButton(exitButton);
-    EndDrawing();
+    ClearBackground(GRAY);
+    drawButton(playButton);
+    drawButton(exitButton);
 }
 
 ScreenType StartScreen::nextScreen() {

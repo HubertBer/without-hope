@@ -25,7 +25,7 @@ int main() {
 
     SetExitKey(0); // Disable exit key (ESC)
 
-    Renderer renderer{Config::screenWidth, Config::screenHeight};
+    Renderer::init(Config::screenWidth, Config::screenHeight);
     MusicPlayer music{};
     GameData gameData{};
 
@@ -40,8 +40,7 @@ int main() {
         float dt = GetFrameTime();
 
         screens[currentScreen]->update(dt);
-        renderer.draw(screens[currentScreen], currentScreen);
-        screens[currentScreen]->draw();
+        Renderer::draw(screens[currentScreen], currentScreen);
         currentScreen = screens[currentScreen]->nextScreen();
        
         if (IsKeyPressed(KEY_F10)) {
