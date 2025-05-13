@@ -53,12 +53,10 @@ public:
     bool zombie=false;
     static constexpr int score=0;
 protected:
-
     void loadTexture(const std::string& path, float scale = 1.f);
     void loadShader(const std::string& path);
 
 private:
-
     Texture2D texture;
     Shader shader;
     bool useShader=false;
