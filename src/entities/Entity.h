@@ -58,6 +58,7 @@ protected:
     Color textureTint = WHITE;
 
 private:
+
     Texture2D texture;
     Shader shader;
     bool useShader=false;

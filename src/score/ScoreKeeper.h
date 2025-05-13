@@ -1,7 +1,5 @@
 #pragma once
 #include "../entities/SimpleEnemy.h"
-#include <vector>
-#include <string>
 
 
 class ScoreKeeper{

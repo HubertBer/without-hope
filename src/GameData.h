@@ -10,8 +10,11 @@
 #include "entities/Entity.h"
 #include "collider/CollisionSystem.h"
 #include "score/ScoreKeeper.h"
+<<<<<<< HEAD
 #include "collider/Collider.h"
 #include "entities/EntityType.h"
+=======
+>>>>>>> ed0162e (score tracking)
 
 class Entity;
 class GameData{
@@ -50,6 +53,7 @@ public:
 
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
+    CollisionSystem collisionSystem;
     ScoreKeeper scoreKeeper;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
