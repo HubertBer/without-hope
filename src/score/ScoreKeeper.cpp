@@ -13,3 +13,4 @@ void ScoreKeeper::killEntityAdd(Entity& entity){
 int ScoreKeeper::getScore(){
     return score;
 }
+

@@ -20,6 +20,7 @@ StartScreen::StartScreen(MusicPlayer& m)
 
     playButton = createButton((Config::screenWidth - w) / 2.0f, startY, w, h, "PLAY");
     exitButton = createButton((Config::screenWidth - w) / 2.0f, startY + h + 20, w, h, "EXIT");
+    leaderboardButton = createButton((Config::screenWidth - w) / 2.0f, startY + 2*h + 2*20, w, h, "LEADERBOARD");
 }
 
 void StartScreen::update(float dt) {
@@ -31,18 +32,26 @@ void StartScreen::update(float dt) {
     if (isButtonClicked(exitButton)) {
         exitClicked = true;
     }
+    if (isButtonClicked(leaderboardButton)) {
+        leaderboardClicked = true;
+    }
 }
 
 void StartScreen::draw() {
     ClearBackground(GRAY);
     drawButton(playButton);
     drawButton(exitButton);
+    drawButton(leaderboardButton);
 }
 
 ScreenType StartScreen::nextScreen() {
     if (playClicked) {
         playClicked = false;
         return SCREEN_GAME;
+    }
+    if(leaderboardClicked){
+        leaderboardClicked = false;
+        return SCREEN_LEADERBOARD;
     }
     return SCREEN_START;
 }

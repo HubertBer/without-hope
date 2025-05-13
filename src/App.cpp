@@ -14,6 +14,7 @@
 #include "screens/StartScreen.h"
 #include "screens/GameScreen.h"
 #include "screens/OptionsScreen.h"
+#include "screens/LeaderboardScreen.h"
 
 #include "Config.h"
 
@@ -33,7 +34,8 @@ int main() {
     screens[SCREEN_START] = std::make_shared<StartScreen>(music);
     screens[SCREEN_GAME] = std::make_shared<GameScreen>(music, gameData);
     screens[SCREEN_OPTIONS] = std::make_shared<OptionsScreen>(music, gameData);
-
+    screens[SCREEN_LEADERBOARD] = std::make_shared<LeaderboardScreen>(music, gameData);
+    
     ScreenType currentScreen = SCREEN_START;
 
     while (!WindowShouldClose() && !screens[currentScreen]->wantsExit()) {

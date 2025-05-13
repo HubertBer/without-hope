@@ -3,6 +3,7 @@
 #include "entities/Player.h"
 #include "entities/SimpleEnemy.h"
 #include "./scenes/GameScene.h"
+#include "./score/ScoreService.h"
 #include "raymath.h"
 #include "UI/Scaler.h"
 #include <algorithm>
@@ -115,7 +116,12 @@ Vector2 GameData::playerPos() const {
 }
 
 void GameData::reset(GameData& gameData) {
+    gameData.saveScore();
     GameData* ptr = &gameData;
     ptr->~GameData();
     new (ptr) GameData();
+}
+
+void GameData::saveScore(){
+    ScoreService::saveScore(scoreKeeper.getScore());
 }

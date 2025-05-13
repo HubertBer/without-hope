@@ -12,9 +12,10 @@ class MusicPlayer;
 class GameData;
 
 class StartScreen : public Screen {
-    Button playButton, exitButton;
+    Button playButton, exitButton,leaderboardButton;
     bool playClicked = false;
     bool exitClicked = false;
+    bool leaderboardClicked = false;
 
 public:
     StartScreen(MusicPlayer& m);
