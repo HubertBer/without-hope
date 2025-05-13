@@ -1,24 +1,18 @@
 #include "Entity.h"
 #include "../GameData.h"
 
-void Entity::loadTexture(const std::string& path, float scale) {
-    texture = LoadTexture(path.c_str());
-    if (texture.id == 0) {
-        std::cerr << "Failed to load texture\n";
-    } else {
-        texture.width *= scale;
-        texture.height *= scale;
-        hitboxRadius = std::max(texture.width, texture.height) / 2.f;
-    }
+#include "../Renderer.h"
+
+void Entity::loadTexture(const std::string& fileName, float scale) {
+    texture = Renderer::getTexture(fileName);
+    texture.width *= scale;
+    texture.height *= scale;
+    hitboxRadius = std::max(texture.width, texture.height) / 2.f;
 }
 
-void Entity::loadShader(const std::string &path) {
-    shader = LoadShader(0, path.c_str());
-    if (shader.id == 0) {
-        std::cerr << "Failed to load shader\n";
-    } else {
-        useShader = true;
-    }
+void Entity::loadShader(const std::string &name) {
+    shader = Renderer::getShader(name);
+    useShader = true;
 }
 
 void Entity::drawTexture(){

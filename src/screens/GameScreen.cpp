@@ -9,8 +9,8 @@
 
 #include <raylib.h>
 
-GameScreen::GameScreen(Renderer& r, MusicPlayer& m, GameData& g)
-    : Screen(r, m), game(g) {}
+GameScreen::GameScreen(MusicPlayer& m, GameData& g)
+    : Screen(m), game(g) {}
 
 void GameScreen::update(float dt) {
     gameTime += dt;
@@ -32,7 +32,6 @@ void GameScreen::update(float dt) {
 }
 
 void GameScreen::draw() {
-    renderer.draw(game);
     music.play(game);
 }
 

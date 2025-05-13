@@ -13,8 +13,8 @@
 
 #include <raylib.h>
 
-StartScreen::StartScreen(Renderer& r, MusicPlayer& m)
-    : Screen(r, m) {
+StartScreen::StartScreen(MusicPlayer& m)
+    : Screen(m) {
     int w = 200, h = 60;
     float startY = (Config::screenHeight - h) / 2.0f;
 
@@ -34,11 +34,9 @@ void StartScreen::update(float dt) {
 }
 
 void StartScreen::draw() {
-    BeginDrawing();
-        ClearBackground(GRAY);
-        drawButton(playButton);
-        drawButton(exitButton);
-    EndDrawing();
+    ClearBackground(GRAY);
+    drawButton(playButton);
+    drawButton(exitButton);
 }
 
 ScreenType StartScreen::nextScreen() {

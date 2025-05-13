@@ -6,7 +6,7 @@
 
 SimpleBullet::SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity, float rotation)
     : Entity(prevPos, pos, velocity,  BASE_RADIUS, rotation) {
-    loadTexture("src/resources/sprites/bullet.png", 0.2f);
+    loadTexture("bullet.png", 0.2f);
 }
 
 void SimpleBullet::gameUpdate(GameData& game, float) {
