@@ -49,8 +49,13 @@ public:
     float hitboxRadius;
     bool zombie=false;
 protected:
-    void loadTexture(const std::string& path, float scale = 1.f);
-    void loadShader(const std::string& path);
+    /// @brief Load a texture and attach it to the entity. 
+    /// @param fileName The name of the file to load from the sprites/ folder, e.g. "player.png"
+    /// @param scale 
+    void loadTexture(const std::string& fileName, float scale = 1.f);
+    /// @brief Load a shader and attach it to the entity.
+    /// @param name The name of the shader without the .fs extension, e.g. "voronoi"
+    void loadShader(const std::string& name);
 
 private:
     Texture2D texture;

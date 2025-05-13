@@ -8,7 +8,6 @@
 
 #include <memory>
 
-class Renderer;
 class MusicPlayer;
 class GameData;
 
@@ -18,7 +17,7 @@ class StartScreen : public Screen {
     bool exitClicked = false;
 
 public:
-    StartScreen(Renderer& r, MusicPlayer& m);
+    StartScreen(MusicPlayer& m);
     void update(float dt) override;
     void draw() override;
     ScreenType nextScreen() override;

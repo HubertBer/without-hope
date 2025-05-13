@@ -8,7 +8,7 @@
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS, 0, FOREGROUND) {
-    loadTexture("src/resources/sprites/player.png", 0.5f);
+    loadTexture("player.png", 0.5f);
 }
 
 void Player::physicsUpdate(GameData& game) {

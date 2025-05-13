@@ -45,6 +45,10 @@ Rectangle GameData::getCameraVisionBoundaries() const{
 
 bool GameData::gameUpdate(float dt, float lerpValue)
 {
+    for(auto entity: entitiesBuffer){
+        entities.push_back(entity);
+    }
+    entitiesBuffer.clear();
     this->lerpValue = lerpValue;
     handleCollisions();
     if(player->zombie){
@@ -54,10 +58,6 @@ bool GameData::gameUpdate(float dt, float lerpValue)
     {
         entity->gameUpdate(*this, dt);
     }
-    for(auto entity: entitiesBuffer){
-        entities.push_back(entity);
-    }
-    entitiesBuffer.clear();
     deleteZombieEntities();
     return false;
 }
