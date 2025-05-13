@@ -73,8 +73,11 @@ void StartScreen::draw() {
     drawButton(playButton);
     drawButton(exitButton);
     drawButton(leaderboardButton);
+<<<<<<< HEAD
 
     drawCodenameBox();
+=======
+>>>>>>> 76ae666 (leaderboard)
 }
 
 void StartScreen::drawCodenameBox() const {
