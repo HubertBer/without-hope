@@ -24,8 +24,7 @@ void SimpleEnemy::physicsUpdate(GameData& game) {
 
 void SimpleEnemy::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
     if(entity->type()==SIMPLE_BULLET){
-        zombie=true;
-        gameData.kill();
+        onDeath(gameData);
     }
 }
 

@@ -8,6 +8,7 @@
 
 #include "entities/Entity.h"
 #include "collider/CollisionSystem.h"
+#include "score/ScoreKeeper.h"
 
 class GameData{
 public:
@@ -23,7 +24,7 @@ public:
     void registerEntity(std::shared_ptr<Entity> entity);
     // Right now this is used just for collecting statistics for shader effects
     // if convienient, it can be used to spawn bullets and handle logic for them
-    void kill();
+    void kill(Entity& entity);
     float getTimeSinceKill();
     void handleCollisions();
     void deleteZombieEntities();
@@ -40,6 +41,7 @@ public:
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
     CollisionSystem collisionSystem;
+    ScoreKeeper scoreKeeper;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
     std::shared_ptr<Entity> player;

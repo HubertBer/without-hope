@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "../GameData.h"
 
 void Entity::loadTexture(const std::string& path, float scale) {
     texture = LoadTexture(path.c_str());
@@ -33,4 +34,11 @@ void Entity::drawTexture(){
     if (useShader) {
         EndShaderMode();
     }
+}
+
+void Entity::onDeath(GameData& gameData){
+    if(!zombie){
+        gameData.kill(*this);
+    }
+    zombie=true;
 }

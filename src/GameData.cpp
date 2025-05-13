@@ -46,6 +46,7 @@ Rectangle GameData::getCameraVisionBoundaries() const{
 bool GameData::gameUpdate(float dt, float lerpValue)
 {
     this->lerpValue = lerpValue;
+    scoreKeeper.passiveAdd(dt);
     handleCollisions();
     if(player->zombie){
         return true;
@@ -100,8 +101,9 @@ void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
 }
 
-void GameData::kill() {
+void GameData::kill(Entity& entity){
     timeSinceKill = GetTime();
+    scoreKeeper.killEntityAdd(entity);
 }
 
 float GameData::getTimeSinceKill() {

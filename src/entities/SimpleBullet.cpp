@@ -20,7 +20,7 @@ void SimpleBullet::physicsUpdate(GameData& game) {
 
 void SimpleBullet::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
     if(entity->type()==SIMPLE_ENEMY){
-        zombie=true;
+        onDeath(gameData);
     }
 }
 

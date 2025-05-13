@@ -38,6 +38,9 @@ public:
     void drawTexture();
     virtual EntityType type(){return NONE;}
     virtual std::pair<DrawingLayer, float> drawOrder(){return {drawLayer, pos.y};};
+    void onDeath(GameData& GameData);
+    virtual int getScore(){return score;}
+
 
     Vector2 pos;
     Vector2 prevPos;
@@ -48,11 +51,14 @@ public:
     DrawingLayer drawLayer{DEFAULT};
     float hitboxRadius;
     bool zombie=false;
+    static constexpr int score=0;
 protected:
+
     void loadTexture(const std::string& path, float scale = 1.f);
     void loadShader(const std::string& path);
 
 private:
+
     Texture2D texture;
     Shader shader;
     bool useShader=false;
