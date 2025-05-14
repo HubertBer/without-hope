@@ -117,7 +117,6 @@ Vector2 GameData::playerPos() const {
 }
 
 void GameData::reset(GameData& gameData) {
-    gameData.saveScore();
     const std::string* playerName = gameData.playerName;
     GameData* ptr = &gameData;
     ptr->~GameData();
@@ -130,4 +129,7 @@ void GameData::saveScore(){
 
 int GameData::getScore(){
     return scoreKeeper.getScore();
+}
+GameData::~GameData(){
+    saveScore();
 }
