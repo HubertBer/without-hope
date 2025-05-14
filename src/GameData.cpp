@@ -145,15 +145,9 @@ void GameData::saveScore(){
 
 int GameData::getScore(){
     return scoreKeeper.getScore();
-<<<<<<< HEAD
 }
 
 Rectangle GameData::getMapBoundaries() {
     return mapBoundaries;
 }
 
-GameData::~GameData(){
-    saveScore();
-=======
->>>>>>> 41b6d8b (score displaying)
-}

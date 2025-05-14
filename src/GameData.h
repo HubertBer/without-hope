@@ -51,6 +51,8 @@ public:
 
     ~GameData();
 
+    ~GameData();
+
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
     CollisionSystem collisionSystem;
