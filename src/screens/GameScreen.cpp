@@ -52,9 +52,10 @@ void GameScreen::drawScore(){
 
 void GameScreen::drawScore(){
     int score = game.getScore();
-    const char* text =std::to_string(score).c_str();  
-    int textWidth = MeasureText(text, 50);
-    DrawText(text ,(Config::screenWidth-textWidth)/2,Config::screenHeight/10,50,YELLOW);
+    const char* text =std::to_string(score).c_str();
+    int fontSize=50;  
+    int textWidth = MeasureText(text, fontSize);
+    DrawText(text ,(Config::screenWidth-textWidth)/2,Config::screenHeight/10,fontSize,YELLOW);
 }
 
 ScreenType GameScreen::nextScreen() {
