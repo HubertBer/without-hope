@@ -13,14 +13,23 @@
 
 #include <raylib.h>
 
-StartScreen::StartScreen(MusicPlayer& m,std::string* const name)
-    : Screen(m),name(name) {
-    int w = 200, h = 60;
-    float startY = Config::screenHeight/2.0f;
+constexpr int BUTTON_WIDTH = 200;
+constexpr int BUTTON_HEIGHT = 60;
+constexpr int BUTTON_SPACING = 20;
+constexpr int TEXTBOX_WIDTH = 300;
+constexpr int TEXTBOX_HEIGHT = 60;
+constexpr int TEXTBOX_OFFSET_Y = 180;
+constexpr int LABEL_FONT_SIZE = 40;
 
-    playButton = createButton((Config::screenWidth - w) / 2.0f, startY, w, h, "PLAY");
-    exitButton = createButton((Config::screenWidth - w) / 2.0f, startY + h + 20, w, h, "EXIT");
-    leaderboardButton = createButton((Config::screenWidth - w) / 2.0f, startY + 2*h + 2*20, w, h, "LEADERBOARD");
+StartScreen::StartScreen(MusicPlayer& m, std::string* const name)
+    : Screen(m), name(name) {
+    
+    float centerX = Config::screenWidth / 2.0f;
+    float startY = Config::screenHeight / 2.0f;
+
+    playButton = createButton(centerX - BUTTON_WIDTH / 2.0f, startY, BUTTON_WIDTH, BUTTON_HEIGHT, "PLAY");
+    exitButton = createButton(centerX - BUTTON_WIDTH / 2.0f, startY + BUTTON_HEIGHT + BUTTON_SPACING, BUTTON_WIDTH, BUTTON_HEIGHT, "EXIT");
+    leaderboardButton = createButton(centerX - BUTTON_WIDTH / 2.0f, startY + 2 * (BUTTON_HEIGHT + BUTTON_SPACING), BUTTON_WIDTH, BUTTON_HEIGHT, "LEADERBOARD");
 }
 
 void StartScreen::update(float dt) {
@@ -60,13 +69,24 @@ void StartScreen::update(float dt) {
 
 void StartScreen::draw() {
     ClearBackground(GRAY);
+
     drawButton(playButton);
     drawButton(exitButton);
     drawButton(leaderboardButton);
-    DrawText("YOUR CODENAME:", (Config::screenWidth - 350) / 2.0f, Config::screenHeight/2.0f - 180-80, 40, BLACK);
-    DrawRectangle( (Config::screenWidth-200)/2.0f-25, Config::screenHeight/2.0f - 180-10, 250, 60 ,DARKBLUE);
-    DrawText(name->c_str(), (Config::screenWidth - 200) / 2.0f, Config::screenHeight/2.0f - 180, 40, SKYBLUE);
+
+    drawCodenameBox();
 }
+
+void StartScreen::drawCodenameBox() const {
+    float centerX = Config::screenWidth / 2.0f;
+    float labelY = Config::screenHeight / 2.0f - TEXTBOX_OFFSET_Y - 80;
+    float boxY = Config::screenHeight / 2.0f - TEXTBOX_OFFSET_Y;
+
+    DrawText("YOUR CODENAME:", centerX - 175, labelY, LABEL_FONT_SIZE, BLACK);
+    DrawRectangle(centerX - TEXTBOX_WIDTH / 2.0f , boxY - 10, TEXTBOX_WIDTH, TEXTBOX_HEIGHT, DARKBLUE);
+    DrawText(name->c_str(), centerX - 100, boxY, LABEL_FONT_SIZE, SKYBLUE);
+}
+
 
 ScreenType StartScreen::nextScreen() {
     if (playClicked) {

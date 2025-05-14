@@ -26,4 +26,5 @@ public:
     void draw() override;
     ScreenType nextScreen() override;
     bool wantsExit() const override;
+    void drawCodenameBox() const;
 };
