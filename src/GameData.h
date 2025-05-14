@@ -38,6 +38,7 @@ public:
     Vector2 playerPos() const;
     static void reset(GameData& gameData);
     void saveScore();
+    int getScore();
 
     static constexpr float physicsDt = 1.0f/30.0f;
 private:

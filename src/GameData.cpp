@@ -98,6 +98,7 @@ void GameData::draw(){
     }
 }
 
+
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
 }
@@ -125,4 +126,8 @@ void GameData::reset(GameData& gameData) {
 
 void GameData::saveScore(){
     ScoreService::saveScore({scoreKeeper.getScore(),*playerName});
+}
+
+int GameData::getScore(){
+    return scoreKeeper.getScore();
 }

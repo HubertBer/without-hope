@@ -58,6 +58,7 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
 
         BeginShaderMode(time - dynamic_cast<GameScreen &>(*screen).game.getTimeSinceKill() > 0.1f ? baseShader : shakeShader);
         drawTextureStretched(target);
+        gameScreen->drawScore();
         EndShaderMode();
         EndDrawing();
     }
