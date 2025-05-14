@@ -75,6 +75,7 @@ void StartScreen::draw() {
     drawButton(leaderboardButton);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     drawCodenameBox();
 =======
@@ -84,6 +85,10 @@ void StartScreen::draw() {
     DrawRectangle( (Config::screenWidth-200)/2.0f-25, Config::screenHeight/2.0f - 180-10, 250, 60 ,DARKBLUE);
     DrawText(name->c_str(), (Config::screenWidth - 200) / 2.0f, Config::screenHeight/2.0f - 180, 40, SKYBLUE);
 >>>>>>> c1df52f (working score tracking and leaderboard)
+=======
+
+    drawCodenameBox();
+>>>>>>> 686a42d (slight StartScreen cleanup)
 }
 
 void StartScreen::drawCodenameBox() const {
@@ -91,9 +96,15 @@ void StartScreen::drawCodenameBox() const {
     float labelY = Config::screenHeight / 2.0f - TEXTBOX_OFFSET_Y - 80;
     float boxY = Config::screenHeight / 2.0f - TEXTBOX_OFFSET_Y;
 
+<<<<<<< HEAD
     DrawTextStretched("YOUR CODENAME:", centerX, labelY, LABEL_FONT_SIZE, BLACK);
     DrawRectangleStretched(centerX - TEXTBOX_WIDTH / 2.0f , boxY - 30, TEXTBOX_WIDTH, TEXTBOX_HEIGHT, DARKBLUE);
     DrawTextStretched(name->c_str(), centerX, boxY, LABEL_FONT_SIZE, SKYBLUE);
+=======
+    DrawText("YOUR CODENAME:", centerX - 175, labelY, LABEL_FONT_SIZE, BLACK);
+    DrawRectangle(centerX - TEXTBOX_WIDTH / 2.0f , boxY - 10, TEXTBOX_WIDTH, TEXTBOX_HEIGHT, DARKBLUE);
+    DrawText(name->c_str(), centerX - 100, boxY, LABEL_FONT_SIZE, SKYBLUE);
+>>>>>>> 686a42d (slight StartScreen cleanup)
 }
 
 
