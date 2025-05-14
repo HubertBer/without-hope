@@ -30,6 +30,6 @@ void Entity::drawTexture(){
     }
 }
 
-void Entity::onDeath(GameData& gameData){
+void Entity::onDeath(){
     zombie=true;
 }
