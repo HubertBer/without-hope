@@ -8,7 +8,7 @@
 #include "UI/Scaler.h"
 #include <algorithm>
 
-GameData::GameData()
+GameData::GameData(const std::string* playerName):playerName(playerName)
 {
     LoadGameScene(*this);
 }
@@ -117,11 +117,12 @@ Vector2 GameData::playerPos() const {
 
 void GameData::reset(GameData& gameData) {
     gameData.saveScore();
+    const std::string* playerName = gameData.playerName;
     GameData* ptr = &gameData;
     ptr->~GameData();
-    new (ptr) GameData();
+    new (ptr) GameData(playerName);
 }
 
 void GameData::saveScore(){
-    ScoreService::saveScore(scoreKeeper.getScore());
+    ScoreService::saveScore({scoreKeeper.getScore(),*playerName});
 }

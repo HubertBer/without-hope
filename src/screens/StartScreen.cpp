@@ -13,10 +13,10 @@
 
 #include <raylib.h>
 
-StartScreen::StartScreen(MusicPlayer& m)
-    : Screen(m) {
+StartScreen::StartScreen(MusicPlayer& m,std::string* const name)
+    : Screen(m),name(name) {
     int w = 200, h = 60;
-    float startY = (Config::screenHeight - h) / 2.0f;
+    float startY = Config::screenHeight/2.0f;
 
     playButton = createButton((Config::screenWidth - w) / 2.0f, startY, w, h, "PLAY");
     exitButton = createButton((Config::screenWidth - w) / 2.0f, startY + h + 20, w, h, "EXIT");
@@ -35,6 +35,27 @@ void StartScreen::update(float dt) {
     if (isButtonClicked(leaderboardButton)) {
         leaderboardClicked = true;
     }
+    //code stolen from https://www.raylib.com/examples/text/loader.html?name=text_input_box
+    //and changed for strings
+    int key = GetCharPressed();
+
+    // Check if more characters have been pressed on the same frame
+    while (key > 0){
+        // NOTE: Only allow keys in range [32..125]
+        if ((key >= 32) && (key <= 125) && (letterCount < MAX_INPUT_CHARS)){
+            name->push_back((char)key); // Add null terminator at the end of the string.
+            letterCount++;
+        }
+        key = GetCharPressed();  // Check next character in the queue
+    }
+    if (IsKeyPressed(KEY_BACKSPACE))
+    {
+        if (letterCount > 0){
+            letterCount--;
+            name->pop_back();
+        }
+    }
+
 }
 
 void StartScreen::draw() {
@@ -42,11 +63,15 @@ void StartScreen::draw() {
     drawButton(playButton);
     drawButton(exitButton);
     drawButton(leaderboardButton);
+    DrawText("YOUR CODENAME:", (Config::screenWidth - 350) / 2.0f, Config::screenHeight/2.0f - 180-80, 40, BLACK);
+    DrawRectangle( (Config::screenWidth-200)/2.0f-25, Config::screenHeight/2.0f - 180-10, 250, 60 ,DARKBLUE);
+    DrawText(name->c_str(), (Config::screenWidth - 200) / 2.0f, Config::screenHeight/2.0f - 180, 40, SKYBLUE);
 }
 
 ScreenType StartScreen::nextScreen() {
     if (playClicked) {
         playClicked = false;
+        std::cout<<*name<<'\n';
         return SCREEN_GAME;
     }
     if(leaderboardClicked){

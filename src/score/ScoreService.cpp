@@ -1,6 +1,7 @@
 #include "ScoreService.h"
 #include <nlohmann/json.hpp>
 #include <fstream>
+#include <iostream>
 
 using json = nlohmann::json;
 
@@ -12,7 +13,7 @@ std::vector<Score> ScoreService::loadLeaderboard(){
         file >> j;
         if (j.contains("highscores") && j["highscores"].is_array()) {
             for (const auto& s : j["highscores"]) {
-                scores.push_back({ s["score"] });
+                scores.push_back({ s["score"],s["name"] });
             }
         }
         file.close();
@@ -38,7 +39,7 @@ int ScoreService::saveScore(Score currentScore){
 
     json j;
     for (auto& entry : scores) {
-        j["highscores"].push_back({ {"score", entry.result} });
+        j["highscores"].push_back({ {"score", entry.result},{"name",entry.playerName} });
     }
 
     std::ofstream file(SCORE_FILE);

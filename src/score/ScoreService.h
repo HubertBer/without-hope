@@ -5,12 +5,17 @@
 class Score{
     public:
     int result;
+    std::string playerName;
     Score():result(0){};
-    Score(int x):result(x){};
+    Score(int x,std::string name):result(x){
+        if(name.empty())name = defaultName;
+        playerName = name;
+    };
 
     friend bool operator<(const Score& a, const Score&b){
         return a.result<b.result;
     };
+    inline static const std::string defaultName = "Anonymous";
 };
 
 class ScoreService{

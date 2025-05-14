@@ -19,9 +19,11 @@ void LeaderboardScreen::draw() {
     drawButton(exitButton);
     int currY = 20;
     int fontSize=(Config::screenHeight -2*60)/12;
-    int w=70,spacing=6;
+    int w = 300;
+    int w_number=70,spacing=6;
     for(auto& score:ScoreService::loadLeaderboard()){
-        DrawText(std::to_string(score.result).c_str(),(Config::screenWidth - w) / 2.0f,currY,fontSize,BLACK);
+        DrawText(score.playerName.c_str(),(Config::screenWidth - w) / 2.0f,currY,fontSize,BLACK);
+        DrawText(std::to_string(score.result).c_str(),(Config::screenWidth + w + w_number) / 2.0f,currY,fontSize,BLACK);
         currY+=fontSize+spacing;
     }
 }

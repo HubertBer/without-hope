@@ -26,12 +26,14 @@ int main() {
 
     SetExitKey(0); // Disable exit key (ESC)
 
+    std::string name;
     Renderer::init(Config::screenWidth, Config::screenHeight);
     MusicPlayer music{};
-    GameData gameData{};
+    GameData gameData{&name};
+    
 
     std::map<ScreenType, std::shared_ptr<Screen>> screens;
-    screens[SCREEN_START] = std::make_shared<StartScreen>(music);
+    screens[SCREEN_START] = std::make_shared<StartScreen>(music,&name);
     screens[SCREEN_GAME] = std::make_shared<GameScreen>(music, gameData);
     screens[SCREEN_OPTIONS] = std::make_shared<OptionsScreen>(music, gameData);
     screens[SCREEN_LEADERBOARD] = std::make_shared<LeaderboardScreen>(music, gameData);

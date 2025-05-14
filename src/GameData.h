@@ -12,7 +12,7 @@
 
 class GameData{
 public:
-    GameData();
+    GameData(const std::string* playerName);
     void physicsUpdate();
 
     /// @brief Main logic loop for the game
@@ -54,6 +54,7 @@ private:
         0,
         1.0f
     };
+    const std::string* playerName;
 
     // Statistics for shaders
     float timeSinceKill{-1.f};
