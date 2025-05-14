@@ -3,7 +3,7 @@
 #include "../GameData.h"
 
 GridBackground::GridBackground()
-: Entity(Vector2{0, 0}, Vector2{0, 0}, Vector2{0, 0}, 0, BACKGROUND){}
+: Entity(Vector2{0, 0}, Vector2{0, 0}, Vector2{0, 0}, 0.f, 0.f, DrawingLayer::BACKGROUND){}
 
 void GridBackground::gameUpdate(GameData& game, float dt){
     cameraBoundaries = GameData::getCameraVisionBoundaries(game.getMainCamera());

@@ -12,7 +12,8 @@
 void Renderer::init(int width, int height)
 {
     target = LoadRenderTexture(width, height);
-    if (target.texture.id == 0) {
+    targetBloom = LoadRenderTexture(width, height);
+    if (target.texture.id == 0 || targetBloom.texture.id == 0) {
         throw std::runtime_error("Failed to load render texture");
     }
 
@@ -28,15 +29,20 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
         Shader& voronoiShader = getShader("voronoi");
         Shader& shakeShader = getShader("shake");
         Shader& baseShader = getShader("base");
+        Shader& bloomShader = getShader("bloom");
 
         float resolution[2] = {(float)target.texture.width, (float)target.texture.height};
         SetShaderValue(voronoiShader, GetShaderLocation(voronoiShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
+        SetShaderValue(bloomShader, GetShaderLocation(bloomShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
 
         float time = GetTime();
         SetShaderValue(shakeShader, GetShaderLocation(shakeShader, "uTime"), &time, SHADER_UNIFORM_FLOAT);
         SetShaderValue(voronoiShader, GetShaderLocation(voronoiShader, "time"), &time, SHADER_UNIFORM_FLOAT);
 
         auto gameScreen = std::dynamic_pointer_cast<GameScreen>(screen);
+        auto drawLayers = gameScreen->game.prepareDraw();
+
+        // Prerender to a texture all layers except bloom
         BeginTextureMode(target);
         ClearBackground(BLACK);
 
@@ -45,25 +51,44 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
         EndShaderMode();
 
         BeginMode2D(gameScreen->game.getMainCamera());
-        gameScreen->game.draw();
-        
-        // Play the music:
-        gameScreen->draw();
-
+        for (const auto &[layer, entities] : drawLayers) {
+            if (layer != DrawingLayer::BLOOM) {
+                for (const auto &entity : entities) {
+                    entity->draw();
+                }
+            }
+        }
         Rectangle mapBounds = gameScreen->game.getMapBoundaries();
         float desiredPx   = 8.0f;
         float thicknessWS = desiredPx / gameScreen->game.getMainCamera().zoom;
         DrawRectangleLinesEx(mapBounds, thicknessWS, BLACK);
-
         EndMode2D();
-
         EndTextureMode();
 
+        // Render bloom layer to a separate texture
+        BeginTextureMode(targetBloom);
+        ClearBackground(BLANK);
+        BeginMode2D(gameScreen->game.getMainCamera());
+        const auto &entities = drawLayers[DrawingLayer::BLOOM];
+        for (const auto &entity : entities) {
+            entity->draw();
+        }
+        EndMode2D();
+        EndTextureMode();
+
+        // Draw all the layers to the screen
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(BLACK);
 
         BeginShaderMode(time - dynamic_cast<GameScreen &>(*screen).game.getTimeSinceKill() > 0.1f ? baseShader : shakeShader);
+        
+        BeginBlendMode(BLEND_ADDITIVE);
         drawTextureStretched(target);
+        BeginShaderMode(bloomShader);
+        drawTextureStretched(targetBloom);
+        EndShaderMode();
+        EndBlendMode();
+
         gameScreen->drawScore();
         EndShaderMode();
         EndDrawing();

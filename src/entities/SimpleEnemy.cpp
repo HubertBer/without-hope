@@ -7,9 +7,9 @@
 #include "../GameData.h"
 
 SimpleEnemy::SimpleEnemy(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity, BASE_RADIUS) {
+    : Entity(prevPos, pos, velocity, BASE_RADIUS, 0.f, DrawingLayer::BLOOM) {
     loadTexture("square.png", 0.5f);
-    loadShader("bloom");
+    textureTint = RED;
     collider = MakeCircleCollider(pos, hitboxRadius);
 }
 

@@ -1,7 +1,7 @@
 #include "ElectricFence.h"
 
 ElectricFence::ElectricFence(Collider collider)
-: Entity(collider.p0, collider.p1, Vector2{0, 0}, 0, 0, BACKGROUND){
+: Entity(collider.p0, collider.p1, Vector2{0, 0}, 0, 0, DrawingLayer::BACKGROUND){
         posNow = collider.p0;
         this->collider = collider;
     }
