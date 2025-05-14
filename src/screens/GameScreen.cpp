@@ -7,6 +7,8 @@
 #include "../music/MusicPlayer.h"
 #include "../UI/Scaler.h"
 
+#include <sstream>
+#include <iomanip>
 #include <raylib.h>
 
 GameScreen::GameScreen(MusicPlayer& m, GameData& g)
@@ -37,10 +39,18 @@ void GameScreen::draw() {
 
 void GameScreen::drawScore(){
     int score = game.getScore();
-    const char* text =std::to_string(score).c_str();
-    int fontSize=50;  
-    int textWidth = MeasureText(text, fontSize);
-    DrawText(text ,(Config::screenWidth-textWidth)/2,Config::screenHeight/10,fontSize,YELLOW);
+    int fontSize=50;
+    int spacing = 10;
+    //do something like if you want different font
+    //Font customFont = LoadFontEx(fontFlie.c_str(), fontSize, 0, 0)
+    Font customFont = GetFontDefault();
+    std::stringstream ss;
+    ss << std::setfill('0') << std::setw(8) << score;
+    const char* text =ss.str().c_str();
+    int textWidth = MeasureTextEx(customFont,text, fontSize,spacing).x;
+    DrawTextEx(customFont,text ,{(Config::screenWidth-textWidth)/2.0f,Config::screenHeight/10.0f},fontSize,spacing,YELLOW);
+    
+
 }
 
 ScreenType GameScreen::nextScreen() {
