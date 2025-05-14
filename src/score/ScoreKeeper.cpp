@@ -6,8 +6,8 @@ void ScoreKeeper::passiveAdd(float dt){
     
 }
 
-void ScoreKeeper::killEntityAdd(Entity& entity){
-    score += entity.getScore();
+void ScoreKeeper::killEntityAdd(std::shared_ptr<Entity> entity){
+    score += entity->getScore();
 }
 
 int ScoreKeeper::getScore(){

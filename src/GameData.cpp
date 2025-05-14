@@ -80,6 +80,9 @@ void GameData::handleCollisions(){
 }
 
 void GameData::deleteZombieEntities(){
+    for(auto& entity : entities){
+        if(entity->zombie)kill(entity);
+    }
     entities.remove_if([](std::shared_ptr<Entity> x){return x->zombie;});
 }
 
@@ -103,7 +106,7 @@ void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
 }
 
-void GameData::kill(Entity& entity){
+void GameData::kill(std::shared_ptr<Entity> entity){
     timeSinceKill = GetTime();
     scoreKeeper.killEntityAdd(entity);
 }

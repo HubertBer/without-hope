@@ -31,8 +31,5 @@ void Entity::drawTexture(){
 }
 
 void Entity::onDeath(GameData& gameData){
-    if(!zombie){
-        gameData.kill(*this);
-    }
     zombie=true;
 }

@@ -7,7 +7,7 @@
 class ScoreKeeper{
     public:
     void passiveAdd(float dt);
-    void killEntityAdd(Entity& entity);
+    void killEntityAdd(std::shared_ptr<Entity> entity);
     int getScore();
     private:
     int score=0;

@@ -24,7 +24,7 @@ public:
     void registerEntity(std::shared_ptr<Entity> entity);
     // Right now this is used just for collecting statistics for shader effects
     // if convienient, it can be used to spawn bullets and handle logic for them
-    void kill(Entity& entity);
+    void kill(std::shared_ptr<Entity> entity);
     float getTimeSinceKill();
     void handleCollisions();
     void deleteZombieEntities();
