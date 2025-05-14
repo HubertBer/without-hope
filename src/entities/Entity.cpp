@@ -30,6 +30,10 @@ void Entity::drawTexture(){
     }
 }
 
+<<<<<<< HEAD
 void Entity::onDeath(){
+=======
+void Entity::onDeath(GameData& gameData){
+>>>>>>> 29c55eb (score gets counted when we delete zombies, changes sygnature of kills to shared_ptr)
     zombie=true;
 }
