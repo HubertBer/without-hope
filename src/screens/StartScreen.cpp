@@ -74,10 +74,16 @@ void StartScreen::draw() {
     drawButton(exitButton);
     drawButton(leaderboardButton);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     drawCodenameBox();
 =======
 >>>>>>> 76ae666 (leaderboard)
+=======
+    DrawText("YOUR CODENAME:", (Config::screenWidth - 350) / 2.0f, Config::screenHeight/2.0f - 180-80, 40, BLACK);
+    DrawRectangle( (Config::screenWidth-200)/2.0f-25, Config::screenHeight/2.0f - 180-10, 250, 60 ,DARKBLUE);
+    DrawText(name->c_str(), (Config::screenWidth - 200) / 2.0f, Config::screenHeight/2.0f - 180, 40, SKYBLUE);
+>>>>>>> c1df52f (working score tracking and leaderboard)
 }
 
 void StartScreen::drawCodenameBox() const {
