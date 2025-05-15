@@ -24,10 +24,6 @@ void TargetableCamera::gameUpdate(GameData& game, float dt){
     game.setMainCamera(camera);
 }
 
-void TargetableCamera::physicsUpdate(GameData& game){}
-void TargetableCamera::collide(std::shared_ptr<Entity> entity,GameData& gameData){}
-void TargetableCamera::draw(){}
-
 EntityType TargetableCamera::type(){
     return TARGETABLE_CAMERA;
 }

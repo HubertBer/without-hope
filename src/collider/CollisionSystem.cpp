@@ -1,23 +1,43 @@
 #include "CollisionSystem.h"
-
-#include <list>
+#include <vector>
 #include <memory>
-#include <raymath.h>
+#include <algorithm>
+#include "../entities/Entity.h"
+#include <list>
 
-
-bool CollisionSystem::areColliding(std::shared_ptr<Entity> first,std::shared_ptr<Entity> second){
-    //should we abstract even further?
-    return CheckCollisionCircles(first->pos,first->hitboxRadius,second->pos,second->hitboxRadius);
+namespace{
+    bool AreColliding(Collider col1, Collider col2){
+        if(col1.type > col2.type){
+            std::swap(col1, col2);
+        }
+        if(col1.type == ColliderType::CIRCLE && col2.type == ColliderType::CIRCLE){
+            return CheckCollisionCircles(col1.p0, col1.radius, col2.p0, col2.radius);
+        }
+        if(col1.type == ColliderType::CIRCLE && col2.type == ColliderType::LINE_SEGMENT){
+            return CheckCollisionCircleLine(col1.p0, col1.radius, col2.p0, col2.p1);
+        }
+        Vector2 collisionPoint;
+        return CheckCollisionLines(col1.p0, col1.p1, col2.p0, col2.p1, &collisionPoint);
+    }
 }
 
-void CollisionSystem::handleCollisions(std::list<std::shared_ptr<Entity>>& entities,GameData& gameData){
-    for(auto entity1 : entities){
-        for(auto entity2 : entities){
-            if(entity1 == entity2)continue;
-            if(areColliding(entity1,entity2)){
-                entity1->collide(entity2,gameData);
-                entity2->collide(entity1,gameData);
+std::vector<std::pair<std::shared_ptr<Entity>, std::shared_ptr<Entity>>> GetCollisions(const std::list<std::shared_ptr<Entity>>& entities){
+    std::vector<std::pair<std::shared_ptr<Entity>, std::shared_ptr<Entity>>> collisions;
+    
+    for(auto e1 : entities){
+        if(e1->collider.type == ColliderType::NONE){
+            continue;
+        }
+        for(auto e2 : entities){
+            if(e1 == e2){
+                continue;
+            }       
+
+            if(AreColliding(e1->collider, e2->collider)){
+                collisions.push_back({e1, e2});
             }
         }
     }
+
+    return collisions;
 }

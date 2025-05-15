@@ -7,6 +7,7 @@
 #include "raymath.h"
 #include "UI/Scaler.h"
 #include <algorithm>
+#include "collider/CollisionSystem.h"
 
 GameData::GameData(const std::string* playerName):playerName(playerName)
 {
@@ -76,7 +77,10 @@ void GameData::setPlayer(std::shared_ptr<Entity> player){
 }
 
 void GameData::handleCollisions(){
-    collisionSystem.handleCollisions(entities,*this);
+    auto collisions = GetCollisions(entities);
+    for(auto[e1, e2] : collisions){
+        e1->collide(e2, *this);
+    }
 }
 
 void GameData::deleteZombieEntities(){
@@ -104,6 +108,7 @@ void GameData::draw(){
 
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
+    entity->start(*this);
 }
 
 void GameData::kill(std::shared_ptr<Entity> entity){

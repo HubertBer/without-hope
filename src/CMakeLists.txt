@@ -14,7 +14,12 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/SimpleSpawner.cpp
     entities/TargetableCamera.cpp
     entities/GridBackground.cpp
+    entities/ElectricFence.cpp
     collider/CollisionSystem.cpp
+    collider/Collider.cpp
+    weapons/Cannon.cpp
+    weapons/Minigun.cpp
+    weapons/ElectricFenceMaker.cpp
     UI/Button.h
     screens/Screen.cpp
     screens/OptionsScreen.cpp
