@@ -9,6 +9,8 @@
 #include "../weapons/Minigun.h"
 #include "../weapons/ElectricFenceMaker.hpp"
 
+#include <algorithm>
+
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS, 0, FOREGROUND) {
     loadTexture("player.png", 0.5f);
@@ -31,6 +33,12 @@ void Player::physicsUpdate(GameData& game) {
     }
 
     collider.p0 = pos;
+
+    Rectangle mapBoundaries = game.getMapBoundaries();
+    pos = {
+        std::clamp(pos.x, hitboxRadius, mapBoundaries.width - hitboxRadius),
+        std::clamp(pos.y, hitboxRadius, mapBoundaries.height - hitboxRadius)
+    };
 }
 
 void Player::gameUpdate(GameData& game, float dt) {

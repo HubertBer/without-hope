@@ -6,7 +6,7 @@ GridBackground::GridBackground()
 : Entity(Vector2{0, 0}, Vector2{0, 0}, Vector2{0, 0}, 0, BACKGROUND){}
 
 void GridBackground::gameUpdate(GameData& game, float dt){
-    cameraBoundaries = game.getCameraVisionBoundaries();
+    cameraBoundaries = GameData::getCameraVisionBoundaries(game.getMainCamera());
 }
 
 void GridBackground::physicsUpdate(GameData& game){}

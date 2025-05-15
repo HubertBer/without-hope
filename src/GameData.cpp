@@ -30,18 +30,18 @@ Vector2 GameData::getMouseWorldPosition() const {
     return GetScreenToWorld2D(getVirtualPosition(GetMousePosition()), mainCamera);
 }
 
-Rectangle GameData::getCameraVisionBoundaries() const{
+Rectangle GameData::getCameraVisionBoundaries(Camera2D camera) {
     // Vector2 origin = mainCamera.offset + mainCamera.target;
     Vector2 origin = {
-        mainCamera.target.x - (mainCamera.offset.x / mainCamera.zoom),
-        mainCamera.target.y - (mainCamera.offset.y / mainCamera.zoom)
+        camera.target.x - (camera.offset.x / camera.zoom),
+        camera.target.y - (camera.offset.y / camera.zoom)
     };
         
     return Rectangle{
         origin.x,
         origin.y,
-        GetScreenWidth() / mainCamera.zoom,
-        GetScreenHeight() / mainCamera.zoom
+        GetScreenWidth() / camera.zoom,
+        GetScreenHeight() / camera.zoom
     };
 }
 
@@ -138,6 +138,11 @@ void GameData::saveScore(){
 int GameData::getScore(){
     return scoreKeeper.getScore();
 }
+
+Rectangle GameData::getMapBoundaries() {
+    return mapBoundaries;
+}
+
 GameData::~GameData(){
     saveScore();
 }
