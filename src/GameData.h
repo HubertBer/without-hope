@@ -48,7 +48,6 @@ public:
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
     ScoreKeeper scoreKeeper;
-    void resetGame();
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
     std::shared_ptr<Entity> player;
