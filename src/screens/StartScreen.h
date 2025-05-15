@@ -19,6 +19,7 @@ class StartScreen : public Screen {
     static constexpr int MAX_INPUT_CHARS = 9;
     std::string* const  name;
     int letterCount=0;
+    GameData& game;
 
 public:
     StartScreen(std::string* const name);

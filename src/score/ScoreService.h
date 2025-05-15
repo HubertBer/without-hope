@@ -15,6 +15,9 @@ class Score{
     friend bool operator<(const Score& a, const Score&b){
         return a.result<b.result;
     };
+    friend bool operator>(const Score& a, const Score&b){
+        return a.result>b.result;
+    };
     inline static const std::string defaultName = "Anonymous";
 };
 

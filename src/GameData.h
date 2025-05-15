@@ -45,13 +45,15 @@ public:
     Vector2 lerp(Vector2 v1, Vector2 v2);
     Vector2 playerPos() const;
     static void reset(GameData& gameData);
+    void endGame();
     void saveScore();
     int getScore();
     Rectangle getMapBoundaries();
 
     ~GameData();
 
-    ~GameData();
+    bool hasEnded=false;
+    int scorePosition=-1;
 
     static constexpr float physicsDt = 1.0f/30.0f;
 private:

@@ -4,6 +4,7 @@
 #include "GameScreen.h"
 
 #include "../Config.h"
+#include "../GameData.h"
 #include "../Renderer.h"
 #include "../GameData.h"
 #include "../WindowManager.h"
@@ -36,6 +37,7 @@ void StartScreen::update(float dt) {
     (void)dt; // Unused
 
     if (isButtonClicked(playButton)) {
+        GameData::reset(game);
         playClicked = true;
     }
     if (isButtonClicked(exitButton)) {
@@ -110,8 +112,8 @@ void StartScreen::drawCodenameBox() const {
 
 ScreenType StartScreen::nextScreen() {
     if (playClicked) {
+        GameData::reset(game);
         playClicked = false;
-        std::cout<<*name<<'\n';
         return SCREEN_GAME;
     }
     if(leaderboardClicked){
