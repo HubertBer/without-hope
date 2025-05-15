@@ -11,7 +11,8 @@
 enum ScreenType {
     SCREEN_START,
     SCREEN_GAME,
-    SCREEN_OPTIONS
+    SCREEN_OPTIONS,
+    SCREEN_LEADERBOARD
 };
 
 class Screen {

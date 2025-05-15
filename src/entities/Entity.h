@@ -38,6 +38,9 @@ public:
     void drawTexture();
     virtual EntityType type(){return NONE;}
     virtual std::pair<DrawingLayer, float> drawOrder(){return {drawLayer, pos.y};};
+    void onDeath();
+    virtual int getScore(){return score;}
+
 
     Vector2 pos;
     Vector2 prevPos;
@@ -48,6 +51,7 @@ public:
     DrawingLayer drawLayer{DEFAULT};
     float hitboxRadius;
     bool zombie=false;
+    static constexpr int score=0;
 protected:
     /// @brief Load a texture and attach it to the entity. 
     /// @param fileName The name of the file to load from the sprites/ folder, e.g. "player.png"

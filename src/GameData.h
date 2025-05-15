@@ -8,10 +8,11 @@
 
 #include "entities/Entity.h"
 #include "collider/CollisionSystem.h"
+#include "score/ScoreKeeper.h"
 
 class GameData{
 public:
-    GameData();
+    GameData(const std::string* playerName);
     void physicsUpdate();
 
     /// @brief Main logic loop for the game
@@ -23,7 +24,7 @@ public:
     void registerEntity(std::shared_ptr<Entity> entity);
     // Right now this is used just for collecting statistics for shader effects
     // if convienient, it can be used to spawn bullets and handle logic for them
-    void kill();
+    void kill(std::shared_ptr<Entity> entity);
     float getTimeSinceKill();
     void handleCollisions();
     void deleteZombieEntities();
@@ -36,10 +37,15 @@ public:
     Vector2 lerp(Vector2 v1, Vector2 v2);
     Vector2 playerPos() const;
     static void reset(GameData& gameData);
+    void saveScore();
+    int getScore();
+
+    ~GameData();
 
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
     CollisionSystem collisionSystem;
+    ScoreKeeper scoreKeeper;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
     std::shared_ptr<Entity> player;
@@ -51,6 +57,7 @@ private:
         0,
         1.0f
     };
+    const std::string* playerName;
 
     // Statistics for shaders
     float timeSinceKill{-1.f};

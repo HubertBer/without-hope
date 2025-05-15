@@ -3,11 +3,12 @@
 #include "entities/Player.h"
 #include "entities/SimpleEnemy.h"
 #include "./scenes/GameScene.h"
+#include "./score/ScoreService.h"
 #include "raymath.h"
 #include "UI/Scaler.h"
 #include <algorithm>
 
-GameData::GameData()
+GameData::GameData(const std::string* playerName):playerName(playerName)
 {
     LoadGameScene(*this);
 }
@@ -50,6 +51,7 @@ bool GameData::gameUpdate(float dt, float lerpValue)
     }
     entitiesBuffer.clear();
     this->lerpValue = lerpValue;
+    scoreKeeper.passiveAdd(dt);
     handleCollisions();
     if(player->zombie){
         return true;
@@ -78,6 +80,9 @@ void GameData::handleCollisions(){
 }
 
 void GameData::deleteZombieEntities(){
+    for(auto& entity : entities){
+        if(entity->zombie)kill(entity);
+    }
     entities.remove_if([](std::shared_ptr<Entity> x){return x->zombie;});
 }
 
@@ -96,12 +101,14 @@ void GameData::draw(){
     }
 }
 
+
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
 }
 
-void GameData::kill() {
+void GameData::kill(std::shared_ptr<Entity> entity){
     timeSinceKill = GetTime();
+    scoreKeeper.killEntityAdd(entity);
 }
 
 float GameData::getTimeSinceKill() {
@@ -113,7 +120,19 @@ Vector2 GameData::playerPos() const {
 }
 
 void GameData::reset(GameData& gameData) {
+    const std::string* playerName = gameData.playerName;
     GameData* ptr = &gameData;
     ptr->~GameData();
-    new (ptr) GameData();
+    new (ptr) GameData(playerName);
+}
+
+void GameData::saveScore(){
+    ScoreService::saveScore({scoreKeeper.getScore(),*playerName});
+}
+
+int GameData::getScore(){
+    return scoreKeeper.getScore();
+}
+GameData::~GameData(){
+    saveScore();
 }
