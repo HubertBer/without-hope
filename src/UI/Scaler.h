@@ -44,5 +44,5 @@ inline void DrawRectangleStretched(int posX, int posY, int width, int height, Co
 inline void DrawTextStretched(const char* text, int posX, int posY, int fontSize, Color color) {
     auto [scaleX, scaleY] = getScaling();
     Vector2 scaledPos = { posX * scaleX, posY * scaleY };
-    DrawText(text, (int)scaledPos.x, (int)scaledPos.y, fontSize, color);
+    DrawText(text, (int)roundf(scaledPos.x), (int)roundf(scaledPos.y), fontSize, color);
 }
