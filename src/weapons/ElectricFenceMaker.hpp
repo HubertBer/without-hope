@@ -8,8 +8,6 @@ public:
     void gameUpdate(GameData& game, Player& player, float dt) override;
     void physicsUpdate(GameData& game, Player& player) override;
 
-private:
-    std::shared_ptr<Collider> fenceCollider;
     std::shared_ptr<Entity> electricFence;
     bool placing = false;
     float timer = 0.f;

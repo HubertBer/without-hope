@@ -1,16 +1,14 @@
 #pragma once
 
 #include "raylib.h"
-#include "../entities/Entity.h"
-
-class Entity;
 struct Collider{
     static enum class Type{
+        NONE,
         CIRCLE,
         LINE_SEGMENT,
     };
 
-    Type type = Type::CIRCLE;
+    Type type = Type::NONE;
     Vector2 p0{0, 0};
     Vector2 p1{0, 0};
     float radius = 0;

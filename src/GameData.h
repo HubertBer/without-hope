@@ -12,6 +12,7 @@
 #include "collider/Collider.h"
 #include "entities/EntityType.h"
 
+class Entity;
 class GameData{
 public:
     GameData(const std::string* playerName);
@@ -24,7 +25,6 @@ public:
     bool gameUpdate(float dt, float lerpValue);
     void draw();
     void registerEntity(std::shared_ptr<Entity> entity);
-    void registerEntityCollider(std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> ec);
     // Right now this is used just for collecting statistics for shader effects
     // if convienient, it can be used to spawn bullets and handle logic for them
     void kill(std::shared_ptr<Entity> entity);
