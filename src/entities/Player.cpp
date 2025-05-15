@@ -11,7 +11,6 @@
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS, 0, FOREGROUND) {
-    std::cerr << "JEABC REBASE" << std::endl;
     loadTexture("player.png", 0.5f);
     weapons.push_back(std::make_shared<Cannon>());
     weapons.push_back(std::make_shared<Minigun>());
