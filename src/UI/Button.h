@@ -23,12 +23,11 @@ inline Button createButton(float x, float y, float width, float height, const st
 inline void drawButton(const Button& button) {
     Rectangle scaledBounds = getScaledRectangle(button.bounds);
     DrawRectangleRec(scaledBounds, button.bgColor);
-    
-    int textWidth = MeasureText(button.label.c_str(), button.fontSize);
+
     DrawTextStretched(
         button.label.c_str(),
-        button.bounds.x + (button.bounds.width - textWidth) / 2,
-        button.bounds.y + (button.bounds.height - button.fontSize) / 2,
+        button.bounds.x + button.bounds.width / 2,
+        button.bounds.y + button.bounds.height / 2,
         button.fontSize,
         button.textColor
     );

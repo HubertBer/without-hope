@@ -42,9 +42,13 @@ inline void DrawRectangleStretched(int posX, int posY, int width, int height, Co
 }
 
 inline void DrawTextStretched(const char* text, int posX, int posY, int fontSize, Color color) {
-    auto [scaleX, scaleY] = getScaling();
-    float fx = posX * scaleX;
-    float fy = posY * scaleY;
-    float drawSize = fontSize * scaleY;
-    DrawTextEx(GetFontDefault(), text, {fx, fy}, drawSize, 0.0f, color);
+    auto [sx, sy] = getScaling();
+    float fx = posX * sx;
+    float fy = posY * sy;
+    float size = fontSize * sy;
+    Font f = GetFontDefault();
+    float spacing = 4.0f * sx;
+    Vector2 ts = MeasureTextEx(f, text, size, spacing);
+    DrawTextEx(f, text, { fx - ts.x * 0.5f, fy - size * 0.5f }, size, spacing, color);
 }
+
