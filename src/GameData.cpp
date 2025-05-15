@@ -10,6 +10,7 @@
 
 GameData::GameData(const std::string* playerName):playerName(playerName)
 {
+    collisionSystem = std::make_shared<CollisionSystem>();
     LoadGameScene(*this);
 }
 
@@ -76,7 +77,7 @@ void GameData::setPlayer(std::shared_ptr<Entity> player){
 }
 
 void GameData::handleCollisions(){
-    collisionSystem.handleCollisions(entities,*this);
+    collisionSystem->handleCollisions(*this);
 }
 
 void GameData::deleteZombieEntities(){
@@ -104,6 +105,12 @@ void GameData::draw(){
 
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
+    entity->self = entity;
+    entity->start(*this);
+}
+
+void GameData::registerEntityCollider(std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> ec){
+    collisionSystem->registerEntityCollider(ec);
 }
 
 void GameData::kill(std::shared_ptr<Entity> entity){

@@ -27,7 +27,7 @@ void SimpleSpawner::gameUpdate(GameData& game, float dt){
 }
 
 void SimpleSpawner::physicsUpdate(GameData& game){}
-void SimpleSpawner::collide(std::shared_ptr<Entity> other, GameData& game){}
+void SimpleSpawner::collide(std::shared_ptr<Collider> ownCollider, std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> other, GameData& gameData){}
 void SimpleSpawner::draw(){}
 
 EntityType SimpleSpawner::type() {

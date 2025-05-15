@@ -3,18 +3,12 @@
 #include <raylib.h>
 #include <memory>
 #include <iostream>
+#include "../collider/Collider.h"
+#include "../collider/CollisionSystem.h"
+#include "EntityType.h"
 
 class GameData;
-
-enum EntityType{
-    NONE,
-    PLAYER,
-    SIMPLE_ENEMY,
-    SIMPLE_BULLET,
-    SIMPLE_SPAWNER,
-    TARGETABLE_CAMERA,
-    GRID_BACKGROUND,
-};
+class Collider;
 
 enum DrawingLayer : uint16_t{
     BACKGROUND = 0,
@@ -33,7 +27,7 @@ public:
     /// @param game 
     /// @param dt 
     virtual void gameUpdate(GameData& game, float dt){}
-    virtual void collide(std::shared_ptr<Entity> entity,GameData& gameData){};
+    virtual void collide(std::shared_ptr<Collider> ownCollider, std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> other, GameData& gameData){};
     virtual void draw(){}
     void drawTexture();
     virtual EntityType type(){return NONE;}
@@ -41,6 +35,7 @@ public:
     void onDeath();
     virtual int getScore(){return score;}
 
+    virtual void start(GameData&){}
 
     Vector2 pos;
     Vector2 prevPos;
