@@ -46,11 +46,11 @@ void GameScreen::drawScore(){
     Font customFont = GetFontDefault();
     std::stringstream ss;
     ss << std::setfill('0') << std::setw(8) << score;
-    const char* text =ss.str().c_str();
+    std::string scoreText;
+    ss >> scoreText;
+    const char* text = scoreText.c_str();
     int textWidth = MeasureTextEx(customFont,text, fontSize,spacing).x;
     DrawTextEx(customFont,text ,{(Config::screenWidth-textWidth)/2.0f,Config::screenHeight/10.0f},fontSize,spacing,YELLOW);
-    
-
 }
 
 ScreenType GameScreen::nextScreen() {
