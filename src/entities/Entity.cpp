@@ -1,5 +1,4 @@
 #include "Entity.h"
-#include "../GameData.h"
 
 #include "../Renderer.h"
 
