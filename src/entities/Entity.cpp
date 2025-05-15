@@ -28,3 +28,7 @@ void Entity::drawTexture(){
         EndShaderMode();
     }
 }
+
+void Entity::onDeath(){
+    zombie=true;
+}

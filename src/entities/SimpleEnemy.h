@@ -12,10 +12,12 @@ public:
     void collide(std::shared_ptr<Entity> entity,GameData& gameData) override;
     void draw() override;
     EntityType type() override;
+    virtual int getScore() override{return score;}
 
 
 private:
     static constexpr float BASE_RADIUS =10.f;
     static constexpr float maxSpeed = 300.f;
+    static constexpr int score = 10;
     
 };
