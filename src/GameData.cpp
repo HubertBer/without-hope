@@ -6,10 +6,10 @@
 #include "raymath.h"
 #include "UI/Scaler.h"
 #include <algorithm>
+#include "collider/CollisionSystem.h"
 
 GameData::GameData()
 {
-    collisionSystem = std::make_shared<CollisionSystem>();
     LoadGameScene(*this);
 }
 
@@ -75,7 +75,10 @@ void GameData::setPlayer(std::shared_ptr<Entity> player){
 }
 
 void GameData::handleCollisions(){
-    collisionSystem->handleCollisions(*this);
+    auto collisions = GetCollisions(entities);
+    for(auto[e1, e2] : collisions){
+        e1->collide(e2, *this);
+    }
 }
 
 void GameData::deleteZombieEntities(){
@@ -99,12 +102,7 @@ void GameData::draw(){
 
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
-    entity->self = entity;
     entity->start(*this);
-}
-
-void GameData::registerEntityCollider(std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> ec){
-    collisionSystem->registerEntityCollider(ec);
 }
 
 void GameData::kill() {
