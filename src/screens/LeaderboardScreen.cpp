@@ -22,8 +22,8 @@ void LeaderboardScreen::draw() {
     int w = 300;
     int w_number=70,spacing=6;
     for(auto& score:ScoreService::loadLeaderboard()){
-        DrawText(score.playerName.c_str(),(Config::screenWidth - w) / 2.0f,currY,fontSize,BLACK);
-        DrawText(std::to_string(score.result).c_str(),(Config::screenWidth + w + w_number) / 2.0f,currY,fontSize,BLACK);
+        DrawTextStretched(score.playerName.c_str(),(Config::screenWidth - w) / 2.0f,currY,fontSize,BLACK);
+        DrawTextStretched(std::to_string(score.result).c_str(),(Config::screenWidth + w + w_number) / 2.0f,currY,fontSize,BLACK);
         currY+=fontSize+spacing;
     }
 }

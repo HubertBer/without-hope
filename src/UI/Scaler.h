@@ -33,3 +33,16 @@ inline void drawTextureStretched(RenderTexture2D texture) {
 
     DrawTexturePro(texture.texture, source, dest, { 0, 0 }, 0.0f, WHITE);
 }
+
+inline void DrawRectangleStretched(int posX, int posY, int width, int height, Color color) {
+    Rectangle rect = { (float)posX, (float)posY, (float)width, (float)height };
+    auto [scaleX, scaleY] = getScaling();
+    Rectangle scaledRect = { rect.x * scaleX, rect.y * scaleY, rect.width * scaleX, rect.height * scaleY };
+    DrawRectangleRec(scaledRect, color);
+}
+
+inline void DrawTextStretched(const char* text, int posX, int posY, int fontSize, Color color) {
+    auto [scaleX, scaleY] = getScaling();
+    Vector2 scaledPos = { posX * scaleX, posY * scaleY };
+    DrawText(text, (int)scaledPos.x, (int)scaledPos.y, fontSize, color);
+}
