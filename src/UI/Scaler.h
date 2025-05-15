@@ -2,6 +2,7 @@
 
 #include <utility>
 #include <algorithm>
+#include <iostream>
 
 #include <raylib.h>
 
@@ -11,12 +12,18 @@
 inline std::pair<float, float> getScaling() {
     float w = WindowManager::IsFullscreen() ? (float)GetRenderWidth() : (float)GetScreenWidth();
     float h = WindowManager::IsFullscreen() ? (float)GetRenderHeight() : (float)GetScreenHeight();
+    std::cerr << "Real Width: " << w << ", Height: " << h << std::endl;
     return { w / Config::screenWidth, h / Config::screenHeight };
 }
 
 inline Vector2 getVirtualPosition(Vector2 pos) {
     auto [scaleX, scaleY] = getScaling();
     return { pos.x / scaleX, pos.y / scaleY };
+}
+
+inline Rectangle getScaledRectangle(Rectangle rect) {
+    auto [scaleX, scaleY] = getScaling();
+    return { rect.x * scaleX, rect.y * scaleY, rect.width * scaleX, rect.height * scaleY };
 }
 
 inline void drawTextureStretched(RenderTexture2D texture) {
