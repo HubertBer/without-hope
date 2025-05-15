@@ -10,10 +10,10 @@ namespace{
         if(col1.type > col2.type){
             std::swap(col1, col2);
         }
-        if(col1.type == Collider::Type::CIRCLE && col2.type == Collider::Type::CIRCLE){
+        if(col1.type == ColliderType::CIRCLE && col2.type == ColliderType::CIRCLE){
             return CheckCollisionCircles(col1.p0, col1.radius, col2.p0, col2.radius);
         }
-        if(col1.type == Collider::Type::CIRCLE && col2.type == Collider::Type::LINE_SEGMENT){
+        if(col1.type == ColliderType::CIRCLE && col2.type == ColliderType::LINE_SEGMENT){
             return CheckCollisionCircleLine(col1.p0, col1.radius, col2.p0, col2.p1);
         }
         Vector2 collisionPoint;
@@ -25,7 +25,7 @@ std::vector<std::pair<std::shared_ptr<Entity>, std::shared_ptr<Entity>>> GetColl
     std::vector<std::pair<std::shared_ptr<Entity>, std::shared_ptr<Entity>>> collisions;
     
     for(auto e1 : entities){
-        if(e1->collider.type == Collider::Type::NONE){
+        if(e1->collider.type == ColliderType::NONE){
             continue;
         }
         for(auto e2 : entities){
