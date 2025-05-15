@@ -9,7 +9,7 @@
 SimpleEnemy::SimpleEnemy(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS) {
     loadTexture("square.png", 0.5f);
-    loadShader("bloom.fs");
+    loadShader("bloom");
     collider = MakeCircleCollider(pos, hitboxRadius);
 }
 
