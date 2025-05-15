@@ -80,7 +80,7 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
         BeginDrawing();
         ClearBackground(BLACK);
 
-        BeginShaderMode(time - dynamic_cast<GameScreen &>(*screen).game.getTimeSinceKill() > 0.1f ? baseShader : shakeShader);
+        BeginShaderMode(time - dynamic_cast<GameScreen &>(*screen).game.getLastDamageTime() > 0.1f ? baseShader : shakeShader);
         
         BeginBlendMode(BLEND_ADDITIVE);
         drawTextureStretched(target);
