@@ -8,6 +8,12 @@
 
 #include "entities/Entity.h"
 #include "collider/CollisionSystem.h"
+#include "collider/Collider.h"
+#include "entities/EntityType.h"
+
+class CollisionSystem;
+class Entity;
+class Collider;
 
 class GameData{
 public:
@@ -16,6 +22,7 @@ public:
     void gameUpdate(float dt, float lerpValue);
     void draw();
     void registerEntity(std::shared_ptr<Entity> entity);
+    void registerEntityCollider(std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> ec);
     // Right now this is used just for collecting statistics for shader effects
     // if convienient, it can be used to spawn bullets and handle logic for them
     void kill();
@@ -34,7 +41,7 @@ public:
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
     void resetGame();
-    CollisionSystem collisionSystem;
+    std::shared_ptr<CollisionSystem> collisionSystem;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
     std::shared_ptr<Entity> player;

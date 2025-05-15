@@ -1,18 +1,20 @@
 #pragma once
 
-#include "raylib.h"
 #include "Entity.h"
-#include <memory>
+#include "../GameData.h"
 
-class TargetableCamera : public Entity{
+class ElectricFence : public Entity{
 public:
-    TargetableCamera(std::shared_ptr<Entity> target);
+    ElectricFence(std::shared_ptr<Collider> collider);
     void gameUpdate(GameData& game, float dt) override;
     void physicsUpdate(GameData& game) override;
     void collide(std::shared_ptr<Collider> ownCollider, std::pair<std::weak_ptr<Entity>, std::weak_ptr<Collider>> other, GameData& gameData) override;
     void draw() override;
+    void start(GameData&) override;
     EntityType type() override;
 
 private:
-    std::shared_ptr<Entity> target;
+    std::shared_ptr<Collider> collider;
+    const Color color = SKYBLUE;
+    const float width = 10.0f;
 };
