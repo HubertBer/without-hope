@@ -12,7 +12,6 @@
 inline std::pair<float, float> getScaling() {
     float w = WindowManager::IsFullscreen() ? (float)GetRenderWidth() : (float)GetScreenWidth();
     float h = WindowManager::IsFullscreen() ? (float)GetRenderHeight() : (float)GetScreenHeight();
-    std::cerr << "Real Width: " << w << ", Height: " << h << std::endl;
     return { w / Config::screenWidth, h / Config::screenHeight };
 }
 

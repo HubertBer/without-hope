@@ -22,11 +22,6 @@ inline Button createButton(float x, float y, float width, float height, const st
 
 inline void drawButton(const Button& button) {
     Rectangle scaledBounds = getScaledRectangle(button.bounds);
-
-    std::cerr << "Width: " << WindowManager::GetWidth() << ", Height: " << WindowManager::GetHeight() << std::endl;
-    std::cerr << "Button bounds: " << button.bounds.x << ", " << button.bounds.y << ", " << button.bounds.width << ", " << button.bounds.height << std::endl;
-    std::cerr << "Scaled bounds: " << scaledBounds.x << ", " << scaledBounds.y << ", " << scaledBounds.width << ", " << scaledBounds.height << std::endl;
-
     DrawRectangleRec(scaledBounds, button.bgColor);
     int textWidth = MeasureText(button.label.c_str(), button.fontSize);
     DrawText(
