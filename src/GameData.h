@@ -33,7 +33,7 @@ public:
     Camera2D getMainCamera() const;
     void setMainCamera(Camera2D);
     Vector2 getMouseWorldPosition() const;
-    Rectangle getCameraVisionBoundaries() const;
+    static Rectangle getCameraVisionBoundaries(Camera2D camera);
     Vector2 lerp(Vector2 v1, Vector2 v2);
     Vector2 playerPos() const;
     static void reset(GameData& gameData);
