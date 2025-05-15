@@ -9,7 +9,10 @@
 #include "entities/Entity.h"
 #include "collider/CollisionSystem.h"
 #include "score/ScoreKeeper.h"
+#include "collider/Collider.h"
+#include "entities/EntityType.h"
 
+class Entity;
 class GameData{
 public:
     GameData(const std::string* playerName);
@@ -44,7 +47,6 @@ public:
 
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
-    CollisionSystem collisionSystem;
     ScoreKeeper scoreKeeper;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;

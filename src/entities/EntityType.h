@@ -1,0 +1,12 @@
+#pragma once
+
+enum EntityType{
+    NONE,
+    PLAYER,
+    SIMPLE_ENEMY,
+    SIMPLE_BULLET,
+    SIMPLE_SPAWNER,
+    TARGETABLE_CAMERA,
+    GRID_BACKGROUND,
+    ELECTRIC_FENCE,
+};
