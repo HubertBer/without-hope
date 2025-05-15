@@ -39,6 +39,7 @@ public:
     static void reset(GameData& gameData);
     void saveScore();
     int getScore();
+    Rectangle getMapBoundaries();
 
     ~GameData();
 
@@ -58,6 +59,12 @@ private:
         1.0f
     };
     const std::string* playerName;
+
+    Rectangle mapBoundaries{
+        0, 0,
+        1.3f * GetScreenWidth(),
+        1.3f * GetScreenHeight()
+    };
 
     // Statistics for shaders
     float timeSinceKill{-1.f};

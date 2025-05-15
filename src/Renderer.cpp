@@ -49,6 +49,12 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
         
         // Play the music:
         gameScreen->draw();
+
+        Rectangle mapBounds = gameScreen->game.getMapBoundaries();
+        float desiredPx   = 8.0f;
+        float thicknessWS = desiredPx / gameScreen->game.getMainCamera().zoom;
+        DrawRectangleLinesEx(mapBounds, thicknessWS, BLACK);
+
         EndMode2D();
 
         EndTextureMode();

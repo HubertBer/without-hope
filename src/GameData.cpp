@@ -133,6 +133,11 @@ void GameData::saveScore(){
 int GameData::getScore(){
     return scoreKeeper.getScore();
 }
+
+Rectangle GameData::getMapBoundaries(){
+    return mapBoundaries;
+}
+
 GameData::~GameData(){
     saveScore();
 }

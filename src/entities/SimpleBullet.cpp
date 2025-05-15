@@ -16,6 +16,12 @@ void SimpleBullet::gameUpdate(GameData& game, float) {
 void SimpleBullet::physicsUpdate(GameData& game) {
     prevPos = pos;
     pos += velocity * GameData::physicsDt;
+
+    Rectangle mapBoundaries = game.getMapBoundaries();
+    if (pos.x < 0.0f || pos.x > mapBoundaries.width ||
+        pos.y < 0.0f || pos.y > mapBoundaries.height) {
+        onDeath();
+    }
 }
 
 void SimpleBullet::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
