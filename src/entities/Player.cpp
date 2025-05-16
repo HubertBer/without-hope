@@ -64,11 +64,16 @@ void Player::gameUpdate(GameData& game, float dt) {
     }
 }
 
-void Player::collide(std::shared_ptr<Entity> other, GameData& gameData) {
-    if(other->type() == SIMPLE_ENEMY){
-        velocity=Vector2{0.f,0.f};//insead say that game over or sth
-        acceleration=Vector2{0.f,0.f};//insead say that game over or sth
-        zombie=true;
+void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
+    switch(entity->type()){
+        case SIMPLE_ENEMY:
+        case SQUADRON_SHIP:
+            velocity=Vector2{0.f,0.f};
+            acceleration=Vector2{0.f,0.f};
+            zombie=true;
+            break;
+        default:
+            break;
     }
 }
 

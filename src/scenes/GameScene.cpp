@@ -5,6 +5,7 @@
 #include "../entities/GridBackground.h"
 #include "../entities/TargetableCamera.h"
 #include "../rand.h"
+#include "../entities/Squadron.h"
 
 void LoadGameScene(GameData& game){
     Rectangle mapBoundaries = game.getMapBoundaries();
@@ -58,5 +59,10 @@ void LoadGameScene(GameData& game){
         Rectangle{0, 0, 100, 100},
         3,
         6
+    ));
+
+    game.registerEntity(std::make_shared<Squadron>(
+        Vector2{1000.f, 0.f},
+        180
     ));
 }
