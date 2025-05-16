@@ -17,7 +17,7 @@ void LeaderboardScreen::update(float dt) {
 void LeaderboardScreen::draw() {
     ClearBackground(GRAY);
     drawButton(exitButton);
-    int currY = 20;
+    int currY = 100;
     int fontSize=(Config::screenHeight -2*60)/12;
     int w = 300;
     int w_number=70,spacing=6;

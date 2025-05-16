@@ -24,5 +24,5 @@ class ScoreService{
     static std::vector<Score> loadLeaderboard();
     private:
     inline static const std::string SCORE_FILE ="scores/high_scores"; 
-    static constexpr int LEADERBOARD_SIZE =10;
+    static constexpr int LEADERBOARD_SIZE = 9;
 };

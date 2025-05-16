@@ -49,8 +49,7 @@ void GameScreen::drawScore(){
     std::string scoreText;
     ss >> scoreText;
     const char* text = scoreText.c_str();
-    int textWidth = MeasureTextEx(customFont,text, fontSize,spacing).x;
-    DrawTextEx(customFont,text ,{(Config::screenWidth-textWidth)/2.0f,Config::screenHeight/10.0f},fontSize,spacing,YELLOW);
+    DrawTextStretched(text, Config::screenWidth / 2.0f, Config::screenHeight / 10.0f, fontSize, YELLOW);
 }
 
 ScreenType GameScreen::nextScreen() {
