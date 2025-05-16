@@ -82,9 +82,9 @@ void StartScreen::drawCodenameBox() const {
     float labelY = Config::screenHeight / 2.0f - TEXTBOX_OFFSET_Y - 80;
     float boxY = Config::screenHeight / 2.0f - TEXTBOX_OFFSET_Y;
 
-    DrawText("YOUR CODENAME:", centerX - 175, labelY, LABEL_FONT_SIZE, BLACK);
-    DrawRectangle(centerX - TEXTBOX_WIDTH / 2.0f , boxY - 10, TEXTBOX_WIDTH, TEXTBOX_HEIGHT, DARKBLUE);
-    DrawText(name->c_str(), centerX - 100, boxY, LABEL_FONT_SIZE, SKYBLUE);
+    DrawTextStretched("YOUR CODENAME:", centerX, labelY, LABEL_FONT_SIZE, BLACK);
+    DrawRectangleStretched(centerX - TEXTBOX_WIDTH / 2.0f , boxY - 30, TEXTBOX_WIDTH, TEXTBOX_HEIGHT, DARKBLUE);
+    DrawTextStretched(name->c_str(), centerX, boxY, LABEL_FONT_SIZE, SKYBLUE);
 }
 
 
