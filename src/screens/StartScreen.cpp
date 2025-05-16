@@ -21,8 +21,8 @@ constexpr int TEXTBOX_HEIGHT = 60;
 constexpr int TEXTBOX_OFFSET_Y = 180;
 constexpr int LABEL_FONT_SIZE = 40;
 
-StartScreen::StartScreen(MusicPlayer& m, std::string* const name)
-    : Screen(m), name(name) {
+StartScreen::StartScreen(std::string* const name)
+    : Screen(), name(name) {
     
     float centerX = Config::screenWidth / 2.0f;
     float startY = Config::screenHeight / 2.0f;
