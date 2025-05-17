@@ -1,5 +1,7 @@
 #include "Player.h"
 
+#include <iostream>
+
 #include <raymath.h>
 
 #include "SimpleBullet.h"
@@ -12,7 +14,7 @@
 #include <algorithm>
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
-    : Entity(prevPos, pos, velocity, BASE_RADIUS, 0, FOREGROUND) {
+    : Entity(prevPos, pos, velocity, BASE_RADIUS, 0, DrawingLayer::BLOOM) {
     loadTexture("player.png", 0.5f);
     weapons.push_back(std::make_shared<Cannon>());
     weapons.push_back(std::make_shared<Minigun>());
@@ -64,16 +66,40 @@ void Player::gameUpdate(GameData& game, float dt) {
     }
 }
 
-void Player::collide(std::shared_ptr<Entity> other, GameData& gameData) {
-    if(other->type() == SIMPLE_ENEMY){
-        velocity=Vector2{0.f,0.f};//insead say that game over or sth
-        acceleration=Vector2{0.f,0.f};//insead say that game over or sth
-        zombie=true;
+void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData ) {
+    if(entity->type()==SIMPLE_ENEMY){
+        if (GetTime() - timeOfLastDamage > damageImmunity) {
+            health -= 1;
+            if (health == 0) {
+                velocity=Vector2{0.f,0.f}; // instead say that game over or sth
+                acceleration=Vector2{0.f,0.f};
+                zombie=true;
+            }
+            else {
+                textureTint = healthColorLerp();
+                timeOfLastDamage = GetTime();
+            }
+        }
     }
 }
 
 void Player::draw() {
     drawTexture();
+}
+
+Color Player::healthColorLerp()
+{
+    float t = (float)(health - 1)/maxHealth;
+    static constexpr Color colorB{255, 255, 255, 255};
+    static constexpr Color colorA{255, 0, 0, 255};
+
+    Color result;
+    result.r = colorA.r + (colorB.r - colorA.r) * t;
+    result.g = colorA.g + (colorB.g - colorA.g) * t;
+    result.b = colorA.b + (colorB.b - colorA.b) * t;
+    result.a = colorA.a + (colorB.a - colorA.a) * t;
+
+    return result;
 }
 
 EntityType Player::type() {

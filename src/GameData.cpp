@@ -65,6 +65,19 @@ bool GameData::gameUpdate(float dt, float lerpValue)
     return false;
 }
 
+std::unordered_map<DrawingLayer, std::vector<std::shared_ptr<Entity>>> GameData::prepareDraw()
+{
+    std::unordered_map<DrawingLayer, std::vector<std::shared_ptr<Entity>>> drawLayers;
+
+    entities.sort([](const std::shared_ptr<Entity>& e1, const std::shared_ptr<Entity>& e2){
+        return e1->drawOrder() < e2->drawOrder();
+    });
+    for(auto entity : entities){
+        drawLayers[entity->drawLayer].push_back(entity);
+    }
+    return drawLayers;
+}
+
 bool GameData::checkPresent(EntityType type){
     for(auto entity: entities){
         if(entity->type()==type)return true;
@@ -96,16 +109,6 @@ void GameData::physicsUpdate(){
     }
 }
 
-void GameData::draw(){
-    entities.sort([](const std::shared_ptr<Entity>& e1, const std::shared_ptr<Entity>& e2){
-        return e1->drawOrder() < e2->drawOrder();
-    });
-    for(auto entity : entities){
-        entity->draw();
-    }
-}
-
-
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
     entity->start(*this);
@@ -118,6 +121,11 @@ void GameData::kill(std::shared_ptr<Entity> entity){
 
 float GameData::getTimeSinceKill() {
   return timeSinceKill;
+}
+
+float GameData::getLastDamageTime()
+{
+    return std::dynamic_pointer_cast<Player>(player)->timeOfLastDamage;
 }
 
 Vector2 GameData::playerPos() const {

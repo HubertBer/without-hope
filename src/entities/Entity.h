@@ -8,15 +8,16 @@
 
 class GameData;
 
-enum DrawingLayer : uint16_t{
+enum class DrawingLayer : uint16_t{
     BACKGROUND = 0,
     DEFAULT,
+    BLOOM,
     FOREGROUND,
 };
 
 class Entity{
 public:
-    Entity(Vector2 prevPos, Vector2 pos, Vector2 velocity, float hitboxRadius, float rotation=0, DrawingLayer drawLayer = DEFAULT)
+    Entity(Vector2 prevPos, Vector2 pos, Vector2 velocity, float hitboxRadius, float rotation=0, DrawingLayer drawLayer = DrawingLayer::DEFAULT)
         : prevPos(prevPos), pos(pos), velocity(velocity),hitboxRadius(hitboxRadius), rotation(rotation), drawLayer(drawLayer) {}
     /// @brief Function called every physics tick.
     /// @param  
@@ -42,7 +43,7 @@ public:
     Collider collider;
     // The angle of the entity in degrees (raylib requirement).
     float rotation=0;
-    DrawingLayer drawLayer{DEFAULT};
+    DrawingLayer drawLayer{DrawingLayer::DEFAULT};
     float hitboxRadius;
     bool zombie=false;
     static constexpr int score=0;
@@ -54,6 +55,7 @@ protected:
     /// @brief Load a shader and attach it to the entity.
     /// @param name The name of the shader without the .fs extension, e.g. "voronoi"
     void loadShader(const std::string& name);
+    Color textureTint = WHITE;
 
 private:
     Texture2D texture;
