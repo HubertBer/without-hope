@@ -6,6 +6,7 @@
 #include "../GameData.h"
 #include <vector>
 #include "../weapons/Weapon.h"
+#include "../particles/BasicParticleEffect.h"
 
 class Weapon;
 
@@ -16,6 +17,7 @@ public:
     void gameUpdate(GameData& game, float dt) override;
     void collide(std::shared_ptr<Entity> other, GameData& gameData) override;
     void draw() override;
+    void start(GameData&)override;
     Color healthColorLerp();
     EntityType type() override;
 
@@ -28,6 +30,7 @@ public:
     float timeOfLastDamage = -5.f;
     constexpr static float damageImmunity = 1.f;
 private:
+    std::shared_ptr<BasicParticleEffect> movementParticles;
     Vector2 acceleration{0.f, 0.f};
     std::vector<std::shared_ptr<Weapon>> weapons;
 };

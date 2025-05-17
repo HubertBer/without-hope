@@ -1,7 +1,8 @@
 #include "Player.h"
 
 #include <iostream>
-
+#include <algorithm>
+#include <memory>
 #include <raymath.h>
 
 #include "SimpleBullet.h"
@@ -11,7 +12,6 @@
 #include "../weapons/Minigun.h"
 #include "../weapons/ElectricFenceMaker.hpp"
 
-#include <algorithm>
 #include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
 
@@ -43,6 +43,24 @@ void Player::physicsUpdate(GameData& game) {
         std::clamp(pos.x, hitboxRadius, mapBoundaries.width - hitboxRadius),
         std::clamp(pos.y, hitboxRadius, mapBoundaries.height - hitboxRadius)
     };
+
+    movementParticles->pos = pos;
+    movementParticles->prevPos = prevPos;
+}
+
+void Player::start(GameData& game){
+    movementParticles = std::make_shared<BasicParticleEffect>(
+        pos,
+        rotation,
+        30.f,
+        Vector2{0.6f, 2.8f},
+        Vector2{0.5f * maxSpeed, 1.f * maxSpeed},
+        Vector2{.08f, .2f},
+        Vector2{.01f, .03f},
+        Vector2{4, 8},
+        WHITE
+    );
+    game.registerEntity(movementParticles);
 }
 
 void Player::gameUpdate(GameData& game, float dt) {
@@ -59,8 +77,11 @@ void Player::gameUpdate(GameData& game, float dt) {
     if(Vector2LengthSqr(acceleration) > EPSILON){
         acceleration = Vector2Normalize(acceleration);
         acceleration *= maxAcceleration;
+        movementParticles->rotation = Vector2Angle(Vector2{1, 0}, acceleration * -1.f) * RAD2DEG;
+        movementParticles->resumeSpawning();
     }else{
         acceleration = Vector2Normalize(velocity) * maxSpeed * -1.f * friction;
+        movementParticles->stopSpawning();
     }
 
     for(auto weapon : weapons){
@@ -78,6 +99,7 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
                     velocity=Vector2{0.f,0.f}; // instead say that game over or sth
                     acceleration=Vector2{0.f,0.f};
                     zombie=true;
+                    movementParticles->zombie = true;
                 } else {
                     textureTint = healthColorLerp();
                     timeOfLastDamage = GetTime();

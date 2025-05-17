@@ -10,8 +10,8 @@ namespace{
     }
 }
 
-BasicParticleEffect::BasicParticleEffect(Vector2 pos, float rotation)
-    : Entity(pos, pos, Vector2{0, 0}, rotation){}
+BasicParticleEffect::BasicParticleEffect(Vector2 pos, float rotation, float spread, Vector2 radius, Vector2 speed, Vector2 lifetime, Vector2 spawnCooldown, Vector2 burstCount, Color color)
+    : Entity(pos, pos, Vector2{0, 0}, 0, rotation, DrawingLayer::BLOOM), spread(spread), radius(radius), speed(speed), lifetime(lifetime), spawnCooldown(spawnCooldown), burstCount(burstCount), color(color){}
 
 void BasicParticleEffect::physicsUpdate(GameData&){
     for(auto& p : particles){
@@ -27,6 +27,13 @@ void BasicParticleEffect::physicsUpdate(GameData&){
         p.pos += p.velocity * GameData::physicsDt;
     }
 }
+void BasicParticleEffect::stopSpawning(){
+    spawning = false;
+}
+
+void BasicParticleEffect::resumeSpawning(){
+    spawning = true;
+}
 
 void BasicParticleEffect::gameUpdate(GameData& game, float dt){
     for(auto& p : particles){
@@ -35,11 +42,14 @@ void BasicParticleEffect::gameUpdate(GameData& game, float dt){
 
     timer -= dt;
     if(timer < 0.f){
-        timer += GetRandomFloat(spawnColldown);
+        timer += GetRandomFloat(spawnCooldown);
 
+        if(!spawning){
+            return;
+        }
         int count = ceil(GetRandomFloat(burstCount));
         for(int i = 0; i < count; ++i){
-            Vector2 vel = Vector2Rotate(direction, GetRandomFloat(-spread * DEG2RAD, spread * DEG2RAD));
+            Vector2 vel = Vector2Rotate(direction, (rotation + GetRandomFloat(-spread, spread)) * DEG2RAD);
             vel *= GetRandomFloat(speed);
             float lt = GetRandomFloat(lifetime);
 
