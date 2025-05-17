@@ -26,7 +26,15 @@ void SquadronShip::physicsUpdate(GameData& game){
     prevPos = pos;
     collider.p0 = pos;
     
+    if(Vector2Length(game.playerPos() - pos) < FUCK_IT_DISTANCE){
+        fuckIt = true;
+    }
+
     Vector2 dir = target - pos;
+    if(fuckIt){
+        dir = game.playerPos() - pos;
+    }
+
     // TODO_IDEA:
     // Movement looks bad sometimes - it stutters, probably because of this if
     // I believe that the best idea is to add acceleration and change don't change velocity manually

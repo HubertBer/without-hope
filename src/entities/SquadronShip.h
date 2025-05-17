@@ -14,6 +14,8 @@ public:
 
 private:
     Vector2 target;
-    static constexpr float MAX_SPEED = 700.f;
-    static constexpr float RADIUS = 8.f;
+    bool fuckIt = false;
+    static constexpr float FUCK_IT_DISTANCE = 150.f; 
+    static constexpr float MAX_SPEED = 650.f;
+    static constexpr float RADIUS = 12.f;
 };

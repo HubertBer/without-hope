@@ -28,7 +28,6 @@ private:
     static constexpr float Y_OFFSET = 40.f;
     static constexpr float X_OFFSET = 25.f;
     static constexpr float SPLIT_DISTANCE = 400.f;
-    static constexpr float FUCK_IT_DISTANCE = 150.f; 
     static constexpr float MAX_SPEED = 450.f;
     std::array<Vector2, SQUADRON_SIZE> offset{};
 };

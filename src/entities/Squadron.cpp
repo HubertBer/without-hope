@@ -119,11 +119,7 @@ void Squadron::physicsUpdate(GameData& game){
     int i = 0;
     for(auto ship : ships){
         Vector2 target = Vector2Rotate(shipsOffset + offset[i], (rotation - 90) * DEG2RAD);
-        if(Vector2Length(ship.lock()->pos - game.playerPos()) < FUCK_IT_DISTANCE){
-            ship.lock()->setTarget(game.playerPos());
-        }else{
-            ship.lock()->setTarget(pos + target);
-        }
+        ship.lock()->setTarget(pos + target);
         i += 1;
     }
 }
