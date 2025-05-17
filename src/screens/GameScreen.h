@@ -8,7 +8,7 @@ class GameData;
 
 class GameScreen : public Screen {
 public:
-    GameScreen(MusicPlayer& m, GameData& g);
+    GameScreen(GameData& g);
     void update(float dt) override;
     void draw() override;
     void drawScore();

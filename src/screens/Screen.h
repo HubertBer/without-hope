@@ -5,7 +5,6 @@
 
 #include "../GameData.h"
 #include "../WindowManager.h"
-#include "../music/MusicPlayer.h"
 #include "../Config.h"
 
 enum ScreenType {
@@ -17,7 +16,7 @@ enum ScreenType {
 
 class Screen {
 public:
-    Screen(MusicPlayer& m);
+    Screen();
 
     virtual void update(float dt) = 0;
     virtual void draw() = 0;
@@ -34,5 +33,4 @@ public:
     virtual bool wantsExit() const;
 
 protected:
-    MusicPlayer& music;
 };

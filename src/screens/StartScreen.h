@@ -21,7 +21,7 @@ class StartScreen : public Screen {
     int letterCount=0;
 
 public:
-    StartScreen(MusicPlayer& m,std::string* const name);
+    StartScreen(std::string* const name);
     void update(float dt) override;
     void draw() override;
     ScreenType nextScreen() override;
