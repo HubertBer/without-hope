@@ -96,7 +96,6 @@ Color Player::healthColorLerp()
     Color result;
     result.r = colorA.r + (colorB.r - colorA.r) * t;
     result.g = colorA.g + (colorB.g - colorA.g) * t;
-    std::cerr << (int)result.g << std::endl;
     result.b = colorA.b + (colorB.b - colorA.b) * t;
     result.a = colorA.a + (colorB.a - colorA.a) * t;
 
