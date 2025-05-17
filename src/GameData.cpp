@@ -123,6 +123,11 @@ float GameData::getTimeSinceKill() {
   return timeSinceKill;
 }
 
+float GameData::getLastDamageTime()
+{
+    return std::dynamic_pointer_cast<Player>(player)->timeOfLastDamage;
+}
+
 Vector2 GameData::playerPos() const {
     return player->pos;
 }

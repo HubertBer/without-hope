@@ -30,6 +30,7 @@ public:
     // if convienient, it can be used to spawn bullets and handle logic for them
     void kill(std::shared_ptr<Entity> entity);
     float getTimeSinceKill();
+    float getLastDamageTime();
     void handleCollisions();
     void deleteZombieEntities();
     bool checkPresent(EntityType type);
