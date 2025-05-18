@@ -53,6 +53,10 @@ void SquadronShip::physicsUpdate(GameData& game){
     }
 }
 
+int SquadronShip::getScore(){
+    return SCORE;
+}
+
 void SquadronShip::draw(){
     drawTexture();
     

@@ -11,6 +11,7 @@ public:
     void collide(std::shared_ptr<Entity> entity,GameData& gameData) override;
     void draw() override;
     EntityType type() override;
+    int getScore() override;
 
 private:
     Vector2 target;
@@ -18,4 +19,5 @@ private:
     static constexpr float FUCK_IT_DISTANCE = 150.f; 
     static constexpr float MAX_SPEED = 650.f;
     static constexpr float RADIUS = 12.f;
+    static constexpr int SCORE = 2;
 };

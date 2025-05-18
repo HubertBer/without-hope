@@ -1,4 +1,4 @@
-#include "squadron.h"
+#include "Squadron.h"
 #include "Entity.h"
 #include "raylib.h"
 #include "raymath.h"
