@@ -56,9 +56,8 @@ protected:
     /// @param name The name of the shader without the .fs extension, e.g. "voronoi"
     void loadShader(const std::string& name);
     Color textureTint = WHITE;
-
+    Shader shader;
 private:
     Texture2D texture;
-    Shader shader;
     bool useShader=false;
 };
