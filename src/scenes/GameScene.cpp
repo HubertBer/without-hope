@@ -6,6 +6,7 @@
 #include "../entities/TargetableCamera.h"
 #include "../rand.h"
 #include "../entities/Squadron.h"
+#include "../entities/OutsideMapSpawner.h"
 
 void LoadGameScene(GameData& game){
     Rectangle mapBoundaries = game.getMapBoundaries();
@@ -27,15 +28,6 @@ void LoadGameScene(GameData& game){
 
     auto gridBg = std::make_shared<GridBackground>();
     game.registerEntity(gridBg);
-
-    for(int i = 0; i < 10; ++i){
-        Vector2 pos = {GetRandomFloat(0.0f, mapBoundaries.width), GetRandomFloat(0.0f, mapBoundaries.height)};
-        game.registerEntity(std::make_shared<SimpleEnemy>(
-        pos,
-        pos,
-        Vector2{0, 0}
-        ));
-    }
 
     game.registerEntity(std::make_shared<SimpleSpawner>(
         Rectangle{mapBoundaries.x - 150, mapBoundaries.y - 100, 100, mapBoundaries.height + 200},
@@ -64,5 +56,17 @@ void LoadGameScene(GameData& game){
     game.registerEntity(std::make_shared<Squadron>(
         Vector2{-100, -100.f},
         180
+    ));
+
+    game.registerEntity(std::make_shared<OutsideMapSpawner>(
+        Vector2{4.f, 8.f}
+    ));
+    
+    game.registerEntity(std::make_shared<OutsideMapSpawner>(
+        Vector2{4.f, 8.f}
+    ));
+    
+    game.registerEntity(std::make_shared<OutsideMapSpawner>(
+        Vector2{4.f, 8.f}
     ));
 }
