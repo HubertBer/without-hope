@@ -38,31 +38,31 @@ void LoadGameScene(GameData& game){
     }
 
     game.registerEntity(std::make_shared<SimpleSpawner>(
-        Rectangle{mapBoundaries.width - 100, mapBoundaries.height - 100, 100, 100},
+        Rectangle{mapBoundaries.x - 150, mapBoundaries.y - 100, 100, mapBoundaries.height + 200},
         3,
         6
     ));
 
     game.registerEntity(std::make_shared<SimpleSpawner>(
-        Rectangle{mapBoundaries.width - 100, 0, 100, 100},
+        Rectangle{mapBoundaries.x + mapBoundaries.width + 50, mapBoundaries.y - 100, 100, mapBoundaries.height + 200},
         3,
         6
     ));
 
     game.registerEntity(std::make_shared<SimpleSpawner>(
-        Rectangle{0, mapBoundaries.height - 100, 100, 100},
+        Rectangle{mapBoundaries.x - 100, mapBoundaries.y - 150, mapBoundaries.width + 200, 100},
         3,
         6
     ));
 
     game.registerEntity(std::make_shared<SimpleSpawner>(
-        Rectangle{0, 0, 100, 100},
+        Rectangle{mapBoundaries.x - 100, mapBoundaries.y + mapBoundaries.height + 50, mapBoundaries.width + 200, 100},
         3,
         6
     ));
 
     game.registerEntity(std::make_shared<Squadron>(
-        Vector2{1000.f, 0.f},
+        Vector2{-100, -100.f},
         180
     ));
 }
