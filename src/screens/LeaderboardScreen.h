@@ -19,7 +19,7 @@ class LeaderboardScreen : public Screen {
     };
     Action action = Action::None;
 public:
-    LeaderboardScreen(GameData& g);
+    LeaderboardScreen(MusicPlayer& m,GameData& g);
     void update(float dt) override;
     void draw() override;
     ScreenType nextScreen() override;

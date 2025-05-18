@@ -1,8 +1,8 @@
 #include "LeaderboardScreen.h"
 #include "../Config.h"
 
-LeaderboardScreen::LeaderboardScreen(GameData& g)
-    : Screen(), game(g) {
+LeaderboardScreen::LeaderboardScreen(MusicPlayer& m, GameData& g)
+    : Screen(m), game(g) {
     int w = 200, h = 60, spacing = 20;
     float startY = (Config::screenHeight - h * 2 );
 
@@ -17,13 +17,16 @@ void LeaderboardScreen::update(float dt) {
 void LeaderboardScreen::draw() {
     ClearBackground(GRAY);
     drawButton(exitButton);
-    int currY = 100;
+    int currY = 20;
     int fontSize=(Config::screenHeight -2*60)/12;
     int w = 300;
     int w_number=70,spacing=6;
+    int i=0;
     for(auto& score:ScoreService::loadLeaderboard()){
-        DrawTextStretched(score.playerName.c_str(),(Config::screenWidth - w) / 2.0f,currY,fontSize,BLACK);
-        DrawTextStretched(std::to_string(score.result).c_str(),(Config::screenWidth + w + w_number) / 2.0f,currY,fontSize,BLACK);
+        Color c = BLACK;
+        if(game.scorePosition==i++)c = YELLOW;
+        DrawText(score.playerName.c_str(),(Config::screenWidth - w) / 2.0f,currY,fontSize,c);
+        DrawText(std::to_string(score.result).c_str(),(Config::screenWidth + w + w_number) / 2.0f,currY,fontSize,c);
         currY+=fontSize+spacing;
     }
 }

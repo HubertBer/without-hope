@@ -8,7 +8,7 @@ class GameData;
 
 class GameScreen : public Screen {
 public:
-    GameScreen(GameData& g);
+    GameScreen(MusicPlayer& m, GameData& g);
     void update(float dt) override;
     void draw() override;
     void drawScore();
@@ -18,5 +18,6 @@ private:
     float gameTime = 0;
     float physicsTime = 0;
     bool goToOptions = false;
+    bool goToLeaderboard = false;
     inline static const std::string fontFlie = "../resources/fonts/digital-7.regular.ttf";
 };

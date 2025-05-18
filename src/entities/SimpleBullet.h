@@ -10,7 +10,7 @@ public:
     SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity, float rotation);
     void gameUpdate(GameData& game, float dt) override;
     void physicsUpdate(GameData& game) override;
-    void collide(std::shared_ptr<Entity> other, GameData& gameData) override;
+    void collide(std::shared_ptr<Entity> entity,GameData& gameData) override;
     void draw() override;
     EntityType type() override;
 

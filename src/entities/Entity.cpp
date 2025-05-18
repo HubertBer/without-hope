@@ -23,7 +23,7 @@ void Entity::drawTexture(){
     if (useShader) {
         BeginShaderMode(shader);
     }
-    DrawTexturePro(texture, sourceRec, destRec, {texture.width / 2.f, texture.height / 2.f}, rotation, textureTint);
+    DrawTexturePro(texture, sourceRec, destRec, {texture.width / 2.f, texture.height / 2.f}, rotation, WHITE);
     if (useShader) {
         EndShaderMode();
     }

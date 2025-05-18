@@ -4,6 +4,7 @@
 #include "GameScreen.h"
 
 #include "../Config.h"
+#include "../GameData.h"
 #include "../Renderer.h"
 #include "../GameData.h"
 #include "../WindowManager.h"
@@ -21,8 +22,8 @@ constexpr int TEXTBOX_HEIGHT = 60;
 constexpr int TEXTBOX_OFFSET_Y = 180;
 constexpr int LABEL_FONT_SIZE = 40;
 
-StartScreen::StartScreen(std::string* const name)
-    : Screen(), name(name) {
+StartScreen::StartScreen(MusicPlayer& m,GameData& g, std::string* const name)
+    : Screen(m),game(g), name(name) {
     
     float centerX = Config::screenWidth / 2.0f;
     float startY = Config::screenHeight / 2.0f;
@@ -36,6 +37,7 @@ void StartScreen::update(float dt) {
     (void)dt; // Unused
 
     if (isButtonClicked(playButton)) {
+        GameData::reset(game);
         playClicked = true;
     }
     if (isButtonClicked(exitButton)) {
@@ -82,16 +84,16 @@ void StartScreen::drawCodenameBox() const {
     float labelY = Config::screenHeight / 2.0f - TEXTBOX_OFFSET_Y - 80;
     float boxY = Config::screenHeight / 2.0f - TEXTBOX_OFFSET_Y;
 
-    DrawTextStretched("YOUR CODENAME:", centerX, labelY, LABEL_FONT_SIZE, BLACK);
-    DrawRectangleStretched(centerX - TEXTBOX_WIDTH / 2.0f , boxY - 30, TEXTBOX_WIDTH, TEXTBOX_HEIGHT, DARKBLUE);
-    DrawTextStretched(name->c_str(), centerX, boxY, LABEL_FONT_SIZE, SKYBLUE);
+    DrawText("YOUR CODENAME:", centerX - 175, labelY, LABEL_FONT_SIZE, BLACK);
+    DrawRectangle(centerX - TEXTBOX_WIDTH / 2.0f , boxY - 10, TEXTBOX_WIDTH, TEXTBOX_HEIGHT, DARKBLUE);
+    DrawText(name->c_str(), centerX - 100, boxY, LABEL_FONT_SIZE, SKYBLUE);
 }
 
 
 ScreenType StartScreen::nextScreen() {
     if (playClicked) {
+        GameData::reset(game);
         playClicked = false;
-        std::cout<<*name<<'\n';
         return SCREEN_GAME;
     }
     if(leaderboardClicked){

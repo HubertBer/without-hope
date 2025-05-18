@@ -3,17 +3,13 @@
 #include <list>
 #include <memory>
 #include <algorithm>
-#include <unordered_map>
 
 #include <raylib.h>
 
 #include "entities/Entity.h"
 #include "collider/CollisionSystem.h"
 #include "score/ScoreKeeper.h"
-#include "collider/Collider.h"
-#include "entities/EntityType.h"
 
-class Entity;
 class GameData{
 public:
     GameData(const std::string* playerName);
@@ -24,13 +20,12 @@ public:
     /// @param lerpValue 
     /// @return A flag whether the game state should be reset
     bool gameUpdate(float dt, float lerpValue);
-    std::unordered_map<DrawingLayer, std::vector<std::shared_ptr<Entity>>> prepareDraw();
+    void draw();
     void registerEntity(std::shared_ptr<Entity> entity);
     // Right now this is used just for collecting statistics for shader effects
     // if convienient, it can be used to spawn bullets and handle logic for them
     void kill(std::shared_ptr<Entity> entity);
     float getTimeSinceKill();
-    float getLastDamageTime();
     void handleCollisions();
     void deleteZombieEntities();
     bool checkPresent(EntityType type);
@@ -38,18 +33,20 @@ public:
     Camera2D getMainCamera() const;
     void setMainCamera(Camera2D);
     Vector2 getMouseWorldPosition() const;
-    static Rectangle getCameraVisionBoundaries(Camera2D camera);
+    Rectangle getCameraVisionBoundaries() const;
     Vector2 lerp(Vector2 v1, Vector2 v2);
     Vector2 playerPos() const;
     static void reset(GameData& gameData);
+    void endGame();
     void saveScore();
     int getScore();
-    Rectangle getMapBoundaries();
 
-    ~GameData();
+    bool hasEnded=false;
+    int scorePosition=-1;
 
     static constexpr float physicsDt = 1.0f/30.0f;
 private:
+    CollisionSystem collisionSystem;
     ScoreKeeper scoreKeeper;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
@@ -63,11 +60,6 @@ private:
         1.0f
     };
     const std::string* playerName;
-    Rectangle mapBoundaries{
-        0, 0,
-        1.3f * GetScreenWidth(),
-        1.3f * GetScreenHeight()
-    };
 
     // Statistics for shaders
     float timeSinceKill{-1.f};

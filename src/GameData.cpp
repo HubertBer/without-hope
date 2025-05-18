@@ -7,10 +7,10 @@
 #include "raymath.h"
 #include "UI/Scaler.h"
 #include <algorithm>
-#include "collider/CollisionSystem.h"
 
 GameData::GameData(const std::string* playerName):playerName(playerName)
 {
+    hasEnded=false;
     LoadGameScene(*this);
 }
 
@@ -30,18 +30,18 @@ Vector2 GameData::getMouseWorldPosition() const {
     return GetScreenToWorld2D(getVirtualPosition(GetMousePosition()), mainCamera);
 }
 
-Rectangle GameData::getCameraVisionBoundaries(Camera2D camera) {
+Rectangle GameData::getCameraVisionBoundaries() const{
     // Vector2 origin = mainCamera.offset + mainCamera.target;
     Vector2 origin = {
-        camera.target.x - (camera.offset.x / camera.zoom),
-        camera.target.y - (camera.offset.y / camera.zoom)
+        mainCamera.target.x - (mainCamera.offset.x / mainCamera.zoom),
+        mainCamera.target.y - (mainCamera.offset.y / mainCamera.zoom)
     };
         
     return Rectangle{
         origin.x,
         origin.y,
-        GetScreenWidth() / camera.zoom,
-        GetScreenHeight() / camera.zoom
+        GetScreenWidth() / mainCamera.zoom,
+        GetScreenHeight() / mainCamera.zoom
     };
 }
 
@@ -65,19 +65,6 @@ bool GameData::gameUpdate(float dt, float lerpValue)
     return false;
 }
 
-std::unordered_map<DrawingLayer, std::vector<std::shared_ptr<Entity>>> GameData::prepareDraw()
-{
-    std::unordered_map<DrawingLayer, std::vector<std::shared_ptr<Entity>>> drawLayers;
-
-    entities.sort([](const std::shared_ptr<Entity>& e1, const std::shared_ptr<Entity>& e2){
-        return e1->drawOrder() < e2->drawOrder();
-    });
-    for(auto entity : entities){
-        drawLayers[entity->drawLayer].push_back(entity);
-    }
-    return drawLayers;
-}
-
 bool GameData::checkPresent(EntityType type){
     for(auto entity: entities){
         if(entity->type()==type)return true;
@@ -90,10 +77,7 @@ void GameData::setPlayer(std::shared_ptr<Entity> player){
 }
 
 void GameData::handleCollisions(){
-    auto collisions = GetCollisions(entities);
-    for(auto[e1, e2] : collisions){
-        e1->collide(e2, *this);
-    }
+    collisionSystem.handleCollisions(entities,*this);
 }
 
 void GameData::deleteZombieEntities(){
@@ -109,9 +93,18 @@ void GameData::physicsUpdate(){
     }
 }
 
+void GameData::draw(){
+    entities.sort([](const std::shared_ptr<Entity>& e1, const std::shared_ptr<Entity>& e2){
+        return e1->drawOrder() < e2->drawOrder();
+    });
+    for(auto entity : entities){
+        entity->draw();
+    }
+}
+
+
 void GameData::registerEntity(std::shared_ptr<Entity> entity){
     entitiesBuffer.push_back(entity);
-    entity->start(*this);
 }
 
 void GameData::kill(std::shared_ptr<Entity> entity){
@@ -121,11 +114,6 @@ void GameData::kill(std::shared_ptr<Entity> entity){
 
 float GameData::getTimeSinceKill() {
   return timeSinceKill;
-}
-
-float GameData::getLastDamageTime()
-{
-    return std::dynamic_pointer_cast<Player>(player)->timeOfLastDamage;
 }
 
 Vector2 GameData::playerPos() const {
@@ -138,19 +126,15 @@ void GameData::reset(GameData& gameData) {
     ptr->~GameData();
     new (ptr) GameData(playerName);
 }
+void GameData::endGame(){
+    hasEnded=true;
+    saveScore();
+}
 
 void GameData::saveScore(){
-    ScoreService::saveScore({scoreKeeper.getScore(),*playerName});
+    scorePosition = ScoreService::saveScore({scoreKeeper.getScore(),*playerName});
 }
 
 int GameData::getScore(){
     return scoreKeeper.getScore();
-}
-
-Rectangle GameData::getMapBoundaries() {
-    return mapBoundaries;
-}
-
-GameData::~GameData(){
-    saveScore();
 }

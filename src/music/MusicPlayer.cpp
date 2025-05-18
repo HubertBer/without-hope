@@ -1,37 +1,40 @@
 #include "MusicPlayer.h"
-#include "../screens/Screen.h"
 
-MusicPlayer::MusicPlayer(bool& musicOn):musicOn(musicOn){
+
+
+MusicPlayer::MusicPlayer(){
     InitAudioDevice();
-    baseMusic = LoadMusicStream("src/resources/music/without-hope-base.wav");
-    melody = {LoadMusicStream("src/resources/music/melody2.wav"),0};
+    
+    //add music type for entities types here
+    entityMusic[PLAYER] = LoadMusicStream("src/resources/music/piano.wav");
+    entityMusic[SIMPLE_ENEMY] = LoadMusicStream("src/resources/music/simple-enemy.wav");
 
 
-    PlayMusicStream(baseMusic);
-    SetMusicVolume(baseMusic,baseMusic.volume);
-    PlayMusicStream(melody);
-    SetMusicVolume(melody,melody.volume);
+    for(auto& [type,music]:entityMusic){
+        PlayMusicStream(music);
+        SetMusicVolume(music,music.volume);
+    }
 
 }
 
-void MusicPlayer::play(ScreenType currentScreenType){
+void MusicPlayer::play(GameData& gameData){
+    for(auto& [type,music]:entityMusic){
 
-    if(currentScreenType == SCREEN_GAME){
-        melody.volume = std::min(1.0f,melody.volume+fadeawaySpeed);
-    }else{
-        melody.volume = std::max(0.0f,melody.volume-fadeawaySpeed);
+        UpdateMusicStream(music);
+
+        if (gameData.checkPresent(type)) {
+            music.volume=1.0f;
+        } else {
+            music.volume=std::max(0.0f,music.volume-fadeawaySpeed);
+        }
+        SetMusicVolume(music, music.volume);
     }
-
-    UpdateMusicStream(baseMusic);
-    UpdateMusicStream(melody);
-    SetMusicVolume(melody,melody.volume*musicOn);
-    SetMusicVolume(baseMusic,baseMusic.volume*musicOn);
     
-
 }
 
 MusicPlayer::~MusicPlayer() {
-    UnloadMusicStream(baseMusic);
-    UnloadMusicStream(melody);
+    for(auto& [type,music]:entityMusic){
+        UnloadMusicStream(music);
+    }
     CloseAudioDevice();
 }

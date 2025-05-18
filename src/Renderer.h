@@ -19,5 +19,4 @@ private:
     inline static std::unordered_map<std::string, Shader> shaderCache;
     inline static std::unordered_map<std::string, Texture2D> textureCache;
     inline static RenderTexture2D target;
-    inline static RenderTexture2D targetBloom;
 };

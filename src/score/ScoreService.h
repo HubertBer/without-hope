@@ -15,6 +15,9 @@ class Score{
     friend bool operator<(const Score& a, const Score&b){
         return a.result<b.result;
     };
+    friend bool operator>(const Score& a, const Score&b){
+        return a.result>b.result;
+    };
     inline static const std::string defaultName = "Anonymous";
 };
 
@@ -24,5 +27,5 @@ class ScoreService{
     static std::vector<Score> loadLeaderboard();
     private:
     inline static const std::string SCORE_FILE ="scores/high_scores"; 
-    static constexpr int LEADERBOARD_SIZE = 9;
+    static constexpr int LEADERBOARD_SIZE =10;
 };

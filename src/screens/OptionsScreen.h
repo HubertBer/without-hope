@@ -12,10 +12,9 @@ class MusicPlayer;
 class GameData;
 
 class OptionsScreen : public Screen {
-    Button resumeButton, exitToMenuButton, musicOnButton,musicOffButton;
+    Button resumeButton, exitToMenuButton;
 
     GameData& game;
-    bool& musicOn;
 
     enum class Action {
         None,
@@ -26,7 +25,7 @@ class OptionsScreen : public Screen {
     Action action = Action::None;
 
 public:
-    OptionsScreen(GameData& g,bool& musicOn);
+    OptionsScreen(MusicPlayer& m, GameData& g);
 
     void update(float dt) override;
     void draw() override;

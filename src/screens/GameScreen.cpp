@@ -11,8 +11,8 @@
 #include <iomanip>
 #include <raylib.h>
 
-GameScreen::GameScreen( GameData& g)
-    : Screen(), game(g) {}
+GameScreen::GameScreen(MusicPlayer& m, GameData& g)
+    : Screen(m), game(g) {}
 
 void GameScreen::update(float dt) {
     gameTime += dt;
@@ -26,14 +26,20 @@ void GameScreen::update(float dt) {
     }
     bool gameNeedsReset = game.gameUpdate(dt, 
                             1 - (physicsTime - gameTime) / GameData::physicsDt);
-    if (gameNeedsReset) GameData::reset(game);
+    
+    if (gameNeedsReset){
+        game.endGame();
+        goToLeaderboard=true;
+    }
 
     if (IsKeyPressed(KEY_ESCAPE)) {
         goToOptions = true;
     }
 }
 
-void GameScreen::draw() {}
+void GameScreen::draw() {
+    music.play(game);
+}
 
 void GameScreen::drawScore(){
     int score = game.getScore();
@@ -47,10 +53,16 @@ void GameScreen::drawScore(){
     std::string scoreText;
     ss >> scoreText;
     const char* text = scoreText.c_str();
-    DrawTextStretched(text, Config::screenWidth / 2.0f, Config::screenHeight / 10.0f, fontSize, YELLOW);
+    int textWidth = MeasureTextEx(customFont,text, fontSize,spacing).x;
+    DrawTextEx(customFont,text ,{(Config::screenWidth-textWidth)/2.0f,Config::screenHeight/10.0f},fontSize,spacing,YELLOW);
 }
 
 ScreenType GameScreen::nextScreen() {
+    if(goToLeaderboard){
+        goToLeaderboard=false;
+        goToOptions=false;
+        return SCREEN_LEADERBOARD;
+    }
     if (goToOptions) {
         goToOptions = false;
         return SCREEN_OPTIONS;
