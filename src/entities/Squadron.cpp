@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "../GameData.h"
+#include "Trail.h"
 
 Squadron::Squadron(Vector2 pos, float rotation, bool hasSplit, Vector2 shipsOffset, const std::vector<std::weak_ptr<SquadronShip>>& ships) 
     : Entity(pos, pos, Vector2{0, 0}, 0, rotation), hasSplit(hasSplit), shipsOffset(shipsOffset), ships(ships){
@@ -39,6 +40,9 @@ void Squadron::start(GameData& game){
         std::shared_ptr<SquadronShip> ship = std::make_shared<SquadronShip>(pos + offset[i], rotation);
         game.registerEntity(ship);
         ships.push_back(ship);
+
+        auto shipTrail = std::make_shared<Trail>(ship);
+        game.registerEntity(shipTrail);
     }
 }
 

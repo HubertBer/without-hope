@@ -7,6 +7,7 @@
 #include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
 #include "../entities/Squadron.h"
+#include "../entities/Trail.h"
 
 void LoadGameScene(GameData& game){
     Rectangle mapBoundaries = game.getMapBoundaries();
@@ -22,6 +23,9 @@ void LoadGameScene(GameData& game){
 
     game.setPlayer(player);
     game.registerEntity(player);
+
+    auto playerTrail = std::make_shared<Trail>(player);
+    game.registerEntity(playerTrail);
 
     auto targetableCamera = std::make_shared<TargetableCamera>(player);
     game.registerEntity(targetableCamera);
