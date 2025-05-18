@@ -22,7 +22,7 @@ class StartScreen : public Screen {
     GameData& game;
 
 public:
-    StartScreen(std::string* const name);
+    StartScreen(GameData& g,std::string* const name);
     void update(float dt) override;
     void draw() override;
     ScreenType nextScreen() override;

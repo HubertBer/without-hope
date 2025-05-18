@@ -23,8 +23,10 @@ void LeaderboardScreen::draw() {
     int w_number=70,spacing=6;
     int i=0;
     for(auto& score:ScoreService::loadLeaderboard()){
-        DrawTextStretched(score.playerName.c_str(),(Config::screenWidth - w) / 2.0f,currY,fontSize,BLACK);
-        DrawTextStretched(std::to_string(score.result).c_str(),(Config::screenWidth + w + w_number) / 2.0f,currY,fontSize,BLACK);
+        Color c = BLACK;
+        if(game.scorePosition==i++)c = YELLOW;
+        DrawTextStretched(score.playerName.c_str(),(Config::screenWidth - w) / 2.0f,currY,fontSize,c);
+        DrawTextStretched(std::to_string(score.result).c_str(),(Config::screenWidth + w + w_number) / 2.0f,currY,fontSize,c);
         currY+=fontSize+spacing;
     }
 }

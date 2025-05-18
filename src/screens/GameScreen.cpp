@@ -54,21 +54,6 @@ void GameScreen::drawScore(){
     DrawTextStretched(text, Config::screenWidth / 2.0f, Config::screenHeight / 10.0f, fontSize, YELLOW);
 }
 
-void GameScreen::drawScore(){
-    int score = game.getScore();
-    int fontSize=50;
-    int spacing = 10;
-    //do something like if you want different font
-    //Font customFont = LoadFontEx(fontFlie.c_str(), fontSize, 0, 0)
-    Font customFont = GetFontDefault();
-    std::stringstream ss;
-    ss << std::setfill('0') << std::setw(8) << score;
-    const char* text =ss.str().c_str();
-    int textWidth = MeasureTextEx(customFont,text, fontSize,spacing).x;
-    DrawTextEx(customFont,text ,{(Config::screenWidth-textWidth)/2.0f,Config::screenHeight/10.0f},fontSize,spacing,YELLOW);
-    
-
-}
 
 ScreenType GameScreen::nextScreen() {
     if(goToLeaderboard){
