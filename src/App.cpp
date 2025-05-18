@@ -34,7 +34,7 @@ int main() {
     
 
     std::map<ScreenType, std::shared_ptr<Screen>> screens;
-    screens[SCREEN_START] = std::make_shared<StartScreen>(&name);
+    screens[SCREEN_START] = std::make_shared<StartScreen>(gameData,&name);
     screens[SCREEN_GAME] = std::make_shared<GameScreen>(gameData);
     screens[SCREEN_OPTIONS] = std::make_shared<OptionsScreen>(gameData,musicOn);
     screens[SCREEN_LEADERBOARD] = std::make_shared<LeaderboardScreen>(gameData);

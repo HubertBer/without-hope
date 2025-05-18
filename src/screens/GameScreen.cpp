@@ -26,7 +26,11 @@ void GameScreen::update(float dt) {
     }
     bool gameNeedsReset = game.gameUpdate(dt, 
                             1 - (physicsTime - gameTime) / GameData::physicsDt);
-    if (gameNeedsReset) GameData::reset(game);
+    
+    if (gameNeedsReset){
+        game.endGame();
+        goToLeaderboard=true;
+    }
 
     if (IsKeyPressed(KEY_ESCAPE)) {
         goToOptions = true;
@@ -50,7 +54,13 @@ void GameScreen::drawScore(){
     DrawTextStretched(text, Config::screenWidth / 2.0f, Config::screenHeight / 10.0f, fontSize, YELLOW);
 }
 
+
 ScreenType GameScreen::nextScreen() {
+    if(goToLeaderboard){
+        goToLeaderboard=false;
+        goToOptions=false;
+        return SCREEN_LEADERBOARD;
+    }
     if (goToOptions) {
         goToOptions = false;
         return SCREEN_OPTIONS;

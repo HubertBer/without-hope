@@ -19,9 +19,10 @@ class StartScreen : public Screen {
     static constexpr int MAX_INPUT_CHARS = 9;
     std::string* const  name;
     int letterCount=0;
+    GameData& game;
 
 public:
-    StartScreen(std::string* const name);
+    StartScreen(GameData& g,std::string* const name);
     void update(float dt) override;
     void draw() override;
     ScreenType nextScreen() override;

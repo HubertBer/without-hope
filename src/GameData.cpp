@@ -11,6 +11,7 @@
 
 GameData::GameData(const std::string* playerName):playerName(playerName)
 {
+    hasEnded=false;
     LoadGameScene(*this);
 }
 
@@ -138,9 +139,13 @@ void GameData::reset(GameData& gameData) {
     ptr->~GameData();
     new (ptr) GameData(playerName);
 }
+void GameData::endGame(){
+    hasEnded=true;
+    saveScore();
+}
 
 void GameData::saveScore(){
-    ScoreService::saveScore({scoreKeeper.getScore(),*playerName});
+    scorePosition = ScoreService::saveScore({scoreKeeper.getScore(),*playerName});
 }
 
 int GameData::getScore(){
@@ -151,6 +156,3 @@ Rectangle GameData::getMapBoundaries() {
     return mapBoundaries;
 }
 
-GameData::~GameData(){
-    saveScore();
-}

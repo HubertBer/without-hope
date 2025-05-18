@@ -45,7 +45,7 @@ ScreenType OptionsScreen::nextScreen() {
     if (action == Action::Resume) next = SCREEN_GAME;
     else if (action == Action::Exit) {
         next = SCREEN_START;
-        GameData::reset(game);
+        game.endGame();
     } 
 
     action = Action::None; // Reset to prevent constant switching

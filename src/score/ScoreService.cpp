@@ -25,13 +25,12 @@ std::vector<Score> ScoreService::loadLeaderboard(){
 
 
 int ScoreService::saveScore(Score currentScore){
+    if(currentScore.result==0) return -1;
     std::vector<Score> scores = loadLeaderboard();
 
-    int position = std::upper_bound(scores.begin(),scores.end(),currentScore) - scores.begin();
+    int position = std::upper_bound(scores.begin(),scores.end(),currentScore,std::greater<Score>()) - scores.begin();
     scores.push_back(currentScore);
-    std::sort(scores.begin(), scores.end(), [](const Score& a, const Score& b) {
-        return b.result < a.result; // descending
-    });
+    std::sort(scores.begin(), scores.end(),std::greater<Score>());
 
     if(scores.size()>LEADERBOARD_SIZE){
         scores.resize(LEADERBOARD_SIZE);

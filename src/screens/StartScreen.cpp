@@ -4,6 +4,7 @@
 #include "GameScreen.h"
 
 #include "../Config.h"
+#include "../GameData.h"
 #include "../Renderer.h"
 #include "../GameData.h"
 #include "../WindowManager.h"
@@ -21,8 +22,8 @@ constexpr int TEXTBOX_HEIGHT = 60;
 constexpr int TEXTBOX_OFFSET_Y = 180;
 constexpr int LABEL_FONT_SIZE = 40;
 
-StartScreen::StartScreen(std::string* const name)
-    : Screen(), name(name) {
+StartScreen::StartScreen(GameData& g,std::string* const name)
+    : Screen(),game(g), name(name) {
     
     float centerX = Config::screenWidth / 2.0f;
     float startY = Config::screenHeight / 2.0f;
@@ -36,6 +37,7 @@ void StartScreen::update(float dt) {
     (void)dt; // Unused
 
     if (isButtonClicked(playButton)) {
+        GameData::reset(game);
         playClicked = true;
     }
     if (isButtonClicked(exitButton)) {
@@ -90,8 +92,8 @@ void StartScreen::drawCodenameBox() const {
 
 ScreenType StartScreen::nextScreen() {
     if (playClicked) {
+        GameData::reset(game);
         playClicked = false;
-        std::cout<<*name<<'\n';
         return SCREEN_GAME;
     }
     if(leaderboardClicked){
