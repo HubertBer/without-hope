@@ -66,20 +66,21 @@ void Player::gameUpdate(GameData& game, float dt) {
     }
 }
 
-void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData ) {
-    if(entity->type()==SIMPLE_ENEMY){
-        if (GetTime() - timeOfLastDamage > damageImmunity) {
-            health -= 1;
-            if (health == 0) {
-                velocity=Vector2{0.f,0.f}; // instead say that game over or sth
-                acceleration=Vector2{0.f,0.f};
-                zombie=true;
+void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
+    switch(entity->type()){
+        case SIMPLE_ENEMY:
+        case SQUADRON_SHIP:
+            if (GetTime() - timeOfLastDamage > damageImmunity) {
+                health -= 1;
+                if (health == 0) {
+                    velocity=Vector2{0.f,0.f}; // instead say that game over or sth
+                    acceleration=Vector2{0.f,0.f};
+                    zombie=true;
+                } else {
+                    textureTint = healthColorLerp();
+                    timeOfLastDamage = GetTime();
+                }
             }
-            else {
-                textureTint = healthColorLerp();
-                timeOfLastDamage = GetTime();
-            }
-        }
     }
 }
 

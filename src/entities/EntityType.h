@@ -9,4 +9,6 @@ enum EntityType{
     TARGETABLE_CAMERA,
     GRID_BACKGROUND,
     ELECTRIC_FENCE,
+    SQUADRON_SHIP,
+    SQUADRON,
 };
