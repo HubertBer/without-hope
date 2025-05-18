@@ -11,8 +11,8 @@
 #include <iomanip>
 #include <raylib.h>
 
-GameScreen::GameScreen(MusicPlayer& m, GameData& g)
-    : Screen(m), game(g) {}
+GameScreen::GameScreen( GameData& g)
+    : Screen(), game(g) {}
 
 void GameScreen::update(float dt) {
     gameTime += dt;
@@ -33,9 +33,7 @@ void GameScreen::update(float dt) {
     }
 }
 
-void GameScreen::draw() {
-    music.play(game);
-}
+void GameScreen::draw() {}
 
 void GameScreen::drawScore(){
     int score = game.getScore();

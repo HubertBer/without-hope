@@ -3,6 +3,7 @@
 #include <list>
 #include <memory>
 #include <algorithm>
+#include <unordered_map>
 
 #include <raylib.h>
 
@@ -23,12 +24,13 @@ public:
     /// @param lerpValue 
     /// @return A flag whether the game state should be reset
     bool gameUpdate(float dt, float lerpValue);
-    void draw();
+    std::unordered_map<DrawingLayer, std::vector<std::shared_ptr<Entity>>> prepareDraw();
     void registerEntity(std::shared_ptr<Entity> entity);
     // Right now this is used just for collecting statistics for shader effects
     // if convienient, it can be used to spawn bullets and handle logic for them
     void kill(std::shared_ptr<Entity> entity);
     float getTimeSinceKill();
+    float getLastDamageTime();
     void handleCollisions();
     void deleteZombieEntities();
     bool checkPresent(EntityType type);

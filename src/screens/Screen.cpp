@@ -1,7 +1,6 @@
 #include "Screen.h"
 
-Screen::Screen(MusicPlayer& m)
-    : music(m) {}
+Screen::Screen(){}
 
 bool Screen::wantsExit() const {
     return false;

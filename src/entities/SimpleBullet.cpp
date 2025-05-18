@@ -5,7 +5,7 @@
 #include "../GameData.h"
 
 SimpleBullet::SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity, float rotation)
-    : Entity(prevPos, pos, velocity,  BASE_RADIUS, rotation) {
+    : Entity(prevPos, pos, velocity,  BASE_RADIUS, rotation, DrawingLayer::BLOOM) {
     loadTexture("bullet.png", 0.2f);
     collider = MakeCircleCollider(pos, hitboxRadius);
 }

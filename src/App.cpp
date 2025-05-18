@@ -27,16 +27,17 @@ int main() {
     SetExitKey(0); // Disable exit key (ESC)
 
     std::string name;
+    bool musicOn = true;
     Renderer::init(Config::screenWidth, Config::screenHeight);
-    MusicPlayer music{};
+    MusicPlayer music{musicOn};
     GameData gameData{&name};
     
 
     std::map<ScreenType, std::shared_ptr<Screen>> screens;
-    screens[SCREEN_START] = std::make_shared<StartScreen>(music,&name);
-    screens[SCREEN_GAME] = std::make_shared<GameScreen>(music, gameData);
-    screens[SCREEN_OPTIONS] = std::make_shared<OptionsScreen>(music, gameData);
-    screens[SCREEN_LEADERBOARD] = std::make_shared<LeaderboardScreen>(music, gameData);
+    screens[SCREEN_START] = std::make_shared<StartScreen>(&name);
+    screens[SCREEN_GAME] = std::make_shared<GameScreen>(gameData);
+    screens[SCREEN_OPTIONS] = std::make_shared<OptionsScreen>(gameData,musicOn);
+    screens[SCREEN_LEADERBOARD] = std::make_shared<LeaderboardScreen>(gameData);
     
     ScreenType currentScreen = SCREEN_START;
 
@@ -45,6 +46,7 @@ int main() {
 
         screens[currentScreen]->update(dt);
         Renderer::draw(screens[currentScreen], currentScreen);
+        music.play(currentScreen);
         currentScreen = screens[currentScreen]->nextScreen();
        
         if (IsKeyPressed(KEY_F10)) {

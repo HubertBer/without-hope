@@ -1,8 +1,8 @@
 #include "LeaderboardScreen.h"
 #include "../Config.h"
 
-LeaderboardScreen::LeaderboardScreen(MusicPlayer& m, GameData& g)
-    : Screen(m), game(g) {
+LeaderboardScreen::LeaderboardScreen(GameData& g)
+    : Screen(), game(g) {
     int w = 200, h = 60, spacing = 20;
     float startY = (Config::screenHeight - h * 2 );
 
