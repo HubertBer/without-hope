@@ -12,6 +12,6 @@ public:
     EntityType type() override;
 
 private:
-    const Color color = SKYBLUE;
-    const float width = 10.0f;
+    // Visual width, not the collider width
+    const float width = 100.0f;
 };
