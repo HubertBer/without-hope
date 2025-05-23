@@ -65,13 +65,11 @@ void SquadronShip::draw(){
 }
 
 void SquadronShip::collide(std::shared_ptr<Entity> entity, GameData& gameData){
-    switch(entity->type()){
-        case SIMPLE_BULLET:
-        case ELECTRIC_FENCE:
-            onDeath();
+    if(entity->type() == EntityType::PLAYER){
+        onDeath();
     }
 }
 
 EntityType SquadronShip::type(){
-    return SQUADRON_SHIP;
+    return ENEMY;
 }

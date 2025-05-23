@@ -26,7 +26,3 @@ void SimpleSpawner::gameUpdate(GameData& game, float dt){
         timer += GetRandomFloat(minDelay, maxDelay);
     }
 }
-
-EntityType SimpleSpawner::type() {
-    return SIMPLE_SPAWNER; 
-}

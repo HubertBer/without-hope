@@ -29,7 +29,7 @@ public:
     virtual void collide(std::shared_ptr<Entity> other, GameData& gameData){};
     virtual void draw(){}
     void drawTexture();
-    virtual EntityType type(){return NONE;}
+    virtual EntityType type(){return NEUTRAL;}
     virtual std::pair<DrawingLayer, float> drawOrder(){return {drawLayer, pos.y};};
     void onDeath();
     virtual int getScore(){return score;}

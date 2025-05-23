@@ -146,7 +146,3 @@ void Squadron::repositionShips(){
         zombie = true;
     }
 }
-
-EntityType Squadron::type(){
-    return SQUADRON;
-}
