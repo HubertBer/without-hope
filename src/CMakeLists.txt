@@ -18,6 +18,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/Squadron.cpp
     entities/SquadronShip.cpp
     entities/Trail.cpp
+    entities/ShootingEnemy.cpp
     collider/CollisionSystem.cpp
     collider/Collider.cpp
     weapons/Cannon.cpp
