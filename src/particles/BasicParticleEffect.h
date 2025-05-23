@@ -26,7 +26,6 @@ public:
     void draw() override;
     void stopSpawning();
     void resumeSpawning();
-    EntityType type() override;
 
 private:
     std::vector<Particle> particles;

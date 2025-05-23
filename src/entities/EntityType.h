@@ -1,15 +1,7 @@
 #pragma once
 
 enum EntityType{
-    NONE,
+    NEUTRAL,
     PLAYER,
-    SIMPLE_ENEMY,
-    SIMPLE_BULLET,
-    SIMPLE_SPAWNER,
-    TARGETABLE_CAMERA,
-    GRID_BACKGROUND,
-    ELECTRIC_FENCE,
-    SQUADRON_SHIP,
-    SQUADRON,
-    PARTICLE_SPAWNER,
+    ENEMY,
 };

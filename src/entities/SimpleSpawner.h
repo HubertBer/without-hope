@@ -7,7 +7,6 @@ class SimpleSpawner : public Entity{
 public:
     SimpleSpawner(Rectangle boundingBox, float minDelay, float maxDelay);
     void gameUpdate(GameData& game, float dt) override;
-    EntityType type() override;
 
 private:
     float timer = 0;
