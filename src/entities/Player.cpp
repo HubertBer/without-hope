@@ -11,6 +11,7 @@
 #include "../weapons/Cannon.h"
 #include "../weapons/Minigun.h"
 #include "../weapons/ElectricFenceMaker.hpp"
+#include "Drone.h"
 
 #include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
@@ -86,6 +87,13 @@ void Player::gameUpdate(GameData& game, float dt) {
 
     for(auto weapon : weapons){
         weapon->gameUpdate(game, *this, dt);
+    }
+
+    if(IsKeyPressed(KEY_SPACE)) {
+        game.registerEntity(std::make_shared<Drone>(
+            pos,
+            GetRandomFloat(0, 360)
+        ));
     }
 }
 

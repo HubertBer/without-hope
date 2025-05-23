@@ -9,7 +9,7 @@
 #include "../entities/Squadron.h"
 #include "../entities/Trail.h"
 #include "../entities/ShootingEnemy.h"
-
+#include "../entities/Drone.h"
 
 void LoadGameScene(GameData& game){
     Rectangle mapBoundaries = game.getMapBoundaries();
@@ -84,5 +84,20 @@ void LoadGameScene(GameData& game){
     ));
     game.registerEntity(std::make_shared<ShootingEnemy>(
         Vector2{1000.f, -1000.f }
+    ));
+
+    game.registerEntity(std::make_shared<Drone>(
+        player->pos,
+        GetRandomFloat(0, 360)
+    ));
+
+    game.registerEntity(std::make_shared<Drone>(
+        player->pos,
+        GetRandomFloat(0, 360)
+    ));
+
+    game.registerEntity(std::make_shared<Drone>(
+        player->pos,
+        GetRandomFloat(0, 360)
     ));
 }
