@@ -41,6 +41,7 @@ public:
     static Rectangle getCameraVisionBoundaries(Camera2D camera);
     Vector2 lerp(Vector2 v1, Vector2 v2);
     Vector2 playerPos() const;
+    Vector2 playerVelocity() const;
     static void reset(GameData& gameData);
     void endGame();
     void saveScore();

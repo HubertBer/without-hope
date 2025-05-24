@@ -105,8 +105,11 @@ void GameData::deleteZombieEntities(){
 }
 
 void GameData::physicsUpdate(){
+    player->physicsUpdate(*this);
     for(auto entity : entities){
-        entity->physicsUpdate(*this);
+        if (entity != player) {
+            entity->physicsUpdate(*this);
+        }
     }
 }
 
@@ -131,6 +134,10 @@ float GameData::getLastDamageTime()
 
 Vector2 GameData::playerPos() const {
     return player->pos;
+}
+
+Vector2 GameData::playerVelocity() const {
+    return player->velocity;
 }
 
 void GameData::reset(GameData& gameData) {

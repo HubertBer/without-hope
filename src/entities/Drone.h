@@ -18,7 +18,7 @@ private:
 
     static constexpr Vector2 OFFSET{70.f, 0.f};
     static constexpr float BASE_RADIUS = 15.f;
-    static constexpr float MAX_SPEED = 1200.f;
+    static constexpr float MAX_SPEED = 560.f;
     static constexpr float MAX_ACCELERATION = 2000.f;
     static constexpr float ANGULAR_SPEED = 50.0f; 
     static constexpr Color color{GRAY};

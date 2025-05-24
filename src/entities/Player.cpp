@@ -31,6 +31,9 @@ void Player::physicsUpdate(GameData& game) {
     if(Vector2Length(velocity) > maxSpeed){
         velocity = Vector2Normalize(velocity) * maxSpeed;
     }
+    if(Vector2Length(velocity) < 10) {
+        velocity = Vector2Zero();
+    }
     pos += velocity * GameData::physicsDt;
 
     for(auto weapon : weapons){
@@ -87,13 +90,6 @@ void Player::gameUpdate(GameData& game, float dt) {
 
     for(auto weapon : weapons){
         weapon->gameUpdate(game, *this, dt);
-    }
-
-    if(IsKeyPressed(KEY_SPACE)) {
-        game.registerEntity(std::make_shared<Drone>(
-            pos,
-            GetRandomFloat(0, 360)
-        ));
     }
 }
 
