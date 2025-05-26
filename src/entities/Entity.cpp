@@ -34,6 +34,5 @@ void Entity::drawTexture(){
 }
 
 void Entity::onDeath(){
-    std::cout<<"ON DEATH ENTITY" << std::endl;
     zombie=true;
 }
