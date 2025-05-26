@@ -163,3 +163,13 @@ Rectangle GameData::getMapBoundaries() {
     return mapBoundaries;
 }
 
+std::vector<std::shared_ptr<Entity>> GameData::entitiesOfType(EntityType type) {
+    std::vector<std::shared_ptr<Entity>> ret;
+    for(auto e : entities) {
+        if (e->type() == type) {
+            ret.push_back(e);
+        }
+    }
+
+    return ret;
+}

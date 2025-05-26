@@ -13,8 +13,10 @@ public:
     EntityType type() override;
 
 private:
+    void shootAt(GameData& game, std::shared_ptr<Entity> enem);
+
     float angle = 0.f;
-    Vector2 acceleration{0.f, 0.f};
+    float timer = 0.f;
 
     static constexpr Vector2 OFFSET{70.f, 0.f};
     static constexpr float BASE_RADIUS = 15.f;
@@ -22,4 +24,7 @@ private:
     static constexpr float MAX_ACCELERATION = 2000.f;
     static constexpr float ANGULAR_SPEED = 50.0f; 
     static constexpr Color color{GRAY};
+
+    static constexpr float COOLDOWN = 7.f;
+    static constexpr float RANGE = 800.f;
 };

@@ -2,6 +2,10 @@
 
 #include "../Renderer.h"
 
+void Entity::gameUpdate(GameData& game, float dt) {
+    posNow = game.lerp(prevPos, pos);
+}
+
 void Entity::loadTexture(const std::string& fileName, float scale) {
     texture = Renderer::getTexture(fileName);
     texture.width *= scale;
@@ -30,5 +34,6 @@ void Entity::drawTexture(){
 }
 
 void Entity::onDeath(){
+    std::cout<<"ON DEATH ENTITY" << std::endl;
     zombie=true;
 }
