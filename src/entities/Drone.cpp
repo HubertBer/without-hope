@@ -17,7 +17,7 @@ void Drone::shootAt(GameData& game, std::shared_ptr<Entity> enem) {
     );
     game.registerEntity(missile);
     
-    auto missileTrail = std::make_shared<Trail>(missile);
+    auto missileTrail = std::make_shared<Trail>(missile, 2.f, 8.f, GRAY, true, true, BLACK);
     game.registerEntity(missileTrail);
 }
 

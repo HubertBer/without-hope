@@ -7,7 +7,7 @@ void DroneBay::gameUpdate(GameData& game, Player& player, float dt) {
     
     std::erase_if(drones, [](auto dr){return dr.expired();});
     
-    if (timer > 0 || drones.size() > MAX_DRONE_COUNT) {
+    if (timer > 0 || drones.size() >= MAX_DRONE_COUNT) {
         return;
     }
 
