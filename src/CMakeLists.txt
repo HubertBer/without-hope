@@ -26,6 +26,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     weapons/Cannon.cpp
     weapons/Minigun.cpp
     weapons/ElectricFenceMaker.cpp
+    weapons/DroneBay.cpp
     UI/Button.h
     screens/Screen.cpp
     screens/OptionsScreen.cpp
