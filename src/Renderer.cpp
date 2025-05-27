@@ -48,7 +48,6 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
             gameScreen->game.playerPos(),
             gameScreen->game.getMainCamera()
         );
-        std::cerr << "Player screen position: " << playerScreenPos.x << ", " << playerScreenPos.y << std::endl;
         Rectangle mapBoundsScreen = getBoundsScreen(gameScreen->game.getMapBoundaries(), 
                                                     gameScreen->game.getMainCamera());
         
