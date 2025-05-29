@@ -126,7 +126,7 @@ Shader& Renderer::getShader(const std::string &name)
         return it->second;
     }
     else {
-        Shader shader = LoadShader(0, ("src/resources/shaders/" + name + ".fs").c_str());
+        Shader shader = LoadShader(0, ("resources/shaders/" + name + ".fs").c_str());
         if (shader.id == 0) {
             throw std::runtime_error("Failed to load shader: " + name);
         }
@@ -142,7 +142,7 @@ Texture2D Renderer::getTexture(const std::string &name)
         return it->second;
     }
     else {
-        Texture2D texture = LoadTexture(("src/resources/sprites/" + name).c_str());
+        Texture2D texture = LoadTexture(("resources/sprites/" + name).c_str());
         if (texture.id == 0) {
             throw std::runtime_error("Failed to load texture: " + name);
         }
