@@ -6,12 +6,22 @@
 
 class Trail : public Entity{
 public:
-    Trail(std::weak_ptr<Entity> target);
+    Trail(std::weak_ptr<Entity> target, float thickness = THICKNESS, float distance = DISTANCE, Color color = WHITE, bool dashed = false, bool contour = false, Color contourColor = BLACK);
     void draw() override;
     void gameUpdate(GameData&, float dt) override;
     void physicsUpdate(GameData&);
 private:
     float lerpThickness(float timer);
+    
+    bool pointParity = false;
+    float fadeAwayTimer = LIFETIME;
+
+    const float thickness = THICKNESS;
+    const float distance = DISTANCE;
+    const bool dashed = false;
+    const bool contour = false;
+    const Color color = WHITE;
+    const Color contourColor = BLACK;
 
     std::weak_ptr<Entity> target;
     Vector2 lastPos;
@@ -20,7 +30,7 @@ private:
     static constexpr float LIFETIME = 0.4f;
     static constexpr float DISTANCE = 5.f;
     static constexpr float THICKNESS = 6.f;
-    static constexpr Color color = WHITE;
+    static constexpr float CONTOUR_THICKNESS_MOD = 1.8f;
 
     struct TrailPoint{
         Vector2 pos{0.f,0.f};

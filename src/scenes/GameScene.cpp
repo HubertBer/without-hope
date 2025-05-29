@@ -9,6 +9,7 @@
 #include "../entities/Squadron.h"
 #include "../entities/Trail.h"
 #include "../entities/ShootingEnemy.h"
+#include "../entities/Drone.h"
 #include "../entities/OutsideMapSpawner.h"
 
 void LoadGameScene(GameData& game){
@@ -26,7 +27,7 @@ void LoadGameScene(GameData& game){
     game.setPlayer(player);
     game.registerEntity(player);
 
-    auto playerTrail = std::make_shared<Trail>(player);
+    auto playerTrail = std::make_shared<Trail>(player, 4.f, 5.f, WHITE, false, true, DARKBLUE);
     game.registerEntity(playerTrail);
 
     auto targetableCamera = std::make_shared<TargetableCamera>(player);
@@ -77,6 +78,20 @@ void LoadGameScene(GameData& game){
         Vector2{1000.f, -1000.f }
     ));
 
+    game.registerEntity(std::make_shared<Drone>(
+        player->pos,
+        GetRandomFloat(0, 360)
+    ));
+
+    game.registerEntity(std::make_shared<Drone>(
+        player->pos,
+        GetRandomFloat(0, 360)
+    ));
+
+    game.registerEntity(std::make_shared<Drone>(
+        player->pos,
+        GetRandomFloat(0, 360)
+    ));
     game.registerEntity(std::make_shared<OutsideMapSpawner>(
         Vector2{4.f, 8.f}
     ));
