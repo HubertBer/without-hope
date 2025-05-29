@@ -16,6 +16,9 @@ void WindowManager::Init(int width, int height) {
 
     InitWindow(screenWidth, screenHeight, "without-hope");
     SetTargetFPS(300);
+    
+    // Start in fullscreen mode by default
+    ToggleFullscreen();
 }
 
 void WindowManager::Shutdown() {

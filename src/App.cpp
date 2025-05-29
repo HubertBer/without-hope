@@ -48,10 +48,6 @@ int main() {
         Renderer::draw(screens[currentScreen], currentScreen);
         music.play(currentScreen);
         currentScreen = screens[currentScreen]->nextScreen();
-       
-        if (IsKeyPressed(KEY_F10)) {
-            WindowManager::ToggleFullscreen();
-        }
     }
 
     WindowManager::Shutdown();
