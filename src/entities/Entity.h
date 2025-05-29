@@ -25,7 +25,7 @@ public:
     /// @brief Function called every frame. Put game logic here.
     /// @param game 
     /// @param dt 
-    virtual void gameUpdate(GameData& game, float dt){}
+    virtual void gameUpdate(GameData& game, float dt);
     virtual void collide(std::shared_ptr<Entity> other, GameData& gameData){};
     virtual void draw(){}
     void drawTexture();
