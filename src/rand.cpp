@@ -8,3 +8,7 @@ namespace{
 float GetRandomFloat(float min, float max){
     return min + (max - min) * (GetRandomValue(0, BIG_NUM) / (float) BIG_NUM);
 }
+
+float GetRandomFloat(Vector2 minMax){
+    return GetRandomFloat(minMax.x, minMax.y);
+}
