@@ -11,6 +11,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/Player.cpp
     entities/SimpleEnemy.cpp
     entities/SimpleBullet.cpp
+    entities/LaserEntity.cpp
     entities/SimpleSpawner.cpp
     entities/OutsideMapSpawner.cpp
     entities/TargetableCamera.cpp
@@ -28,6 +29,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     weapons/Minigun.cpp
     weapons/ElectricFenceMaker.cpp
     weapons/DroneBay.cpp
+    weapons/Laser.cpp
     UI/Button.h
     screens/Screen.cpp
     screens/OptionsScreen.cpp

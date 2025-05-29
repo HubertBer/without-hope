@@ -12,6 +12,7 @@
 #include "../weapons/Minigun.h"
 #include "../weapons/ElectricFenceMaker.hpp"
 #include "../weapons/DroneBay.h"
+#include "../weapons/Laser.h"
 
 #include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
@@ -23,6 +24,7 @@ Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     weapons.push_back(std::make_shared<Minigun>());
     weapons.push_back(std::make_shared<ElectricFenceMaker>());
     weapons.push_back(std::make_shared<DroneBay>());
+    weapons.push_back(std::make_shared<Laser>());
 
     collider = MakeCircleCollider(pos, hitboxRadius);
 }
