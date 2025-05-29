@@ -48,6 +48,12 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
             gameScreen->game.playerPos(),
             gameScreen->game.getMainCamera()
         );
+        
+        // Scale player position to match render texture resolution
+        auto [scaleX, scaleY] = getScaling();
+        playerScreenPos.x *= scaleX;
+        playerScreenPos.y *= scaleY;
+        
         Rectangle mapBoundsScreen = getBoundsScreen(gameScreen->game.getMapBoundaries(), 
                                                     gameScreen->game.getMainCamera());
         
@@ -157,10 +163,13 @@ Rectangle Renderer::getBoundsScreen(Rectangle boundaries, Camera2D camera)
     Vector2 leftUpScreen = GetWorldToScreen2D(leftUp, camera);
     Vector2 rightDown = {boundaries.x + boundaries.width, boundaries.y + boundaries.height};
     Vector2 rightDownScreen = GetWorldToScreen2D(rightDown, camera);
+    
+    // Scale coordinates to match the render texture resolution
+    auto [scaleX, scaleY] = getScaling();
     return Rectangle{
-        leftUpScreen.x,
-        leftUpScreen.y,
-        rightDownScreen.x - leftUpScreen.x,
-        rightDownScreen.y - leftUpScreen.y
+        leftUpScreen.x * scaleX,
+        leftUpScreen.y * scaleY,
+        (rightDownScreen.x - leftUpScreen.x) * scaleX,
+        (rightDownScreen.y - leftUpScreen.y) * scaleY
     };
 }

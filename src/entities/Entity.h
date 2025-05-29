@@ -59,5 +59,6 @@ protected:
     Shader shader;
 private:
     Texture2D texture;
+    float textureScale = 1.0f;
     bool useShader=false;
 };

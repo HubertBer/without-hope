@@ -1,6 +1,6 @@
 #pragma once
 
 namespace Config {
-    inline constexpr int screenWidth = 1280;
-    inline constexpr int screenHeight = 720;
+    inline constexpr int screenWidth = 1920;
+    inline constexpr int screenHeight = 1080;
 }
