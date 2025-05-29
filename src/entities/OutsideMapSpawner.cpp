@@ -41,5 +41,5 @@ void OutsideMapSpawner::gameUpdate(GameData& game, float dt){
 }
 
 EntityType OutsideMapSpawner::type(){
-    return EntityType::SIMPLE_SPAWNER;
+    return EntityType::NEUTRAL;
 }

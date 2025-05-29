@@ -7,11 +7,8 @@
 #include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
 #include "../entities/Squadron.h"
-<<<<<<< HEAD
 #include "../entities/Trail.h"
-=======
 #include "../entities/OutsideMapSpawner.h"
->>>>>>> 244d537 (Outside the map spawner)
 
 void LoadGameScene(GameData& game){
     Rectangle mapBoundaries = game.getMapBoundaries();
