@@ -75,6 +75,7 @@ void LoadGameScene(GameData& game){
     ));
     game.registerEntity(std::make_shared<ShootingEnemy>(
         Vector2{1000.f, -1000.f }
+    ));
 
     game.registerEntity(std::make_shared<OutsideMapSpawner>(
         Vector2{4.f, 8.f}
