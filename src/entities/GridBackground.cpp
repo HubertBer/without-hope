@@ -40,8 +40,3 @@ void GridBackground::draw(){
         DrawLine(x0i, yi, x1i, yi, color);
     }
 }
-
-EntityType GridBackground::type(){
-    return GRID_BACKGROUND; 
-}
-

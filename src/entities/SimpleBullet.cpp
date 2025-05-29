@@ -26,15 +26,10 @@ void SimpleBullet::physicsUpdate(GameData& game) {
     }
 }
 
-void SimpleBullet::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
-    switch(entity->type()){
-        case SIMPLE_ENEMY:
-        case SQUADRON_SHIP:
-            onDeath();
-            break;
-        default:
-            break;
-    }
+void SimpleBullet::collide(std::shared_ptr<Entity> entity, GameData& gameData) {
+    if(entity->type() == EntityType::ENEMY){
+        onDeath();
+    };
 }
 
 void SimpleBullet::draw() {
@@ -42,5 +37,5 @@ void SimpleBullet::draw() {
 }
 
 EntityType SimpleBullet::type() {
-    return SIMPLE_BULLET;
+    return PLAYER;
 }

@@ -25,10 +25,8 @@ void SimpleEnemy::physicsUpdate(GameData& game) {
 }
 
 void SimpleEnemy::collide(std::shared_ptr<Entity> other, GameData& gameData) {
-    switch(other->type()){
-        case SIMPLE_BULLET:
-        case ELECTRIC_FENCE:
-            onDeath();
+    if(other->type() == EntityType::PLAYER){
+        onDeath();
     };
 }
 
@@ -37,5 +35,5 @@ void SimpleEnemy::draw() {
 }
 
 EntityType SimpleEnemy::type() {
-    return SIMPLE_ENEMY;
+    return ENEMY;
 }

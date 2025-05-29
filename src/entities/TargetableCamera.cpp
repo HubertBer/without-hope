@@ -35,7 +35,3 @@ TargetableCamera::TargetableCamera(std::shared_ptr<Entity> target)
     camera.target = cameraPos;
     game.setMainCamera(camera);
 }
-
-EntityType TargetableCamera::type(){
-    return TARGETABLE_CAMERA;
-}

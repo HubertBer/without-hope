@@ -10,7 +10,6 @@ public:
     void gameUpdate(GameData& game, float dt) override;
     void physicsUpdate(GameData& game) override;
     void draw() override;
-    EntityType type() override;
 
 private:
     Rectangle cameraBoundaries;
