@@ -23,7 +23,7 @@ private:
     static constexpr float BASE_RADIUS = 8.f;
     static constexpr float MAX_SPEED = 1000.f;
     static constexpr float START_SPEED_FRAC = 0.7f;
-    static constexpr float MAX_ACCELERATION = 2500.f;
+    static constexpr float MAX_ACCELERATION = 3500.f;
     static constexpr Color color{YELLOW};
     static constexpr float RAND_ANGLE = 50.f;
 };

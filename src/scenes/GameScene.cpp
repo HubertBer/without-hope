@@ -27,7 +27,7 @@ void LoadGameScene(GameData& game){
     game.setPlayer(player);
     game.registerEntity(player);
 
-    auto playerTrail = std::make_shared<Trail>(player);
+    auto playerTrail = std::make_shared<Trail>(player, 4.f, 5.f, WHITE, false, true, DARKBLUE);
     game.registerEntity(playerTrail);
 
     auto targetableCamera = std::make_shared<TargetableCamera>(player);
