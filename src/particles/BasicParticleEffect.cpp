@@ -78,7 +78,3 @@ void BasicParticleEffect::draw(){
         DrawCircle(p.posNow.x, p.posNow.y, r, color);
     }
 }
-
-EntityType BasicParticleEffect::type(){
-    return PARTICLE_SPAWNER; 
-}

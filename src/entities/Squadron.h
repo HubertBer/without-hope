@@ -14,7 +14,6 @@ public:
     void start(GameData& game) override;
     void collide(std::shared_ptr<Entity> entity,GameData& gameData) override;
     void draw() override;
-    EntityType type() override;
 
 private:
     void repositionShips();

@@ -29,5 +29,5 @@ void ElectricFence::draw() {
 }
 
 EntityType ElectricFence::type() {
-    return ELECTRIC_FENCE;
+    return PLAYER;
 }
