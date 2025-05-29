@@ -3,8 +3,8 @@
 
 MusicPlayer::MusicPlayer(bool& musicOn):musicOn(musicOn){
     InitAudioDevice();
-    baseMusic = LoadMusicStream("src/resources/music/without-hope-base.wav");
-    melody = {LoadMusicStream("src/resources/music/melody2.wav"),0};
+    baseMusic = LoadMusicStream("resources/music/without-hope-base.wav");
+    melody = {LoadMusicStream("resources/music/melody2.wav"),0};
 
 
     PlayMusicStream(baseMusic);
