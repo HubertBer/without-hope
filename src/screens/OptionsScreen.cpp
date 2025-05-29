@@ -30,7 +30,7 @@ void OptionsScreen::update(float dt) {
     if (isButtonClicked(musicOffButton)||isButtonClicked(musicOnButton)) musicOn=!musicOn;
     if (isButtonClicked(fullscreenToggleButton)) {
         WindowManager::ToggleFullscreen();
-        fullscreenToggleButton.text = WindowManager::IsFullscreen() ? "WINDOWED" : "FULLSCREEN";
+        fullscreenToggleButton.label = WindowManager::IsFullscreen() ? "WINDOWED" : "FULLSCREEN";
     }
 }
 
