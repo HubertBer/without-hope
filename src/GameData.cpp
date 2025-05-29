@@ -105,8 +105,11 @@ void GameData::deleteZombieEntities(){
 }
 
 void GameData::physicsUpdate(){
+    player->physicsUpdate(*this);
     for(auto entity : entities){
-        entity->physicsUpdate(*this);
+        if (entity != player) {
+            entity->physicsUpdate(*this);
+        }
     }
 }
 
@@ -133,6 +136,10 @@ Vector2 GameData::playerPos() const {
     return player->pos;
 }
 
+Vector2 GameData::playerVelocity() const {
+    return player->velocity;
+}
+
 void GameData::reset(GameData& gameData) {
     const std::string* playerName = gameData.playerName;
     GameData* ptr = &gameData;
@@ -156,3 +163,13 @@ Rectangle GameData::getMapBoundaries() {
     return mapBoundaries;
 }
 
+std::vector<std::shared_ptr<Entity>> GameData::entitiesOfType(EntityType type) {
+    std::vector<std::shared_ptr<Entity>> ret;
+    for(auto e : entities) {
+        if (e->type() == type) {
+            ret.push_back(e);
+        }
+    }
+
+    return ret;
+}

@@ -11,6 +11,7 @@
 #include "../weapons/Cannon.h"
 #include "../weapons/Minigun.h"
 #include "../weapons/ElectricFenceMaker.hpp"
+#include "../weapons/DroneBay.h"
 
 #include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
@@ -21,6 +22,8 @@ Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     weapons.push_back(std::make_shared<Cannon>());
     weapons.push_back(std::make_shared<Minigun>());
     weapons.push_back(std::make_shared<ElectricFenceMaker>());
+    weapons.push_back(std::make_shared<DroneBay>());
+
     collider = MakeCircleCollider(pos, hitboxRadius);
 }
 
@@ -29,6 +32,9 @@ void Player::physicsUpdate(GameData& game) {
     velocity += acceleration * GameData::physicsDt;
     if(Vector2Length(velocity) > maxSpeed){
         velocity = Vector2Normalize(velocity) * maxSpeed;
+    }
+    if(Vector2Length(velocity) < 10) {
+        velocity = Vector2Zero();
     }
     pos += velocity * GameData::physicsDt;
 

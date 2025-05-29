@@ -19,11 +19,15 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/Squadron.cpp
     entities/SquadronShip.cpp
     entities/Trail.cpp
+    entities/ShootingEnemy.cpp
+    entities/Drone.cpp
+    entities/Missile.cpp
     collider/CollisionSystem.cpp
     collider/Collider.cpp
     weapons/Cannon.cpp
     weapons/Minigun.cpp
     weapons/ElectricFenceMaker.cpp
+    weapons/DroneBay.cpp
     UI/Button.h
     screens/Screen.cpp
     screens/OptionsScreen.cpp
