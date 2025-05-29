@@ -13,7 +13,8 @@ void Renderer::init(int width, int height)
 {
     target = LoadRenderTexture(width, height);
     targetBloom = LoadRenderTexture(width, height);
-    if (target.texture.id == 0 || targetBloom.texture.id == 0) {
+    targetBoundaries = LoadRenderTexture(width, height);
+    if (target.texture.id == 0 || targetBloom.texture.id == 0 || targetBoundaries.texture.id == 0) {
         throw std::runtime_error("Failed to load render texture");
     }
 
@@ -30,16 +31,30 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
         Shader& shakeShader = getShader("shake");
         Shader& baseShader = getShader("base");
         Shader& bloomShader = getShader("bloom");
+        Shader& borderShader = getShader("border");
+
 
         float resolution[2] = {(float)target.texture.width, (float)target.texture.height};
         SetShaderValue(voronoiShader, GetShaderLocation(voronoiShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
         SetShaderValue(bloomShader, GetShaderLocation(bloomShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
+        SetShaderValue(borderShader, GetShaderLocation(borderShader, "resolution"), resolution, SHADER_UNIFORM_VEC2);
 
         float time = GetTime();
         SetShaderValue(shakeShader, GetShaderLocation(shakeShader, "uTime"), &time, SHADER_UNIFORM_FLOAT);
         SetShaderValue(voronoiShader, GetShaderLocation(voronoiShader, "time"), &time, SHADER_UNIFORM_FLOAT);
 
         auto gameScreen = std::dynamic_pointer_cast<GameScreen>(screen);
+        Vector2 playerScreenPos = GetWorldToScreen2D(
+            gameScreen->game.playerPos(),
+            gameScreen->game.getMainCamera()
+        );
+        Rectangle mapBoundsScreen = getBoundsScreen(gameScreen->game.getMapBoundaries(), 
+                                                    gameScreen->game.getMainCamera());
+        
+        SetShaderValue(borderShader, GetShaderLocation(borderShader, "playerPosition"), &playerScreenPos, SHADER_UNIFORM_VEC2);
+        SetShaderValue(borderShader, GetShaderLocation(borderShader, "mapBounds"), &mapBoundsScreen, SHADER_UNIFORM_VEC4);
+
+
         auto drawLayers = gameScreen->game.prepareDraw();
 
         // Prerender to a texture all layers except bloom
@@ -58,10 +73,6 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
                 }
             }
         }
-        Rectangle mapBounds = gameScreen->game.getMapBoundaries();
-        float desiredPx   = 8.0f;
-        float thicknessWS = desiredPx / gameScreen->game.getMainCamera().zoom;
-        DrawRectangleLinesEx(mapBounds, thicknessWS, BLACK);
         EndMode2D();
         EndTextureMode();
 
@@ -77,7 +88,7 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
         EndTextureMode();
 
         // Draw all the layers to the screen
-        BeginDrawing();
+        BeginTextureMode(targetBoundaries);
         ClearBackground(BLACK);
 
         BeginShaderMode(time - dynamic_cast<GameScreen &>(*screen).game.getLastDamageTime() > 0.1f ? baseShader : shakeShader);
@@ -90,6 +101,13 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
         EndBlendMode();
 
         gameScreen->drawScore();
+        EndShaderMode();
+        EndTextureMode();
+
+        // Draw the final texture to the screen with boundary tint
+        BeginDrawing();
+        BeginShaderMode(borderShader);
+        drawTextureStretched(targetBoundaries);
         EndShaderMode();
         EndDrawing();
     }
@@ -131,4 +149,18 @@ Texture2D Renderer::getTexture(const std::string &name)
         textureCache[name] = texture;
         return textureCache[name];
     }
+}
+
+Rectangle Renderer::getBoundsScreen(Rectangle boundaries, Camera2D camera)
+{
+    Vector2 leftUp = {boundaries.x, boundaries.y};
+    Vector2 leftUpScreen = GetWorldToScreen2D(leftUp, camera);
+    Vector2 rightDown = {boundaries.x + boundaries.width, boundaries.y + boundaries.height};
+    Vector2 rightDownScreen = GetWorldToScreen2D(rightDown, camera);
+    return Rectangle{
+        leftUpScreen.x,
+        leftUpScreen.y,
+        rightDownScreen.x - leftUpScreen.x,
+        rightDownScreen.y - leftUpScreen.y
+    };
 }
