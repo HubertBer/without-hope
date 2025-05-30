@@ -38,6 +38,12 @@ void ShootingEnemy::gameUpdate(GameData& game, float dt) {
     }
 
     // MOVEMENT
+
+    velocityModifierDuration -= dt;
+    if(velocityModifierDuration<0.f){
+        velocityModifier=DEFAULT_VELOCITY_MODIFIER;
+    }
+
     const float player_dist = Vector2Distance(pos, game.playerPos());
     acceleration = game.playerPos() - pos;
     if (player_dist < TARGET_DISTANCE) {
@@ -63,7 +69,7 @@ void ShootingEnemy::physicsUpdate(GameData& game) {
     if(Vector2Length(velocity) > maxSpeed){
         velocity = Vector2Normalize(velocity) * maxSpeed;
     }
-    pos += velocity * GameData::physicsDt;
+    pos += velocity * GameData::physicsDt * velocityModifier ;
     collider.p0 = pos;
 }
 
@@ -71,6 +77,11 @@ void ShootingEnemy::collide(std::shared_ptr<Entity> other, GameData& gameData) {
     if(other->type() == EntityType::PLAYER){
         onDeath();
     };
+    if(other->type()==EntityType::PLAYER_SLOWER){
+        //make the slower responsible for the constants?
+        velocityModifier=0.25f;
+        velocityModifierDuration=2.0f;
+    }
 }
 
 void ShootingEnemy::draw() {

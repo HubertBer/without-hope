@@ -23,6 +23,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/ShootingEnemy.cpp
     entities/Drone.cpp
     entities/Missile.cpp
+    entities/SlowCircle.cpp
     collider/CollisionSystem.cpp
     collider/Collider.cpp
     weapons/Cannon.cpp
@@ -30,6 +31,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     weapons/ElectricFenceMaker.cpp
     weapons/DroneBay.cpp
     weapons/Laser.cpp
+    weapons/SlowCircleMaker.cpp
     UI/Button.h
     screens/Screen.cpp
     screens/OptionsScreen.cpp

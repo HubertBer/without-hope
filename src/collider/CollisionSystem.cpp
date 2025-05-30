@@ -6,6 +6,23 @@
 #include <list>
 
 namespace{
+    bool CheckCollisionCircleOutlineCircle(Vector2 center1, float radius1,float radius_unimportant, Vector2 center2, float radius2)
+    {
+        bool collision = false;
+
+        float dx = center2.x - center1.x;      // X distance between centers
+        float dy = center2.y - center1.y;      // Y distance between centers
+
+        float distanceSquared = dx*dx + dy*dy; // Distance between centers squared
+        float radiusSum = radius1 + radius2;
+
+        collision = (distanceSquared <= (radiusSum*radiusSum))&& (distanceSquared >= radius_unimportant*radius_unimportant);
+
+        return collision;
+    }
+}
+
+namespace{
     bool AreColliding(Collider col1, Collider col2){
         if(col1.type > col2.type){
             std::swap(col1, col2);
@@ -16,8 +33,17 @@ namespace{
         if(col1.type == ColliderType::CIRCLE && col2.type == ColliderType::LINE_SEGMENT){
             return CheckCollisionCircleLine(col1.p0, col1.radius, col2.p0, col2.p1);
         }
-        Vector2 collisionPoint;
-        return CheckCollisionLines(col1.p0, col1.p1, col2.p0, col2.p1, &collisionPoint);
+        if(col1.type == ColliderType::CIRCLE && col2.type == ColliderType::CIRCLE_OUTLINE){
+            return CheckCollisionCircleOutlineCircle(col2.p0, col2.radius, col2.inside_radius, col1.p0, col1.radius);
+        }
+        if(col1.type == ColliderType::LINE_SEGMENT && col2.type == ColliderType::LINE_SEGMENT){
+            Vector2 collisionPoint;
+            return CheckCollisionLines(col1.p0, col1.p1, col2.p0, col2.p1, &collisionPoint);
+        }else{
+            //I know that its dengerous, but I don't think we need that right now (only slow circle is circle outline, and enemies are always circles)
+            //correct me if im wrong 
+            return false;
+        }
     }
 }
 
