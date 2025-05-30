@@ -8,8 +8,7 @@ SlowCircleMaker::SlowCircleMaker(){}
 void SlowCircleMaker::gameUpdate(GameData& game, Player& player, float dt){
     timer -= dt;
     if(timer < 0 && IsKeyDown(KEY_SPACE)){
-        slowCircle = std::make_shared<SlowCircle>(MakeCircleOutlineCollider(player.pos, 0.0f,0.0f));
-        game.registerEntity(slowCircle);
+        game.registerEntity(std::make_shared<SlowCircle>(MakeCircleOutlineCollider(player.pos, 0.0f,0.0f)));
         timer = cooldown;
     }
 }

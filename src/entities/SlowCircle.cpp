@@ -22,7 +22,7 @@ void SlowCircle::physicsUpdate(GameData& game){
 }
 
 void SlowCircle::draw() {
-    DrawCircleLines(collider.p0.x, collider.p0.y, collider.radius, BLACK);
+    DrawRing({collider.p0.x, collider.p0.y},collider.inside_radius, collider.radius, 0.f,360.f,0.f,BLACK);
 }
 
 EntityType SlowCircle::type() {
