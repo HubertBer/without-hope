@@ -10,13 +10,21 @@ void Laser::gameUpdate(GameData& game, Player& player,  float dt){
     bulletCooldown -= dt;
 
     if(bulletCooldown <= 0.0f){
-        Vector2 mousePos = game.getMouseWorldPosition();
-        
+        mousePos = game.getMouseWorldPosition();
+        Vector2 dir = Vector2Normalize(mousePos - player.posNow);
+        mousePos = player.posNow + dir * MIN_MOUSE_LENGTH;
 
-        Collider laserCollider = MakeLineCollider(player.pos, (mousePos-player.pos)*100);
-        game.registerEntity(std::make_shared<LaserEntity>(laserCollider));
+        Collider laserCollider = MakeLineCollider(player.posNow, dir * LaserEntity::LASER_LENGTH);
+        auto laser_spr = std::make_shared<LaserEntity>(laserCollider); 
+        laser = laser_spr;
+        game.registerEntity(laser_spr);
 
         bulletCooldown += maxBulletCooldown;
+    }
+
+    if(!laser.expired()) {
+        laser.lock()->collider.p0 = player.posNow;
+        laser.lock()->collider.p1 = mousePos;
     }
 }
 

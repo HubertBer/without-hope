@@ -2,9 +2,9 @@
 
 #include "Entity.h"
 #include "../GameData.h"
-
 class LaserEntity : public Entity{
 public:
+    static constexpr float LASER_LENGTH = 2000.f;
     LaserEntity(Collider collider);
     void gameUpdate(GameData& game, float dt) override;
     void draw() override;

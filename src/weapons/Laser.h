@@ -4,6 +4,8 @@
 #include "../GameData.h"
 #include "../entities/Entity.h"
 #include "../entities/Player.h"
+#include "../entities/LaserEntity.h"
+#include <memory>
 
 class Laser : public Weapon{
 public:
@@ -12,6 +14,10 @@ public:
     void physicsUpdate(GameData& game, Player& player) override;
 
 private:
-    float bulletCooldown = 0.0f;
+    Vector2 mousePos;
+    float bulletCooldown = 1.0f;
     float maxBulletCooldown = 2.0f;
+    std::weak_ptr<LaserEntity> laser;
+    
+    static constexpr float MIN_MOUSE_LENGTH = 500.f;
 };
