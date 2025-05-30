@@ -42,6 +42,11 @@ void SimpleBullet::collide(std::shared_ptr<Entity> entity, GameData& gameData) {
         //make the slower responsible for the constants?
         velocityModifier=0.25f;
         velocityModifierDuration=2.0f;
+        return;
+    }
+    if(parent_type== PLAYER && entity->type()==EntityType::PLAYER_SLOWER){
+        //make the slower responsible for the constants?
+        return;
     }
     if(entity->type() != parent_type && entity->type() != NEUTRAL){
         onDeath();
