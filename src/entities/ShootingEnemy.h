@@ -31,4 +31,7 @@ private:
     static constexpr float BURST_DELAY = 0.05f;
     static constexpr float MAX_ACCELERATION = 400.0f;
     static constexpr Color BULLET_COLOR{RED};
+    static constexpr float DEFAULT_VELOCITY_MODIFIER = 1.0f;
+    float velocityModifier=1.0f;
+    float velocityModifierDuration=0.0f;
 };

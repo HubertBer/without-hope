@@ -29,4 +29,7 @@ private:
     static constexpr float SPLIT_DISTANCE = 400.f;
     static constexpr float MAX_SPEED = 450.f;
     std::array<Vector2, SQUADRON_SIZE> offset{};
+    static constexpr float DEFAULT_VELOCITY_MODIFIER = 1.0f;
+    float velocityModifier=1.0f;
+    float velocityModifierDuration=0.0f;
 };

@@ -19,4 +19,7 @@ private:
     static constexpr float BASE_RADIUS = 10.f;
     static constexpr float maxSpeed = 300.f;
     static constexpr int score = 10;
+    static constexpr float DEFAULT_VELOCITY_MODIFIER = 1.0f;
+    float velocityModifier=1.0f;
+    float velocityModifierDuration=0.0f;
 };
