@@ -14,6 +14,6 @@ public:
 private:
     float radius=0.0f;
     const float expansionSpeed = 500.f;
-    const float outlineWidth = 100;
+    const float outlineWidth = 50;
     
 };
