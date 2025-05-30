@@ -20,6 +20,10 @@ void SquadronShip::setTarget(Vector2 target){
 
 void SquadronShip::gameUpdate(GameData& game, float dt){
     posNow = game.lerp(prevPos, pos);
+    velocityModifierDuration -= dt;
+    if(velocityModifierDuration<0.f){
+        velocityModifier=DEFAULT_VELOCITY_MODIFIER;
+    }
 }
 
 void SquadronShip::physicsUpdate(GameData& game){
@@ -45,7 +49,7 @@ void SquadronShip::physicsUpdate(GameData& game){
     }else{
         dir = Vector2Normalize(dir);
         velocity = dir * MAX_SPEED;
-        pos += velocity * GameData::physicsDt;
+        pos +=  velocity * GameData::physicsDt * velocityModifier ;
     }
 
     if(Vector2Length(pos - prevPos) > EPSILON){
@@ -64,9 +68,14 @@ void SquadronShip::draw(){
     // DrawCircle(target.x, target.y, 8.f, BLACK);
 }
 
-void SquadronShip::collide(std::shared_ptr<Entity> entity, GameData& gameData){
-    if(entity->type() == EntityType::PLAYER){
+void SquadronShip::collide(std::shared_ptr<Entity> other, GameData& gameData){
+    if(other->type() == EntityType::PLAYER){
         onDeath();
+    }
+    if(other->type()==EntityType::PLAYER_SLOWER){
+        //make the slower responsible for the constants?
+        velocityModifier=0.25f;
+        velocityModifierDuration=2.0f;
     }
 }
 

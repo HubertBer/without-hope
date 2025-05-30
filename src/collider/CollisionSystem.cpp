@@ -16,8 +16,17 @@ namespace{
         if(col1.type == ColliderType::CIRCLE && col2.type == ColliderType::LINE_SEGMENT){
             return CheckCollisionCircleLine(col1.p0, col1.radius, col2.p0, col2.p1);
         }
-        Vector2 collisionPoint;
-        return CheckCollisionLines(col1.p0, col1.p1, col2.p0, col2.p1, &collisionPoint);
+        if(col1.type == ColliderType::CIRCLE && col2.type == ColliderType::CIRCLE_OUTLINE){
+            return CheckCollisionCircleOutlineCircle(col2.p0, col2.radius, col2.inside_radius, col1.p0, col1.radius);
+        }
+        if(col1.type == ColliderType::LINE_SEGMENT && col2.type == ColliderType::LINE_SEGMENT){
+            Vector2 collisionPoint;
+            return CheckCollisionLines(col1.p0, col1.p1, col2.p0, col2.p1, &collisionPoint);
+        }else{
+            //I know that its dengerous, but I don't think we need that right now (only slow circle is circle outline, and enemies are always circles)
+            //correct me if im wrong 
+            return false;
+        }
     }
 }
 

@@ -16,10 +16,14 @@ public:
 
     static constexpr float BASE_RADIUS =10.f;
     static constexpr float maxSpeed = 800.f;
+    
 private:
     EntityType parent_type;
 
     // Needed for the enemy bullets to vanish properly
     // as they ignore map boundaries (makes more sense for them) 
     float lifetime = 10.f;
+    static constexpr float DEFAULT_VELOCITY_MODIFIER = 1.0f;
+    float velocityModifier=1.0f;
+    float velocityModifierDuration=0.0f;
 };

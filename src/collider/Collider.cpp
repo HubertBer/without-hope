@@ -18,3 +18,13 @@ Collider MakeCircleCollider(Vector2 p0, float radius){
         radius
     };
 }
+
+Collider MakeCircleOutlineCollider(Vector2 p0, float radius,float inside_radius){
+    return Collider{
+        ColliderType::CIRCLE_OUTLINE,
+        p0,
+        Vector2{0, 0},
+        radius,
+        inside_radius,
+    };
+}

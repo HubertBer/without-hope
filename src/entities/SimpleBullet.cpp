@@ -17,11 +17,15 @@ void SimpleBullet::gameUpdate(GameData& game, float dt) {
     if(lifetime < 0) {
         onDeath();
     }
+    velocityModifierDuration -= dt;
+    if(velocityModifierDuration<0.f){
+        velocityModifier=DEFAULT_VELOCITY_MODIFIER;
+    }
 }
 
 void SimpleBullet::physicsUpdate(GameData& game) {
     prevPos = pos;
-    pos += velocity * GameData::physicsDt;
+    pos += velocity * GameData::physicsDt * velocityModifier ;
     collider.p0 = pos;
 
     Rectangle mapBoundaries = game.getMapBoundaries();
@@ -34,9 +38,15 @@ void SimpleBullet::physicsUpdate(GameData& game) {
 }
 
 void SimpleBullet::collide(std::shared_ptr<Entity> entity, GameData& gameData) {
+    if(parent_type!= PLAYER && entity->type()==EntityType::PLAYER_SLOWER){
+        //make the slower responsible for the constants?
+        velocityModifier=0.25f;
+        velocityModifierDuration=2.0f;
+    }
     if(entity->type() != parent_type && entity->type() != NEUTRAL){
         onDeath();
     };
+    
 }
 
 void SimpleBullet::draw() {

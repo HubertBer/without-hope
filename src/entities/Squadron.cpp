@@ -46,7 +46,12 @@ void Squadron::start(GameData& game){
     }
 }
 
-void Squadron::gameUpdate(GameData& game, float dt){}
+void Squadron::gameUpdate(GameData& game, float dt){
+    velocityModifierDuration -= dt;
+    if(velocityModifierDuration<0.f){
+        velocityModifier=DEFAULT_VELOCITY_MODIFIER;
+    }
+}
 
 void Squadron::split(GameData& game){
     std::vector<std::weak_ptr<SquadronShip>> leftShips;
@@ -110,7 +115,7 @@ void Squadron::physicsUpdate(GameData& game){
     }
 
     velocity = Vector2Normalize(dir) * MAX_SPEED;
-    pos += velocity * GameData::physicsDt;
+    pos += velocity * GameData::physicsDt * velocityModifier ;
 
     repositionShips();
     if(zombie){
@@ -128,7 +133,13 @@ void Squadron::physicsUpdate(GameData& game){
     }
 }
 
-void Squadron::collide(std::shared_ptr<Entity> entity, GameData& gameData){}
+void Squadron::collide(std::shared_ptr<Entity> other, GameData& gameData){
+    if(other->type()==EntityType::PLAYER_SLOWER){
+        //make the slower responsible for the constants?
+        velocityModifier=0.25f;
+        velocityModifierDuration=2.0f;
+    }
+}
 
 void Squadron::draw(){}
 
