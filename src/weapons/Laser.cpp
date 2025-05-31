@@ -24,7 +24,8 @@ void Laser::gameUpdate(GameData& game, Player& player,  float dt){
 
     if(!laser.expired()) {
         laser.lock()->collider.p0 = player.posNow;
-        laser.lock()->collider.p1 = mousePos;
+        Vector2 dir = Vector2Normalize(mousePos - player.posNow);
+        laser.lock()->collider.p1 = player.posNow + dir * LaserEntity::LASER_LENGTH;
     }
 }
 
