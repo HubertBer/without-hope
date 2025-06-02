@@ -12,6 +12,7 @@
 #include "../entities/Drone.h"
 #include "../entities/OutsideMapSpawner.h"
 #include "../entities/Collectible.h"
+#include "../entities/CollectibleSpawner.h"
 
 void LoadGameScene(GameData& game){
     Rectangle mapBoundaries = game.getMapBoundaries();
@@ -105,7 +106,5 @@ void LoadGameScene(GameData& game){
         Vector2{4.f, 8.f}
     ));
 
-    game.registerEntity(std::make_shared<Collectible>(
-        Vector2{700, 700}
-    ));
+    game.registerEntity(std::make_shared<CollectibleSpawner>());
 }

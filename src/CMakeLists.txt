@@ -25,6 +25,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     entities/Missile.cpp
     entities/SlowCircle.cpp
     entities/Collectible.cpp
+    entities/CollectibleSpawner.cpp
     collider/CollisionSystem.cpp
     collider/Collider.cpp
     weapons/Cannon.cpp
