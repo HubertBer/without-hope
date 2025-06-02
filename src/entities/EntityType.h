@@ -5,4 +5,5 @@ enum EntityType{
     PLAYER,
     ENEMY,
     PLAYER_SLOWER,
+    COLLECTIBLE,
 };

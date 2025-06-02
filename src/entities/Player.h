@@ -32,5 +32,7 @@ public:
 private:
     std::shared_ptr<BasicParticleEffect> movementParticles;
     Vector2 acceleration{0.f, 0.f};
-    std::vector<std::shared_ptr<Weapon>> weapons;
+    std::shared_ptr<Weapon> main_weapon;
+    std::shared_ptr<Weapon> automatic_weapon;
+    std::shared_ptr<Weapon> special_weapon;
 };

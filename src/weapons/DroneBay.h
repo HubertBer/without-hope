@@ -11,7 +11,7 @@ public:
     DroneBay(){}
     void gameUpdate(GameData& game, Player& player, float dt) override;
     void physicsUpdate(GameData&, Player&) override;
-
+    WeaponName getWeaponName() override { return WeaponName::DRONE_BAY; }
 private:
     std::vector<std::weak_ptr<Drone>> drones;
 

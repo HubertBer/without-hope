@@ -12,6 +12,7 @@ public:
     Laser();
     void gameUpdate(GameData& game, Player& player, float dt) override;
     void physicsUpdate(GameData& game, Player& player) override;
+    WeaponName getWeaponName() override { return WeaponName::LASER; }
 
 private:
     Vector2 mousePos;

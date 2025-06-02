@@ -173,3 +173,7 @@ std::vector<std::shared_ptr<Entity>> GameData::entitiesOfType(EntityType type) {
 
     return ret;
 }
+
+bool GameData::isPlayer(std::shared_ptr<Entity> ent) {
+    return ent == player;
+}

@@ -48,6 +48,7 @@ public:
     int getScore();
     Rectangle getMapBoundaries();
     std::vector<std::shared_ptr<Entity>> entitiesOfType(EntityType type);
+    bool isPlayer(std::shared_ptr<Entity>);
 
     bool hasEnded=false;
     int scorePosition=-1;

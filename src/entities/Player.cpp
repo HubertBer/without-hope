@@ -17,16 +17,14 @@
 
 #include "../particles/BasicParticleEffect.h"
 #include "../rand.h"
+#include "Collectible.h"
 
 Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS, 0, DrawingLayer::BLOOM) {
     loadTexture("player.png", 0.5f);
-    weapons.push_back(std::make_shared<Cannon>());
-    weapons.push_back(std::make_shared<Minigun>());
-    weapons.push_back(std::make_shared<ElectricFenceMaker>());
-    weapons.push_back(std::make_shared<DroneBay>());
-    weapons.push_back(std::make_shared<Laser>());
-    weapons.push_back(std::make_shared<SlowCircleMaker>());
+    main_weapon = std::make_shared<Cannon>();
+    automatic_weapon = std::make_shared<Minigun>();
+    special_weapon = std::make_shared<ElectricFenceMaker>();
 
     collider = MakeCircleCollider(pos, hitboxRadius);
 }
@@ -42,8 +40,14 @@ void Player::physicsUpdate(GameData& game) {
     }
     pos += velocity * GameData::physicsDt;
 
-    for(auto weapon : weapons){
-        weapon->physicsUpdate(game, *this);
+    if (main_weapon) {
+        main_weapon->physicsUpdate(game, *this);
+    }
+    if (automatic_weapon) {
+        automatic_weapon->physicsUpdate(game, *this);
+    }
+    if (special_weapon) {
+        special_weapon->physicsUpdate(game, *this);
     }
 
     collider.p0 = pos;
@@ -94,8 +98,14 @@ void Player::gameUpdate(GameData& game, float dt) {
         movementParticles->stopSpawning();
     }
 
-    for(auto weapon : weapons){
-        weapon->gameUpdate(game, *this, dt);
+    if (main_weapon) {
+        main_weapon->gameUpdate(game, *this, dt);
+    }
+    if (automatic_weapon) {
+        automatic_weapon->gameUpdate(game, *this, dt);
+    }
+    if (special_weapon) {
+        special_weapon->gameUpdate(game, *this, dt);
     }
 }
 
@@ -113,6 +123,39 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
                 timeOfLastDamage = GetTime();
             }
         }
+    }
+
+    if (entity->type() == EntityType::COLLECTIBLE) {
+        auto collectible = dynamic_cast<Collectible*>(entity.get());
+        switch (collectible->weapon) {
+            case WeaponType::AUTOMATIC :
+                if (automatic_weapon->getWeaponName() == WeaponName::MINIGUN) {
+                    automatic_weapon = std::make_shared<DroneBay>();
+                    std::cout << "SWITCHED TO DRONE BAY" << std::endl;
+                } else {
+                    automatic_weapon = std::make_shared<Minigun>();
+                    std::cout << "SWITCHED TO MINIGUN" << std::endl;
+                }
+                    break;
+                case WeaponType::MAIN :
+                if (main_weapon->getWeaponName() == WeaponName::LASER) {
+                    main_weapon = std::make_shared<Cannon>();
+                    std::cout << "SWITCHED TO CANNON" << std::endl;
+                } else {
+                    main_weapon = std::make_shared<Laser>();
+                    std::cout << "SWITCHED TO LASER" << std::endl;
+                }
+                    break;
+                case WeaponType::SPECIAL :
+                if (special_weapon->getWeaponName() == WeaponName::ELECTRIC_FENCE) {
+                    special_weapon = std::make_shared<SlowCircleMaker>();
+                    std::cout << "SWITCHED TO SLOW CIRCLE" << std::endl;
+                } else {
+                    special_weapon = std::make_shared<ElectricFenceMaker>();
+                    std::cout << "SWITCHED TO ELECTRIC FENCE" << std::endl;
+                }
+                break;
+        };
     }
 }
 
