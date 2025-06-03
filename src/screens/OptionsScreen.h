@@ -12,7 +12,7 @@ class MusicPlayer;
 class GameData;
 
 class OptionsScreen : public Screen {
-    Button resumeButton, exitToMenuButton, musicOnButton,musicOffButton;
+    Button resumeButton, exitToMenuButton, musicOnButton,musicOffButton, fullscreenButton;
 
     GameData& game;
     bool& musicOn;

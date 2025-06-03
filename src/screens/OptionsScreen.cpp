@@ -7,18 +7,20 @@
 #include "../GameData.h"
 #include "../music/MusicPlayer.h"
 #include "../UI/Scaler.h"
+#include "../WindowManager.h"
 
 #include <raylib.h>
 
 OptionsScreen::OptionsScreen(GameData& g,bool& musicOn)
     : Screen(), game(g),musicOn(musicOn) {
-    int w = 200, h = 60, spacing = 20;
-    float startY = (Config::screenHeight - (h * 2 + spacing)) / 2.0f;
+    int w = 313, h = 60, spacing = 20;
+    float startY = (Config::screenHeight - (h * 4 + spacing * 3)) / 2.0f;
 
     resumeButton = createButton((Config::screenWidth - w) / 2.0f, startY, w, h, "RESUME");
     exitToMenuButton = createButton((Config::screenWidth - w) / 2.0f, startY + h + spacing, w, h, "MAIN MENU");
     musicOffButton = createButton((Config::screenWidth - w) / 2.0f, startY + 2*h + 2*spacing, w, h, "MUSIC: ON");
     musicOnButton = createButton((Config::screenWidth - w) / 2.0f, startY + 2*h + 2*spacing, w, h, "MUSIC: OFF");
+    fullscreenButton = createButton((Config::screenWidth - w) / 2.0f, startY + 3*h + 3*spacing, w, h, WindowManager::IsFullscreen() ? "FULLSCREEN: ON" : "FULLSCREEN: OFF");
 }
 
 void OptionsScreen::update(float dt) {
@@ -26,6 +28,10 @@ void OptionsScreen::update(float dt) {
     if (isButtonClicked(resumeButton)) action = Action::Resume;
     if (isButtonClicked(exitToMenuButton)) action = Action::Exit;
     if (isButtonClicked(musicOffButton)||isButtonClicked(musicOnButton)) musicOn=!musicOn;
+    if (isButtonClicked(fullscreenButton)) {
+        WindowManager::ToggleFullscreen();
+        fullscreenButton.label = WindowManager::IsFullscreen() ? "FULLSCREEN: ON" : "FULLSCREEN: OFF";
+    }
 }
 
 void OptionsScreen::draw() {
@@ -37,6 +43,7 @@ void OptionsScreen::draw() {
     }else{
         drawButton(musicOnButton);
     }
+    drawButton(fullscreenButton);
 }
 
 ScreenType OptionsScreen::nextScreen() {

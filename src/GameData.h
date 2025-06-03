@@ -69,8 +69,8 @@ private:
     const std::string* playerName;
     Rectangle mapBoundaries{
         0, 0,
-        1.3f * GetScreenWidth(),
-        1.3f * GetScreenHeight()
+        2.f * GetScreenWidth(),
+        2.f * GetScreenHeight()
     };
 
     // Statistics for shaders

@@ -14,7 +14,7 @@
 
 #include <raylib.h>
 
-constexpr int BUTTON_WIDTH = 200;
+constexpr int BUTTON_WIDTH = 313;
 constexpr int BUTTON_HEIGHT = 60;
 constexpr int BUTTON_SPACING = 20;
 constexpr int TEXTBOX_WIDTH = 300;
