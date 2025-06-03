@@ -13,6 +13,8 @@ public:
 
 private:
     float radius=0.0f;
+    float prevRadius=0.0f;
+    float radiusNow=0.0f;
     const float expansionSpeed = 500.f;
     const float outlineWidth = 50;
     
