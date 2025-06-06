@@ -8,6 +8,7 @@
 #include "UI/Scaler.h"
 #include <algorithm>
 #include "collider/CollisionSystem.h"
+#include "difficulty/DifficultyScaler.h"
 
 GameData::GameData(const std::string* playerName):playerName(playerName)
 {
@@ -48,6 +49,8 @@ Rectangle GameData::getCameraVisionBoundaries(Camera2D camera) {
 
 bool GameData::gameUpdate(float dt, float lerpValue)
 {
+    DifficultyScaler::increaseDifficulty(*this, dt, difficultyRate);
+
     for(auto entity: entitiesBuffer){
         entities.push_back(entity);
     }
