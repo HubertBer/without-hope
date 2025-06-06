@@ -31,7 +31,6 @@ int main() {
     Renderer::init(Config::screenWidth, Config::screenHeight);
     MusicPlayer music{musicOn};
     GameData gameData{&name};
-    
 
     std::map<ScreenType, std::shared_ptr<Screen>> screens;
     screens[SCREEN_START] = std::make_shared<StartScreen>(gameData,&name);
