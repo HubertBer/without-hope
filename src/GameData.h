@@ -40,6 +40,7 @@ public:
     Vector2 getMouseWorldPosition() const;
     static Rectangle getCameraVisionBoundaries(Camera2D camera);
     Vector2 lerp(Vector2 v1, Vector2 v2);
+    float lerp(float v1, float v2);
     Vector2 playerPos() const;
     Vector2 playerVelocity() const;
     static void reset(GameData& gameData);
