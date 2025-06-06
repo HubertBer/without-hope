@@ -7,7 +7,7 @@
 #include "../rand.h"
 
 void DifficultyScaler::increaseDifficulty(GameData& game, float dt, float difficultyRate) {
-    float lambda = difficultyRate * (1.f + std::log(game.getScore() + 1.f)) * dt / 2.f; // *magic* constant to account for the early rapid growth.
+    float lambda = difficultyRate * (1.f + std::log(game.getScore() + 1.f)) * dt / 3.f; // *magic* constant to account for the early rapid growth.
 
     for (const auto& config : entityConfigs) {
         if (GetRandomFloat(0.f, 1.f) < lambda / config.spawnRate) {
