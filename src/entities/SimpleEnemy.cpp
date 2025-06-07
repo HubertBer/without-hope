@@ -6,6 +6,7 @@
 
 #include "../GameData.h"
 
+
 SimpleEnemy::SimpleEnemy(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS, 0.f, DrawingLayer::BLOOM) {
     loadTexture("square.png", 0.5f);
@@ -38,6 +39,10 @@ void SimpleEnemy::collide(std::shared_ptr<Entity> other, GameData& gameData) {
         velocityModifier=0.25f;
         velocityModifierDuration=2.0f;
     }
+}
+void SimpleEnemy::onDeath(){
+    zombie=true;
+    PlaySound(SoundLoader::audio["simpleEnemyDead"]);
 }
 
 void SimpleEnemy::draw() {

@@ -5,6 +5,7 @@ LaserEntity::LaserEntity(Collider collider)
 : Entity(collider.p0, collider.p1, Vector2{0, 0}, 0, 0, DrawingLayer::BLOOM){
     this->collider = collider;
     loadShader("lightning");
+    PlaySound(SoundLoader::audio["laser"]);
 }
 
 void LaserEntity::gameUpdate(GameData& game, float dt){

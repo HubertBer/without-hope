@@ -54,6 +54,7 @@ void Squadron::gameUpdate(GameData& game, float dt){
 }
 
 void Squadron::split(GameData& game){
+    PlaySound(SoundLoader::audio["squadron"]);
     std::vector<std::weak_ptr<SquadronShip>> leftShips;
     std::vector<std::weak_ptr<SquadronShip>> rightShips;
     repositionShips();
