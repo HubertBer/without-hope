@@ -31,7 +31,7 @@ public:
     void drawTexture();
     virtual EntityType type(){return NEUTRAL;}
     virtual std::pair<DrawingLayer, float> drawOrder(){return {drawLayer, pos.y};};
-    void onDeath();
+    virtual void onDeath();
     virtual int getScore(){return score;}
 
     virtual void start(GameData&){}

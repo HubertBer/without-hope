@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 #include "../GameData.h"
+#include "../music/SoundLoader.h"
 
 struct SimpleBullet : public Entity {
 public:

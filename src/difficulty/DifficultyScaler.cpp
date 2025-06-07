@@ -37,6 +37,5 @@ void DifficultyScaler::increaseDifficulty(GameData& game, float dt, float diffic
 std::vector<DifficultyScaler::EntityConfig> DifficultyScaler::entityConfigs = {
     {5.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<SimpleEnemy>(pos, pos, Vector2{0, 0})); }},
     {30.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<ShootingEnemy>(pos)); }},
-    {30.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<Drone>(game.playerPos(), 180.f)); }},
     {60.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<Squadron>(pos, 180.f)); }},
 };

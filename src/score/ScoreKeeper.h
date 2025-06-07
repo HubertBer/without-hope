@@ -1,8 +1,8 @@
 #pragma once
-#include "../entities/SimpleEnemy.h"
 #include <vector>
 #include <string>
-
+#include <memory>
+#include "../entities/Entity.h"
 
 class ScoreKeeper{
     public:

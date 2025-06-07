@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include <vector>
 #include <array>
+#include "../music/SoundLoader.h"
 #include "SquadronShip.h"
 
 class Squadron : public Entity{

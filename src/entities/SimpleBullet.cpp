@@ -1,5 +1,6 @@
 #include "SimpleBullet.h"
 
+
 #include <raymath.h>
 
 #include "../GameData.h"
@@ -9,6 +10,9 @@ SimpleBullet::SimpleBullet(Vector2 prevPos, Vector2 pos, Vector2 velocity, float
     loadTexture("bullet.png", 0.2f);
     collider = MakeCircleCollider(pos, hitboxRadius);
     textureTint = color;
+    if(parent_type==PLAYER){
+        PlaySound(SoundLoader::audio["playerBullet"]);
+    }
 }
 
 void SimpleBullet::gameUpdate(GameData& game, float dt) {
