@@ -3,7 +3,7 @@
 
 LeaderboardScreen::LeaderboardScreen(GameData& g)
     : Screen(), game(g) {
-    int w = 200, h = 60, spacing = 20;
+    int w = 313, h = 60, spacing = 20;
     float startY = (Config::screenHeight - h * 2 );
 
     exitButton = createButton((Config::screenWidth - w) / 2.0f, startY, w, h, "MAIN MENU");
