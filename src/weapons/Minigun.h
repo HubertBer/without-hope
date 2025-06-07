@@ -10,6 +10,7 @@ public:
     Minigun();
     void gameUpdate(GameData& game, Player& player, float dt) override;
     void physicsUpdate(GameData& game, Player& player) override;
+    WeaponName getWeaponName() override { return WeaponName::MINIGUN; }
 
 private:
     float bulletCooldown = 0.05f;

@@ -11,6 +11,8 @@
 #include "../entities/ShootingEnemy.h"
 #include "../entities/Drone.h"
 #include "../entities/OutsideMapSpawner.h"
+#include "../entities/Collectible.h"
+#include "../entities/CollectibleSpawner.h"
 
 void LoadGameScene(GameData& game){
     Rectangle mapBoundaries = game.getMapBoundaries();
@@ -35,4 +37,6 @@ void LoadGameScene(GameData& game){
 
     auto gridBg = std::make_shared<GridBackground>();
     game.registerEntity(gridBg);
+
+    game.registerEntity(std::make_shared<CollectibleSpawner>());
 }
