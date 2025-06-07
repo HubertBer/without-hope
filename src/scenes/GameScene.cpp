@@ -37,4 +37,6 @@ void LoadGameScene(GameData& game){
 
     auto gridBg = std::make_shared<GridBackground>();
     game.registerEntity(gridBg);
+
+    game.registerEntity(std::make_shared<CollectibleSpawner>());
 }
