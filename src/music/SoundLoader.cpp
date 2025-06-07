@@ -1,13 +1,13 @@
 #include "SoundLoader.h"
 
 void SoundLoader::load(){
-    audio["simpleEnemyDead"] = LoadSound("src/resources/music/dead.wav");
+    audio["simpleEnemyDead"] = LoadSound("resources/music/dead.wav");
     SetSoundVolume(audio["simpleEnemyDead"],0.25);
-    audio["playerBullet"] = LoadSound("src/resources/music/bullet.wav");
+    audio["playerBullet"] = LoadSound("resources/music/bullet.wav");
     SetSoundVolume(audio["playerBullet"],0.05);
-    audio["laser"] = LoadSound("src/resources/music/laser.wav");
+    audio["laser"] = LoadSound("resources/music/laser.wav");
     SetSoundVolume(audio["laser"],0.3);
-    audio["squadron"] = LoadSound("src/resources/music/squadron.wav");
+    audio["squadron"] = LoadSound("resources/music/squadron.wav");
     SetSoundVolume(audio["squadron"],0.1);
 }
 
