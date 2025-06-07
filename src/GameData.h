@@ -40,6 +40,7 @@ public:
     Vector2 getMouseWorldPosition() const;
     static Rectangle getCameraVisionBoundaries(Camera2D camera);
     Vector2 lerp(Vector2 v1, Vector2 v2);
+    float lerp(float v1, float v2);
     Vector2 playerPos() const;
     Vector2 playerVelocity() const;
     static void reset(GameData& gameData);
@@ -70,10 +71,12 @@ private:
     const std::string* playerName;
     Rectangle mapBoundaries{
         0, 0,
-        1.3f * GetScreenWidth(),
-        1.3f * GetScreenHeight()
+        2.f * GetScreenWidth(),
+        2.f * GetScreenHeight()
     };
 
     // Statistics for shaders
     float timeSinceKill{-1.f};
+
+    float difficultyRate = 1.f; // ADD SOME SETTER ETC
 };

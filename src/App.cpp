@@ -31,7 +31,6 @@ int main() {
     Renderer::init(Config::screenWidth, Config::screenHeight);
     MusicPlayer music{musicOn};
     GameData gameData{&name};
-    
 
     std::map<ScreenType, std::shared_ptr<Screen>> screens;
     screens[SCREEN_START] = std::make_shared<StartScreen>(gameData,&name);
@@ -48,10 +47,6 @@ int main() {
         Renderer::draw(screens[currentScreen], currentScreen);
         music.play(currentScreen);
         currentScreen = screens[currentScreen]->nextScreen();
-       
-        if (IsKeyPressed(KEY_F10)) {
-            WindowManager::ToggleFullscreen();
-        }
     }
 
     WindowManager::Shutdown();

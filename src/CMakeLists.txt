@@ -43,4 +43,5 @@ target_sources(${PROJECT_NAME} PRIVATE
     score/ScoreKeeper.cpp
     score/ScoreService.cpp
     particles/BasicParticleEffect.cpp
+    difficulty/DifficultyScaler.cpp
 )

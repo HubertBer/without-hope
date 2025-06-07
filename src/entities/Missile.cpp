@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Missile.h"
 #include <memory>
 #include "Entity.h"

@@ -23,7 +23,7 @@ private:
     std::vector<std::weak_ptr<SquadronShip>> ships;
     bool hasSplit = false;
 
-    static constexpr int SQUADRON_SIZE = 15;
+    static constexpr int SQUADRON_SIZE = 10;
     static constexpr float Y_OFFSET = 40.f;
     static constexpr float X_OFFSET = 25.f;
     static constexpr float SPLIT_DISTANCE = 400.f;
