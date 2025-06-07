@@ -20,6 +20,11 @@ Vector2 GameData::lerp(Vector2 v1, Vector2 v2){
     return v1 + (v2 - v1) * lerpValue; 
 }
 
+float GameData::lerp(float v1, float v2)
+{
+    return v1 + (v2 - v1) * lerpValue;
+}
+
 Camera2D GameData::getMainCamera() const {
     return mainCamera;
 }
