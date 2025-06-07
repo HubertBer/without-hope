@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 #include "../collider/Collider.h"
+#include "../music/SoundLoader.h"
 
 class SimpleEnemy : public Entity{
 public:
@@ -14,6 +15,7 @@ public:
     void draw() override;
     EntityType type() override;
     virtual int getScore() override{return score;}
+    void onDeath();
 
 private:
     static constexpr float BASE_RADIUS = 10.f;

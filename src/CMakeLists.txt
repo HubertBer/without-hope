@@ -6,6 +6,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     rand.cpp
     WindowManager.cpp
     music/MusicPlayer.cpp
+    music/SoundLoader.cpp
     scenes/GameScene.cpp
     entities/Entity.cpp
     entities/Player.cpp

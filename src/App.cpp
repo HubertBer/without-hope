@@ -9,6 +9,7 @@
 #include "GameData.h"
 #include "Renderer.h"
 #include "music/MusicPlayer.h"
+#include "music/SoundLoader.h"
 
 #include "screens/Screen.h"
 #include "screens/StartScreen.h"
@@ -31,6 +32,7 @@ int main() {
     Renderer::init(Config::screenWidth, Config::screenHeight);
     MusicPlayer music{musicOn};
     GameData gameData{&name};
+    SoundLoader::load();
 
     std::map<ScreenType, std::shared_ptr<Screen>> screens;
     screens[SCREEN_START] = std::make_shared<StartScreen>(gameData,&name);
@@ -48,7 +50,7 @@ int main() {
         music.play(currentScreen);
         currentScreen = screens[currentScreen]->nextScreen();
     }
-
+    SoundLoader::unload();
     WindowManager::Shutdown();
 
     return 0;
