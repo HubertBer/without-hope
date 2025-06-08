@@ -14,8 +14,12 @@ namespace {
         };
     }
 
-    WeaponType RandomWeaponType() {
-        return static_cast<WeaponType>(GetRandomValue(0, 2));
+    WeaponType RandomWeaponType(bool playerDamaged = false) {
+        if(playerDamaged) {
+            return static_cast<WeaponType>(GetRandomValue(0, 3));
+        } else {
+            return static_cast<WeaponType>(GetRandomValue(0, 2));
+        }
     }
 }
 
@@ -31,15 +35,18 @@ void Collectible::loadProperTexture() {
         case WeaponType::SPECIAL:
             textureName = "star_3.png";
             break;
+        case WeaponType::HEALTH:
+            textureName = "heart.png";
+            break;
     }
     loadTexture(textureName, 0.8f);
 }
 
-Collectible::Collectible(Vector2 pos) : 
+Collectible::Collectible(Vector2 pos, bool playerDamaged) : 
     Entity(pos, pos, Vector2{0,0}, BASE_RADIUS, 0, DrawingLayer::BLOOM),
     life_timer(LIFETIME),
     change_timer(CHANGE_COOLDOWN),
-    weapon(RandomWeaponType())
+    weapon(RandomWeaponType(playerDamaged))
 {
     loadProperTexture();
     collider = MakeCircleCollider(pos, BASE_RADIUS);
@@ -64,7 +71,7 @@ void Collectible::physicsUpdate(GameData& game) {
 
     change_timer -= GameData::physicsDt;
     if (change_timer < 0) {
-        weapon = RandomWeaponType();
+        weapon = RandomWeaponType(game.isPlayerDamaged());
         loadProperTexture();
         change_timer += CHANGE_COOLDOWN;
     }

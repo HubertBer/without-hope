@@ -49,6 +49,7 @@ public:
     void endGame();
     void saveScore();
     int getScore();
+    bool isPlayerDamaged();
     Rectangle getMapBoundaries();
     std::vector<std::shared_ptr<Entity>> entitiesOfType(EntityType type);
     bool isPlayer(std::shared_ptr<Entity>);
