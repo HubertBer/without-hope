@@ -54,7 +54,7 @@ public:
     bool hasEnded=false;
     int scorePosition=-1;
 
-    static constexpr float physicsDt = 1.0f/30.0f;
+    static constexpr float physicsDt = 1.0f/100.0f;
 private:
     ScoreKeeper scoreKeeper;
     std::list<std::shared_ptr<Entity>> entities;
