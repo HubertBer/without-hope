@@ -19,6 +19,12 @@
     making it stateless.
 */
 
+enum class EnemyType {
+    SIMPLE,
+    SHOOTING,
+    SQUADRON,
+};
+
 class DifficultyScaler {
 public:
     static void increaseDifficulty(GameData& game, float dt, float difficultyRate = 1.f); // spawn entities
@@ -29,6 +35,7 @@ private:
             // *roughly* the expected time in seconds between spawns with difficultyRate = 1.f.
             scales with score, so 'decreases' fast at the beginning.
         */
+        EnemyType type;
         float spawnRate; 
         std::function<void(GameData&, Vector2 vec)> entityFactory;
     };

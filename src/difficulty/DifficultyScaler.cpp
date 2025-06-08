@@ -10,6 +10,11 @@ void DifficultyScaler::increaseDifficulty(GameData& game, float dt, float diffic
     float lambda = difficultyRate * (1.f + std::log(game.getScore() + 1.f)) * dt / 3.f; // *magic* constant to account for the early rapid growth.
 
     for (const auto& config : entityConfigs) {
+        if (game.getScore() < 350 && config.type == EnemyType::SQUADRON) {
+            // Dont spawn squadron it's to OP
+            continue;
+        }
+
         if (GetRandomFloat(0.f, 1.f) < lambda / config.spawnRate) {
             Rectangle mapBoundaries = game.getMapBoundaries();
             float x0 = mapBoundaries.x, 
@@ -35,7 +40,7 @@ void DifficultyScaler::increaseDifficulty(GameData& game, float dt, float diffic
 }
 
 std::vector<DifficultyScaler::EntityConfig> DifficultyScaler::entityConfigs = {
-    {5.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<SimpleEnemy>(pos, pos, Vector2{0, 0})); }},
-    {30.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<ShootingEnemy>(pos)); }},
-    {60.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<Squadron>(pos, 180.f)); }},
+    {EnemyType::SIMPLE, 5.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<SimpleEnemy>(pos, pos, Vector2{0, 0})); }},
+    {EnemyType::SHOOTING, 30.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<ShootingEnemy>(pos)); }},
+    {EnemyType::SQUADRON, 60.f, [](GameData& game, Vector2 pos) { game.registerEntity(std::make_shared<Squadron>(pos, 180.f)); }},
 };
