@@ -15,7 +15,7 @@ void WindowManager::Init(int width, int height) {
     screenHeight = height;
 
     InitWindow(screenWidth, screenHeight, "without-hope");
-    SetTargetFPS(300);
+    SetTargetFPS(144);
 }
 
 void WindowManager::Shutdown() {

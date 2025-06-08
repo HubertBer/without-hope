@@ -66,7 +66,7 @@ private:
         Vector2{GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f},
         Vector2{0, 0},
         0,
-        1.0f
+        0.9f
     };
     const std::string* playerName;
     Rectangle mapBoundaries{

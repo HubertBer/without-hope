@@ -6,7 +6,7 @@
 ShootingEnemy::ShootingEnemy(Vector2 pos) 
     : Entity(pos, pos, Vector2Zero(), BASE_RADIUS, 0, DrawingLayer::BLOOM),
     burst_timer(0), reload_timer(0), bullets_to_fire(BURST_SIZE){
-    loadTexture("square.png", 0.5f);
+    loadTexture("circle.png", 0.5f);
     textureTint = DARKPURPLE;
     collider = MakeCircleCollider(pos, hitboxRadius);
 }

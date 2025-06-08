@@ -9,6 +9,7 @@
 Drone::Drone(Vector2 pos, float angle) 
     :Entity(pos, pos, Vector2Zero(), BASE_RADIUS, 0, DrawingLayer::BLOOM){
     collider = MakeCircleCollider(pos, hitboxRadius);
+    loadTexture("circle.png", 0.3f);
 }
 
 void Drone::shootAt(GameData& game, std::shared_ptr<Entity> enem) {
@@ -71,7 +72,7 @@ void Drone::collide(std::shared_ptr<Entity> other, GameData& gameData) {
 }
 
 void Drone::draw() {
-    DrawCircle(posNow.x, posNow.y, hitboxRadius, color); 
+    drawTexture(); 
 }
 
 EntityType Drone::type() {
