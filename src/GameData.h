@@ -36,7 +36,7 @@ public:
     bool checkPresent(EntityType type);
     void setPlayer(std::shared_ptr<Entity> player);
     bool showTutorial();
-    void setShowTutorial(bool val,std::string text);
+    void setShowTutorial(bool val,std::string text, bool resetTimer = false);
     Camera2D getMainCamera() const;
     void setMainCamera(Camera2D);
     Vector2 getMouseWorldPosition() const;

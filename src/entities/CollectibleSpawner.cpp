@@ -7,6 +7,11 @@ CollectibleSpawner::CollectibleSpawner() : Entity(Vector2{0,0}, Vector2{0,0}, Ve
 
 void CollectibleSpawner::gameUpdate(GameData& game, float dt) {
     int score = game.getScore();
+
+    if (score >= next_threshold && next_threshold <= 250) {
+        game.setShowTutorial(false, "", true);
+    }
+
     if (score >= next_threshold) {
         auto mapBounds = game.getMapBoundaries();
         auto pos = Vector2{

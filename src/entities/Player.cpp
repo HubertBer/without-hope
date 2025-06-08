@@ -73,7 +73,7 @@ void Player::start(GameData& game){
         Vector2{4, 8},
         WHITE
     );
-    game.setShowTutorial(true,"!PRESS SHIFT!");
+    game.setShowTutorial(true,"! PRESS SHIFT !");
     game.registerEntity(movementParticles);
 }
 
@@ -90,7 +90,7 @@ void Player::gameUpdate(GameData& game, float dt) {
 
     if((IsKeyDown(KEY_LEFT_SHIFT)||IsKeyDown(KEY_RIGHT_SHIFT))&&sprint_timer<0.0f){
         sprint_timer=sprint_cooldown;
-        velocityModifierDuration=0.5f;
+        velocityModifierDuration=0.3f;
         velocityModifier=2.5f;
     }
 
@@ -170,7 +170,7 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
                 }
                 break;
             case WeaponType::SPECIAL :
-                gameData.setShowTutorial(true,"!PRESS SPACE!");
+                gameData.setShowTutorial(true,"! PRESS SPACE !");
                 if (!special_weapon) {
                     special_weapon = std::make_shared<ElectricFenceMaker>();
                     std::cout << "SWITCHED TO ELECTRIC FENCE" << std::endl;
