@@ -84,6 +84,11 @@ void ShootingEnemy::collide(std::shared_ptr<Entity> other, GameData& gameData) {
     }
 }
 
+void ShootingEnemy::onDeath(){
+    zombie=true;
+    PlaySound(SoundLoader::audio["simpleEnemyDead"]);
+}
+
 void ShootingEnemy::draw() {
     drawTexture();
 }
