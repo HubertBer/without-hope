@@ -63,7 +63,7 @@ void GameScreen::drawTutorial() {
     int spacing = 10;
 
     Font customFont = GetFontDefault();
-    std::string tutorialText = "!PRESS SPACE!";
+    std::string tutorialText = game.tutorialText/*"!PRESS SPACE!"*/;
     const char* text = tutorialText.c_str();
     DrawTextStretched(text, Config::screenWidth / 2.0f, Config::screenHeight - Config::screenHeight / 10.0f, fontSize, RED);
 }

@@ -29,6 +29,11 @@ public:
     constexpr static std::size_t maxHealth = 3;
     float timeOfLastDamage = -5.f;
     constexpr static float damageImmunity = 1.f;
+    static constexpr float DEFAULT_VELOCITY_MODIFIER = 1.0f;
+    float velocityModifier=1.0f;
+    float velocityModifierDuration=0.0f;
+    float sprint_timer=0.0f;
+    constexpr static float sprint_cooldown = 6.0f;
 private:
     std::shared_ptr<BasicParticleEffect> movementParticles;
     Vector2 acceleration{0.f, 0.f};

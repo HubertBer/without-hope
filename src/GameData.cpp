@@ -105,9 +105,11 @@ bool GameData::showTutorial() {
     return shouldShowTutorial && tutorialTimer >= 0;
 }
 
-void GameData::setShowTutorial(bool val) {
+void GameData::setShowTutorial(bool val,std::string text) {
     shouldShowTutorial = val;
+    tutorialText=text;
 }
+
 
 void GameData::handleCollisions(){
     auto collisions = GetCollisions(entities);

@@ -25,15 +25,14 @@ Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     main_weapon = std::make_shared<Cannon>();
     // automatic_weapon = std::make_shared<Minigun>();
     // special_weapon = std::make_shared<ElectricFenceMaker>();
-
     collider = MakeCircleCollider(pos, hitboxRadius);
 }
 
 void Player::physicsUpdate(GameData& game) {
     prevPos = pos;
-    velocity += acceleration * GameData::physicsDt;
-    if(Vector2Length(velocity) > maxSpeed){
-        velocity = Vector2Normalize(velocity) * maxSpeed;
+    velocity += acceleration * velocityModifier*GameData::physicsDt;
+    if(Vector2Length(velocity) > maxSpeed*velocityModifier){
+        velocity = Vector2Normalize(velocity) * maxSpeed*velocityModifier;
     }
     if(Vector2Length(velocity) < 10) {
         velocity = Vector2Zero();
@@ -74,6 +73,7 @@ void Player::start(GameData& game){
         Vector2{4, 8},
         WHITE
     );
+    game.setShowTutorial(true,"!PRESS SHIFT!");
     game.registerEntity(movementParticles);
 }
 
@@ -82,6 +82,17 @@ void Player::gameUpdate(GameData& game, float dt) {
 
     Vector2 playerDir = game.getMouseWorldPosition() - posNow;
     rotation = Vector2Angle(Vector2{1, 0}, playerDir) * RAD2DEG;
+    sprint_timer -= dt;
+    velocityModifierDuration -= dt;
+    if(velocityModifierDuration<0.f){
+        velocityModifier=DEFAULT_VELOCITY_MODIFIER;
+    }
+
+    if((IsKeyDown(KEY_LEFT_SHIFT)||IsKeyDown(KEY_RIGHT_SHIFT))&&sprint_timer<0.0f){
+        sprint_timer=sprint_cooldown;
+        velocityModifierDuration=0.5f;
+        velocityModifier=2.5f;
+    }
 
     acceleration = Vector2{0.f, 0.f};
     if (IsKeyDown(KEY_D)) acceleration.x += 1;
@@ -90,11 +101,11 @@ void Player::gameUpdate(GameData& game, float dt) {
     if (IsKeyDown(KEY_S)) acceleration.y += 1;
     if(Vector2LengthSqr(acceleration) > EPSILON){
         acceleration = Vector2Normalize(acceleration);
-        acceleration *= maxAcceleration;
+        acceleration *= maxAcceleration*velocityModifier;
         movementParticles->rotation = Vector2Angle(Vector2{1, 0}, acceleration * -1.f) * RAD2DEG;
         movementParticles->resumeSpawning();
     }else{
-        acceleration = Vector2Normalize(velocity) * maxSpeed * -1.f * friction;
+        acceleration = Vector2Normalize(velocity) * maxSpeed*velocityModifier* -1.f * friction;
         movementParticles->stopSpawning();
     }
 
@@ -159,7 +170,7 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
                 }
                 break;
             case WeaponType::SPECIAL :
-                gameData.setShowTutorial(true);
+                gameData.setShowTutorial(true,"!PRESS SPACE!");
                 if (!special_weapon) {
                     special_weapon = std::make_shared<ElectricFenceMaker>();
                     std::cout << "SWITCHED TO ELECTRIC FENCE" << std::endl;
