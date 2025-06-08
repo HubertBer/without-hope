@@ -174,6 +174,12 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
                     std::cout << "SWITCHED TO ELECTRIC FENCE" << std::endl;
                 }
                 break;
+            case WeaponType::HEALTH :
+                if(health < 3) {
+                    health += 1;
+                    textureTint = healthColorLerp();
+                }
+                break;
         };
     }
 }

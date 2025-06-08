@@ -52,6 +52,11 @@ Rectangle GameData::getCameraVisionBoundaries(Camera2D camera) {
     };
 }
 
+bool GameData::isPlayerDamaged() {
+    auto player0 = dynamic_cast<Player*>(player.get());
+    return player0->health != 3;
+}
+
 bool GameData::gameUpdate(float dt, float lerpValue)
 {
     DifficultyScaler::increaseDifficulty(*this, dt, difficultyRate);

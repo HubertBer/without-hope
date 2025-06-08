@@ -13,7 +13,7 @@ void CollectibleSpawner::gameUpdate(GameData& game, float dt) {
             GetRandomFloat(mapBounds.x, mapBounds.x + mapBounds.width),
             GetRandomFloat(mapBounds.y, mapBounds.y + mapBounds.height),
         };
-        game.registerEntity(std::make_shared<Collectible>(pos));
+        game.registerEntity(std::make_shared<Collectible>(pos, game.isPlayerDamaged()));
         next_threshold += SCORE_THRESHOLD;
     }
 }
