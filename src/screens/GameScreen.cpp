@@ -54,6 +54,19 @@ void GameScreen::drawScore(){
     DrawTextStretched(text, Config::screenWidth / 2.0f, Config::screenHeight / 10.0f, fontSize, YELLOW);
 }
 
+void GameScreen::drawTutorial() {
+    if (!game.showTutorial()) {
+        return;
+    }
+
+    int fontSize = 50;
+    int spacing = 10;
+
+    Font customFont = GetFontDefault();
+    std::string tutorialText = "!PRESS SPACE!";
+    const char* text = tutorialText.c_str();
+    DrawTextStretched(text, Config::screenWidth / 2.0f, Config::screenHeight - Config::screenHeight / 10.0f, fontSize, RED);
+}
 
 ScreenType GameScreen::nextScreen() {
     if(goToLeaderboard){

@@ -23,8 +23,8 @@ Player::Player(Vector2 prevPos, Vector2 pos, Vector2 velocity)
     : Entity(prevPos, pos, velocity, BASE_RADIUS, 0, DrawingLayer::BLOOM) {
     loadTexture("player.png", 0.5f);
     main_weapon = std::make_shared<Cannon>();
-    automatic_weapon = std::make_shared<Minigun>();
-    special_weapon = std::make_shared<ElectricFenceMaker>();
+    // automatic_weapon = std::make_shared<Minigun>();
+    // special_weapon = std::make_shared<ElectricFenceMaker>();
 
     collider = MakeCircleCollider(pos, hitboxRadius);
 }
@@ -129,6 +129,12 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
         auto collectible = dynamic_cast<Collectible*>(entity.get());
         switch (collectible->weapon) {
             case WeaponType::AUTOMATIC :
+                if (!automatic_weapon) {
+                    automatic_weapon = std::make_shared<Minigun>();
+                    std::cout << "SWITCHED TO MINIGUN" << std::endl;
+                    break;
+                }
+            
                 if (automatic_weapon->getWeaponName() == WeaponName::MINIGUN) {
                     automatic_weapon = std::make_shared<DroneBay>();
                     std::cout << "SWITCHED TO DRONE BAY" << std::endl;
@@ -136,17 +142,30 @@ void Player::collide(std::shared_ptr<Entity> entity,GameData& gameData) {
                     automatic_weapon = std::make_shared<Minigun>();
                     std::cout << "SWITCHED TO MINIGUN" << std::endl;
                 }
-                    break;
-                case WeaponType::MAIN :
-                if (main_weapon->getWeaponName() == WeaponName::LASER) {
+                break;
+            case WeaponType::MAIN :
+                if (!main_weapon) {
                     main_weapon = std::make_shared<Cannon>();
                     std::cout << "SWITCHED TO CANNON" << std::endl;
-                } else {
+                    break;
+                }
+
+                if (main_weapon->getWeaponName() == WeaponName::CANNON) {
                     main_weapon = std::make_shared<Laser>();
                     std::cout << "SWITCHED TO LASER" << std::endl;
+                } else {
+                    main_weapon = std::make_shared<Cannon>();
+                    std::cout << "SWITCHED TO CANNON" << std::endl;
                 }
+                break;
+            case WeaponType::SPECIAL :
+                gameData.setShowTutorial(true);
+                if (!special_weapon) {
+                    special_weapon = std::make_shared<ElectricFenceMaker>();
+                    std::cout << "SWITCHED TO ELECTRIC FENCE" << std::endl;
                     break;
-                case WeaponType::SPECIAL :
+                }
+
                 if (special_weapon->getWeaponName() == WeaponName::ELECTRIC_FENCE) {
                     special_weapon = std::make_shared<SlowCircleMaker>();
                     std::cout << "SWITCHED TO SLOW CIRCLE" << std::endl;

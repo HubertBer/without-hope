@@ -19,12 +19,29 @@ namespace {
     }
 }
 
+void Collectible::loadProperTexture() {
+    std::string textureName = "star.png"; 
+    switch (weapon) {
+        case WeaponType::MAIN:
+            textureName = "star_1.png";
+            break;
+        case WeaponType::AUTOMATIC:
+            textureName = "star_2.png";
+            break;
+        case WeaponType::SPECIAL:
+            textureName = "star_3.png";
+            break;
+    }
+    loadTexture(textureName, 0.8f);
+}
+
 Collectible::Collectible(Vector2 pos) : 
     Entity(pos, pos, Vector2{0,0}, BASE_RADIUS, 0, DrawingLayer::BLOOM),
     life_timer(LIFETIME),
     change_timer(CHANGE_COOLDOWN),
     weapon(RandomWeaponType())
 {
+    loadProperTexture();
     collider = MakeCircleCollider(pos, BASE_RADIUS);
 }
 
@@ -48,6 +65,7 @@ void Collectible::physicsUpdate(GameData& game) {
     change_timer -= GameData::physicsDt;
     if (change_timer < 0) {
         weapon = RandomWeaponType();
+        loadProperTexture();
         change_timer += CHANGE_COOLDOWN;
     }
 
@@ -61,7 +79,7 @@ void Collectible::collide(std::shared_ptr<Entity> other, GameData& game) {
 }
 
 void Collectible::draw() {
-    DrawCircle(posNow.x, posNow.y, BASE_RADIUS, YELLOW);
+    drawTexture();
 }
 
 void Collectible::start(GameData& game) {

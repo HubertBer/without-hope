@@ -35,6 +35,8 @@ public:
     void deleteZombieEntities();
     bool checkPresent(EntityType type);
     void setPlayer(std::shared_ptr<Entity> player);
+    bool showTutorial();
+    void setShowTutorial(bool val);
     Camera2D getMainCamera() const;
     void setMainCamera(Camera2D);
     Vector2 getMouseWorldPosition() const;
@@ -54,8 +56,10 @@ public:
     bool hasEnded=false;
     int scorePosition=-1;
 
-    static constexpr float physicsDt = 1.0f/30.0f;
+    static constexpr float physicsDt = 1.0f/100.0f;
 private:
+    float tutorialTimer = 5.f;
+    bool shouldShowTutorial = false;
     ScoreKeeper scoreKeeper;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;
@@ -66,7 +70,7 @@ private:
         Vector2{GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f},
         Vector2{0, 0},
         0,
-        1.0f
+        0.9f
     };
     const std::string* playerName;
     Rectangle mapBoundaries{
@@ -78,5 +82,5 @@ private:
     // Statistics for shaders
     float timeSinceKill{-1.f};
 
-    float difficultyRate = 1.f; // ADD SOME SETTER ETC
+    float difficultyRate = 0.69f; // ADD SOME SETTER ETC
 };

@@ -6,10 +6,7 @@
 SquadronShip::SquadronShip(Vector2 pos, float rotation)
     :Entity(pos, pos, Vector2Zero(), RADIUS, rotation){
     
-    // TODO_IDEA:
-    // Change this ship texture to other, I think that triangle could be nice for this desing
-    // probably need to take care of rotation then...
-    loadTexture("square.png", 0.3f);
+    loadTexture("triangle.png", 0.3f);
     loadShader("bloom");
     collider = MakeCircleCollider(pos, RADIUS);
 }
@@ -23,6 +20,10 @@ void SquadronShip::gameUpdate(GameData& game, float dt){
     velocityModifierDuration -= dt;
     if(velocityModifierDuration<0.f){
         velocityModifier=DEFAULT_VELOCITY_MODIFIER;
+    }
+
+    if(Vector2Length(pos - prevPos) > EPSILON){
+        rotation = Vector2Angle(Vector2{1, 0}, (pos - prevPos)) * RAD2DEG + 90;
     }
 }
 
@@ -50,10 +51,6 @@ void SquadronShip::physicsUpdate(GameData& game){
         dir = Vector2Normalize(dir);
         velocity = dir * MAX_SPEED;
         pos +=  velocity * GameData::physicsDt * velocityModifier ;
-    }
-
-    if(Vector2Length(pos - prevPos) > EPSILON){
-        rotation = Vector2Angle(Vector2{1, 0}, (pos - prevPos));
     }
 }
 

@@ -100,6 +100,7 @@ void Renderer::draw(std::shared_ptr<Screen> screen, ScreenType type)
         EndShaderMode();
         EndBlendMode();
 
+        gameScreen->drawTutorial();
         gameScreen->drawScore();
         EndShaderMode();
         EndTextureMode();

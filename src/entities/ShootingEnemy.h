@@ -14,6 +14,7 @@ public:
     void draw() override;
     EntityType type() override;
     int getScore() override{return score;}
+    void onDeath() override;
 
 private:
     float reload_timer;

@@ -19,6 +19,7 @@ public:
     WeaponType weapon;
 
 private:
+    void loadProperTexture();
 
     Vector2 target;
 

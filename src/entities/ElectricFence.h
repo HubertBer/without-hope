@@ -12,6 +12,7 @@ public:
     EntityType type() override;
 
 private:
+    float timer = 6.f;
     // Visual width, not the collider width
     const float width = 100.0f;
 };

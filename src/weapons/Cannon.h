@@ -14,5 +14,5 @@ public:
 
 private:
     float bulletCooldown = 0.0f;
-    float maxBulletCooldown = 0.5f;
+    float maxBulletCooldown = 0.25f;
 };
