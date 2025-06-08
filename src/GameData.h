@@ -82,5 +82,5 @@ private:
     // Statistics for shaders
     float timeSinceKill{-1.f};
 
-    float difficultyRate = 1.f; // ADD SOME SETTER ETC
+    float difficultyRate = 0.69f; // ADD SOME SETTER ETC
 };
