@@ -1,4 +1,8 @@
-to build the project go to the root project folder and do: \
+# Release
+Checkout our page on itch.io! https://hubixb.itch.io/without-hope
+
+# Debug build
+to build the project in debug mode go to the root project folder and do: \
 `cmake -S . -B build` \
 `cmake --build build` \
 now you can run `./build/without-hope/debug/without-hope.exe` \
