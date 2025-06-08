@@ -105,8 +105,12 @@ bool GameData::showTutorial() {
     return shouldShowTutorial && tutorialTimer >= 0;
 }
 
-void GameData::setShowTutorial(bool val) {
+void GameData::setShowTutorial(bool val, std::string text, bool resetTimer) {
     shouldShowTutorial = val;
+    tutorialText=text;
+    if (resetTimer) {
+        tutorialTimer = 5.f;
+    }
 }
 
 void GameData::handleCollisions(){
