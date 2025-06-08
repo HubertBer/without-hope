@@ -35,6 +35,8 @@ public:
     void deleteZombieEntities();
     bool checkPresent(EntityType type);
     void setPlayer(std::shared_ptr<Entity> player);
+    bool showTutorial();
+    void setShowTutorial(bool val);
     Camera2D getMainCamera() const;
     void setMainCamera(Camera2D);
     Vector2 getMouseWorldPosition() const;
@@ -56,6 +58,8 @@ public:
 
     static constexpr float physicsDt = 1.0f/100.0f;
 private:
+    float tutorialTimer = 5.f;
+    bool shouldShowTutorial = false;
     ScoreKeeper scoreKeeper;
     std::list<std::shared_ptr<Entity>> entities;
     std::list<std::shared_ptr<Entity>> entitiesBuffer;

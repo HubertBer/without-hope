@@ -10,6 +10,10 @@ ElectricFence::ElectricFence(Collider collider)
 
 void ElectricFence::gameUpdate(GameData& game, float dt){
     posNow = game.lerp(prevPos, pos);
+    timer -= dt;
+    if (timer < 0) {
+        onDeath();
+    }
 }
 void ElectricFence::physicsUpdate(GameData& game){
     prevPos = pos;

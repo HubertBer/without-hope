@@ -12,6 +12,7 @@ public:
     void update(float dt) override;
     void draw() override;
     void drawScore();
+    void drawTutorial();
     ScreenType nextScreen() override;
     GameData& game;
 private:

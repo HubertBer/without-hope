@@ -55,6 +55,9 @@ Rectangle GameData::getCameraVisionBoundaries(Camera2D camera) {
 bool GameData::gameUpdate(float dt, float lerpValue)
 {
     DifficultyScaler::increaseDifficulty(*this, dt, difficultyRate);
+    if(shouldShowTutorial) {
+        tutorialTimer -= dt;
+    }
 
     for(auto entity: entitiesBuffer){
         entities.push_back(entity);
@@ -96,6 +99,14 @@ bool GameData::checkPresent(EntityType type){
 
 void GameData::setPlayer(std::shared_ptr<Entity> player){
     this->player = player;
+}
+
+bool GameData::showTutorial() {
+    return shouldShowTutorial && tutorialTimer >= 0;
+}
+
+void GameData::setShowTutorial(bool val) {
+    shouldShowTutorial = val;
 }
 
 void GameData::handleCollisions(){
